@@ -129,9 +129,10 @@ npm test
 ### Deploy to Vercel
 
 1. Connect your GitHub repository to Vercel
-2. Vercel will auto-detect Vite configuration
+2. Vercel will auto-detect Vite configuration (the project builds to `dist/` by default)
 3. Set build command: `npm run build`
-4. Deploy automatically on every push to `main`
+4. Ensure **Output Directory** is set to `dist` in the Vercel project settings (or add a `vercel.json` with `{"outputDirectory":"dist"}`).
+5. Deploy automatically on every push to `main`
 
 **Current Deployment:** [vercel.com](https://sheheen-portfolio.vercel.app)
 
