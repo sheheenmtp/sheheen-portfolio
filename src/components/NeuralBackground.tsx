@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from 'react';
 
 export function NeuralBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -6,164 +6,85 @@ export function NeuralBackground() {
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    
-    const ctx = canvas.getContext("2d");
+
+    const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    let width = window.innerWidth;
-    let height = window.innerHeight;
-    let dpr = window.devicePixelRatio || 1;
-
-    function resize() {
-      if (!canvas || !ctx) return; // Add null checks here
-      
-      width = window.innerWidth;
-      height = window.innerHeight;
-      dpr = window.devicePixelRatio || 1;
-
-      canvas.width = width * dpr;
-      canvas.height = height * dpr;
-      canvas.style.width = width + "px";
-      canvas.style.height = height + "px";
-
-      ctx.setTransform(1, 0, 0, 1, 0, 0); // Reset transform before scaling
-      ctx.scale(dpr, dpr);
-    }
-
-    resize();
-    window.addEventListener("resize", resize);
-
-    const mouse = { x: width / 2, y: height / 2 };
-    
-    const handleMouseMove = (e: MouseEvent) => {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
-    };
-    
-    window.addEventListener("mousemove", handleMouseMove);
-
-    const NODE_COUNT = 90;
-    const MAX_DISTANCE = 160;
-
-    type Node = {
-      x: number;
-      y: number;
-      vx: number;
-      vy: number;
-      radius: number;
-      depth: number;
+    const resizeCanvas = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
     };
 
-    const nodes: Node[] = [];
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
 
-    for (let i = 0; i < NODE_COUNT; i++) {
+    const nodes: Array<{ x: number; y: number; vx: number; vy: number }> = [];
+    const nodeCount = 50;
+
+    // Initialize nodes
+    for (let i = 0; i < nodeCount; i++) {
       nodes.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.3,
-        vy: (Math.random() - 0.5) * 0.3,
-        radius: Math.random() * 1.5 + 0.8,
-        depth: Math.random() * 0.5 + 0.5,
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * 0.5,
+        vy: (Math.random() - 0.5) * 0.5,
       });
     }
-
-    let time = 0;
-    let animationId: number;
 
     function animate() {
-      if (!ctx) return; // Add null check in animate function
-      
-      time += 0.003;
+      if (!ctx || !canvas) return;
+      ctx.fillStyle = 'rgba(2, 8, 23, 0.05)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Animated gradient background
-      const gradient = ctx.createLinearGradient(
-        0,
-        0,
-        width,
-        height + Math.sin(time) * 200
-      );
-      gradient.addColorStop(0, "#020617");
-      gradient.addColorStop(0.5, "#0f172a");
-      gradient.addColorStop(1, "#1e293b");
-      ctx.fillStyle = gradient;
-      ctx.fillRect(0, 0, width, height);
-
+      // Update and draw nodes
       nodes.forEach((node, i) => {
-        // Parallax depth effect
-        node.x += node.vx * node.depth;
-        node.y += node.vy * node.depth;
+        node.x += node.vx;
+        node.y += node.vy;
 
-        // Subtle magnetic mouse interaction
-        const dx = mouse.x - node.x;
-        const dy = mouse.y - node.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
+        // Wrap around edges
+        if (node.x < 0) node.x = canvas.width;
+        if (node.x > canvas.width) node.x = 0;
+        if (node.y < 0) node.y = canvas.height;
+        if (node.y > canvas.height) node.y = 0;
 
-        if (dist < 120) {
-          node.x -= dx * 0.002;
-          node.y -= dy * 0.002;
-        }
-
-        // Bounce
-        if (node.x <= 0 || node.x >= width) node.vx *= -1;
-        if (node.y <= 0 || node.y >= height) node.vy *= -1;
-
-        // Glow
-        const pulse = Math.sin(time + i) * 0.4 + 0.8;
-        const glow = ctx.createRadialGradient(
-          node.x,
-          node.y,
-          0,
-          node.x,
-          node.y,
-          node.radius * 6
-        );
-        glow.addColorStop(0, `rgba(56, 189, 248, ${0.5 * pulse})`);
-        glow.addColorStop(1, "rgba(56, 189, 248, 0)");
-        ctx.fillStyle = glow;
+        // Draw node
         ctx.beginPath();
-        ctx.arc(node.x, node.y, node.radius * 6, 0, Math.PI * 2);
+        ctx.arc(node.x, node.y, 2, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(59, 130, 246, 0.6)';
         ctx.fill();
 
-        ctx.beginPath();
-        ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(125, 211, 252, ${pulse})`;
-        ctx.fill();
+        // Draw connections
+        nodes.slice(i + 1).forEach(otherNode => {
+          const distance = Math.sqrt(
+            Math.pow(node.x - otherNode.x, 2) + Math.pow(node.y - otherNode.y, 2)
+          );
 
-        // Connections
-        for (let j = i + 1; j < nodes.length; j++) {
-          const other = nodes[j];
-          const dx = node.x - other.x;
-          const dy = node.y - other.y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-
-          if (distance < MAX_DISTANCE) {
-            const opacity = (1 - distance / MAX_DISTANCE) * 0.4;
-            ctx.strokeStyle = `rgba(59, 130, 246, ${opacity})`;
-            ctx.lineWidth = 1;
+          if (distance < 150) {
             ctx.beginPath();
             ctx.moveTo(node.x, node.y);
-            ctx.lineTo(other.x, other.y);
+            ctx.lineTo(otherNode.x, otherNode.y);
+            ctx.strokeStyle = `rgba(59, 130, 246, ${0.3 - distance / 500})`;
+            ctx.lineWidth = 1;
             ctx.stroke();
           }
-        }
+        });
       });
 
-      animationId = requestAnimationFrame(animate);
+      requestAnimationFrame(animate);
     }
 
     animate();
 
     return () => {
-      window.removeEventListener("resize", resize);
-      window.removeEventListener("mousemove", handleMouseMove);
-      cancelAnimationFrame(animationId);
+      window.removeEventListener('resize', resizeCanvas);
     };
   }, []);
 
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 w-full h-full pointer-events-none -z-10"
+      className="fixed inset-0 w-full h-full pointer-events-none"
+      style={{ background: 'linear-gradient(135deg, #020817 0%, #0f172a 100%)' }}
     />
   );
 }
