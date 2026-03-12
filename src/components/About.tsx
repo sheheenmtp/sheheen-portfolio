@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { Code, Coffee, Heart } from 'lucide-react';
+import photo from '../sheheen.jpeg';
 
 export function About() {
   return (
@@ -28,7 +29,7 @@ export function About() {
             <div className="relative">
               <div className="w-80 h-80 mx-auto rounded-full bg-gradient-to-r from-blue-500/20 to-purple-500/20 border-2 border-blue-400/30 p-4 flex items-center justify-center overflow-hidden">
                 <img 
-                  src="src/sheheen.jpeg" 
+                  src={photo} 
                   alt="Muhammed Sheheen M T P " 
                   className="w-full h-full object-cover rounded-full"
                 />
