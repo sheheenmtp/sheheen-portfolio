@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { Brain, Cpu, FileDown, Zap,Cog,Loader } from 'lucide-react';
+import { Brain, Cpu, FileDown, Bot,Cog,Loader } from 'lucide-react';
 import { Button } from './ui/button';
 
 export function Hero() {
@@ -78,7 +78,7 @@ export function Hero() {
           transition={{ delay: 1.2, duration: 0.8 }}
           className="flex justify-center space-x-8 mb-12"
         >
-          {[Cog,Loader, Cpu].map((Icon, index) => (
+          {[Cog,Bot, Cpu].map((Icon, index) => (
             <motion.div
               key={index}
               animate={{ 
