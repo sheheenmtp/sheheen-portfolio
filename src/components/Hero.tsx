@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { Brain, Cpu, Zap } from 'lucide-react';
+import { Brain, Cpu, FileDown, Zap } from 'lucide-react';
+import { Button } from './ui/button';
 
 export function Hero() {
   return (
@@ -56,6 +57,20 @@ export function Hero() {
         >
           Exploring AI, ML & Data Science
         </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1, duration: 0.8 }}
+          className="mb-12"
+        >
+          <a href="/Sheheen_Resume.pdf" download>
+            <Button className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white">
+              <FileDown className="mr-2" size={18} />
+              Download Resume
+            </Button>
+          </a>
+        </motion.div>
 
         <motion.div
           initial={{ opacity: 0 }}
