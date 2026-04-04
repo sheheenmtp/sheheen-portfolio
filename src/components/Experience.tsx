@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { Briefcase, GraduationCap, TrendingUp, Brain, Settings  } from 'lucide-react';
+import { GraduationCap, Brain, Settings } from 'lucide-react';
 
 export function Experience() {
   const work = [
@@ -79,7 +79,7 @@ export function Experience() {
         {/* Work Experience */}
         <h3 className="text-2xl font-semibold mb-4 text-white">Work Experience</h3>
         <div className="relative">
-          <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-blue-400 via-purple-400 to-pink-400 rounded-full" />
+          <div className="absolute left-3 md:left-1/2 transform md:-translate-x-1/2 w-1 h-full bg-gradient-to-b from-blue-400 via-purple-400 to-pink-400 rounded-full" />
           {work.map((exp, index) => (
             <motion.div
               key={exp.title}
@@ -87,27 +87,27 @@ export function Experience() {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: index * 0.3 }}
               viewport={{ once: true }}
-              className={`relative flex items-center mb-16 ${index % 2 === 0 ? 'justify-start' : 'justify-end'}`}
+              className={`relative flex items-start md:items-center mb-10 md:mb-16 pl-10 md:pl-0 ${index % 2 === 0 ? 'md:justify-start' : 'md:justify-end'}`}
             >
               <motion.div
                 initial={{ scale: 0 }}
                 whileInView={{ scale: 1 }}
                 transition={{ delay: index * 0.3 + 0.5, duration: 0.5 }}
                 viewport={{ once: true }}
-                className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-blue-400 rounded-full border-4 border-gray-900 z-10"
+                className="absolute left-3 md:left-1/2 transform -translate-x-1/2 w-4 h-4 bg-blue-400 rounded-full border-4 border-gray-900 z-10"
               />
               <motion.div
                 whileHover={{ scale: 1.05 }}
-                className={`w-5/12 ${index % 2 === 0 ? 'mr-auto' : 'ml-auto'}`}
+                className={`w-full md:w-5/12 ${index % 2 === 0 ? 'md:mr-auto' : 'md:ml-auto'}`}
               >
                 <div className="bg-gray-900/80 backdrop-blur-sm border border-gray-700/50 rounded-lg p-6 hover:border-blue-400/50 transition-all duration-300">
-                  <div className="flex items-center mb-4">
+                  <div className="flex items-start md:items-center mb-4">
                     <div className="p-2 bg-blue-500/20 rounded-full mr-4">
                       <exp.icon className="w-6 h-6 text-blue-400" />
                     </div>
                     <div>
-                      <h3 className="text-xl font-bold text-white">{exp.title}</h3>
-                      <p className="text-blue-400">{exp.company}</p>
+                      <h3 className="text-lg md:text-xl font-bold text-white">{exp.title}</h3>
+                      <p className="text-blue-400 text-sm md:text-base">{exp.company}</p>
                     </div>
                   </div>
                   <p className="text-purple-300 text-sm mb-3">{exp.period}</p>
@@ -128,7 +128,7 @@ export function Experience() {
         {/* Education */}
         <h3 className="text-2xl font-semibold mt-12 mb-4 text-white">Education</h3>
         <div className="relative">
-          <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-blue-400 via-purple-400 to-pink-400 rounded-full" />
+          <div className="absolute left-3 md:left-1/2 transform md:-translate-x-1/2 w-1 h-full bg-gradient-to-b from-blue-400 via-purple-400 to-pink-400 rounded-full" />
           {education.map((exp, index) => (
             <motion.div
               key={exp.title}
@@ -136,27 +136,27 @@ export function Experience() {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: index * 0.3 }}
               viewport={{ once: true }}
-              className={`relative flex items-center mb-16 ${index % 2 === 0 ? 'justify-start' : 'justify-end'}`}
+              className={`relative flex items-start md:items-center mb-10 md:mb-16 pl-10 md:pl-0 ${index % 2 === 0 ? 'md:justify-start' : 'md:justify-end'}`}
             >
               <motion.div
                 initial={{ scale: 0 }}
                 whileInView={{ scale: 1 }}
                 transition={{ delay: index * 0.3 + 0.5, duration: 0.5 }}
                 viewport={{ once: true }}
-                className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-blue-400 rounded-full border-4 border-gray-900 z-10"
+                className="absolute left-3 md:left-1/2 transform -translate-x-1/2 w-4 h-4 bg-blue-400 rounded-full border-4 border-gray-900 z-10"
               />
               <motion.div
                 whileHover={{ scale: 1.05 }}
-                className={`w-5/12 ${index % 2 === 0 ? 'mr-auto' : 'ml-auto'}`}
+                className={`w-full md:w-5/12 ${index % 2 === 0 ? 'md:mr-auto' : 'md:ml-auto'}`}
               >
                 <div className="bg-gray-900/80 backdrop-blur-sm border border-gray-700/50 rounded-lg p-6 hover:border-blue-400/50 transition-all duration-300">
-                  <div className="flex items-center mb-4">
+                  <div className="flex items-start md:items-center mb-4">
                     <div className="p-2 bg-blue-500/20 rounded-full mr-4">
                       <exp.icon className="w-6 h-6 text-blue-400" />
                     </div>
                     <div>
-                      <h3 className="text-xl font-bold text-white">{exp.title}</h3>
-                      <p className="text-blue-400">{exp.company}</p>
+                      <h3 className="text-lg md:text-xl font-bold text-white">{exp.title}</h3>
+                      <p className="text-blue-400 text-sm md:text-base">{exp.company}</p>
                     </div>
                   </div>
                   <p className="text-purple-300 text-sm mb-3">{exp.period}</p>
