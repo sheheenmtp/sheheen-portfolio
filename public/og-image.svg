@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title description">
+  <title id="title">Muhammed Sheheen M T P — AI/ML Engineer</title>
+  <desc id="description">A dark blue portfolio preview with neural network lines and AI engineering specialties.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#050916"/>
+      <stop offset="0.55" stop-color="#081329"/>
+      <stop offset="1" stop-color="#11133a"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#60a5fa"/>
+      <stop offset="0.7" stop-color="#3b82f6"/>
+      <stop offset="1" stop-color="#9b8cff"/>
+    </linearGradient>
+    <radialGradient id="glow">
+      <stop offset="0" stop-color="#2563eb" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#2563eb" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="16"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#background)"/>
+  <circle cx="170" cy="80" r="260" fill="url(#glow)" filter="url(#softGlow)"/>
+  <circle cx="1070" cy="560" r="290" fill="url(#glow)" opacity="0.7" filter="url(#softGlow)"/>
+
+  <g fill="none" stroke="#60a5fa" stroke-opacity="0.23" stroke-width="2">
+    <path d="M40 170 160 95 270 180 390 98"/>
+    <path d="M810 120 910 62 1025 150 1160 92"/>
+    <path d="M825 510 930 430 1040 510 1165 420"/>
+    <path d="M52 515 175 435 285 525 395 445"/>
+  </g>
+  <g fill="#60a5fa">
+    <circle cx="40" cy="170" r="5"/><circle cx="160" cy="95" r="5"/><circle cx="270" cy="180" r="5"/><circle cx="390" cy="98" r="5"/>
+    <circle cx="810" cy="120" r="5"/><circle cx="910" cy="62" r="5"/><circle cx="1025" cy="150" r="5"/><circle cx="1160" cy="92" r="5"/>
+    <circle cx="825" cy="510" r="5"/><circle cx="930" cy="430" r="5"/><circle cx="1040" cy="510" r="5"/><circle cx="1165" cy="420" r="5"/>
+    <circle cx="52" cy="515" r="5"/><circle cx="175" cy="435" r="5"/><circle cx="285" cy="525" r="5"/><circle cx="395" cy="445" r="5"/>
+  </g>
+
+  <rect x="78" y="65" width="76" height="76" rx="20" fill="#2563eb"/>
+  <text x="116" y="114" fill="#ffffff" font-family="Arial, sans-serif" font-size="30" font-weight="700" text-anchor="middle">MS</text>
+  <text x="176" y="112" fill="#a9bad1" font-family="Arial, sans-serif" font-size="22" font-weight="600" letter-spacing="2">PORTFOLIO</text>
+
+  <text x="78" y="280" fill="#f8fbff" font-family="Arial, sans-serif" font-size="68" font-weight="700">MUHAMMED SHEHEEN</text>
+  <text x="78" y="360" fill="url(#accent)" font-family="Arial, sans-serif" font-size="64" font-weight="700">AI/ML ENGINEER</text>
+  <rect x="78" y="392" width="116" height="7" rx="4" fill="#60a5fa"/>
+  <text x="78" y="463" fill="#dbe7f7" font-family="Arial, sans-serif" font-size="27" font-weight="500">NLP  •  Machine Translation  •  LLMs  •  Computer Vision</text>
+  <text x="78" y="542" fill="#60a5fa" font-family="Arial, sans-serif" font-size="22" font-weight="600">sheheenmtp.vercel.app</text>
+</svg>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion } from 'motion/react';
+import { AnimatePresence, motion } from 'motion/react';
 import {
   AlertCircle,
   Briefcase,
@@ -19,6 +19,7 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
+import { fade, reveal } from '../lib/motion';
 
 type SubmissionStatus = {
   type: 'success' | 'error';
@@ -42,7 +43,7 @@ export function Contact() {
       label: 'Email',
       value: 'muhamammedsheheen0@gmail.com',
       href: 'mailto:muhamammedsheheen0@gmail.com',
-      color: 'from-red-400 to-pink-400',
+      color: 'from-blue-400 to-blue-600',
       external: false,
     },
     {
@@ -50,7 +51,7 @@ export function Contact() {
       label: 'Phone',
       value: '+91 9895057468',
       href: 'tel:+919895057468',
-      color: 'from-green-400 to-blue-400',
+      color: 'from-blue-400 to-blue-600',
       external: false,
     },
     {
@@ -74,7 +75,7 @@ export function Contact() {
       label: 'Portfolio',
       value: 'sheheenmtp.vercel.app',
       href: 'https://sheheenmtp.vercel.app',
-      color: 'from-purple-400 to-blue-400',
+      color: 'from-blue-400 to-blue-600',
       external: true,
     },
   ];
@@ -137,20 +138,17 @@ export function Contact() {
     <section id="contact" className="py-20 px-6">
       <div className="max-w-6xl mx-auto">
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
+          {...reveal()}
           className="text-center mb-16"
         >
-          <div className="inline-flex items-center space-x-2 px-3 py-1 bg-blue-500/20 text-blue-300 rounded-full text-sm border border-blue-400/30 mb-6">
+          <div className="accent-chip inline-flex items-center space-x-2 px-3 py-1 rounded-full text-sm mb-6">
             <Sparkles className="w-4 h-4" />
             <span>Open to meaningful collaborations</span>
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-green-400 bg-clip-text text-transparent">
+          <h2 className="section-title text-4xl md:text-5xl font-bold">
             Let’s Build Something Useful
           </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+          <p className="section-copy text-lg max-w-2xl mx-auto">
             Have an idea involving NLP, machine translation, LLM applications, backend AI, or
             computer vision? Share the context and let’s start a conversation.
           </p>
@@ -158,13 +156,10 @@ export function Contact() {
 
         <div className="grid lg:grid-cols-2 gap-12 items-start">
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
+            {...reveal(0.06)}
             className="space-y-8"
           >
-            <Card className="bg-gray-900/80 backdrop-blur-sm border-gray-700/50 hover:border-blue-400/50 transition-all duration-300">
+            <Card className="surface-card transition-all duration-300">
               <CardHeader>
                 <CardTitle className="text-white flex items-center space-x-2">
                   <Briefcase className="text-blue-400" />
@@ -180,7 +175,7 @@ export function Contact() {
                   <span>Thiruvananthapuram, Kerala, India</span>
                 </div>
                 <div className="flex items-center space-x-3 text-gray-300">
-                  <Clock className="w-5 h-5 text-purple-400" />
+                  <Clock className="w-5 h-5 text-blue-400" />
                   <span>Typically responds within 1–2 working days</span>
                 </div>
               </CardContent>
@@ -195,14 +190,11 @@ export function Contact() {
                     href={contact.href}
                     target={contact.external ? '_blank' : undefined}
                     rel={contact.external ? 'noopener noreferrer' : undefined}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.08, duration: 0.45 }}
+                    {...reveal(index * 0.08)}
                     whileHover={{ scale: 1.02, x: 6 }}
-                    viewport={{ once: true }}
-                    className="flex items-center space-x-4 p-4 bg-gray-900/50 rounded-lg border border-gray-700/50 hover:border-blue-400/50 transition-all duration-300 group"
+                    className="surface-card flex items-center space-x-4 p-4 border transition-all duration-300 group"
                   >
-                    <div className={`p-2 rounded-full bg-gradient-to-r ${contact.color} bg-opacity-20`}>
+                    <div className={`contact-icon p-2 rounded-full bg-gradient-to-r ${contact.color}`}>
                       <contact.icon className="w-5 h-5 text-white" />
                     </div>
                     <div className="contact-link-label">
@@ -218,15 +210,12 @@ export function Contact() {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.15 }}
-            viewport={{ once: true }}
+            {...reveal(0.14)}
           >
-            <Card className="bg-gray-900/80 backdrop-blur-sm border-gray-700/50 hover:border-purple-400/50 transition-all duration-300">
+            <Card className="surface-card transition-all duration-300">
               <CardHeader>
                 <CardTitle className="text-white flex items-center space-x-2">
-                  <MessageSquare className="text-purple-400" />
+                  <MessageSquare className="text-blue-400" />
                   <span>Start a Conversation</span>
                 </CardTitle>
                 <CardDescription>
@@ -285,26 +274,33 @@ export function Contact() {
                     />
                   </div>
 
-                  {submissionStatus && (
-                    <div
-                      className={`contact-status contact-status--${submissionStatus.type}`}
-                      role={submissionStatus.type === 'error' ? 'alert' : 'status'}
-                      aria-live="polite"
-                    >
-                      {submissionStatus.type === 'success' ? (
-                        <CheckCircle2 className="w-5 h-5" />
-                      ) : (
-                        <AlertCircle className="w-5 h-5" />
-                      )}
-                      <span>{submissionStatus.message}</span>
-                    </div>
-                  )}
+                  <AnimatePresence initial={false} mode="wait">
+                    {submissionStatus && (
+                      <motion.div
+                        key={`${submissionStatus.type}-${submissionStatus.message}`}
+                        initial={{ opacity: 0, y: -8, height: 0 }}
+                        animate={{ opacity: 1, y: 0, height: 'auto' }}
+                        exit={{ opacity: 0, y: -6, height: 0 }}
+                        transition={{ duration: 0.24 }}
+                        className={`contact-status contact-status--${submissionStatus.type}`}
+                        role={submissionStatus.type === 'error' ? 'alert' : 'status'}
+                        aria-live="polite"
+                      >
+                        {submissionStatus.type === 'success' ? (
+                          <CheckCircle2 className="w-5 h-5" />
+                        ) : (
+                          <AlertCircle className="w-5 h-5" />
+                        )}
+                        <span>{submissionStatus.message}</span>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
 
                   <Button
                     type="submit"
                     size="lg"
                     disabled={isSubmitting}
-                    className="w-full bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white disabled:opacity-50"
+                    className="primary-cta w-full disabled:opacity-50"
                   >
                     {isSubmitting ? (
                       <>
@@ -324,17 +320,14 @@ export function Contact() {
           </motion.div>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ delay: 0.4, duration: 0.8 }}
-          viewport={{ once: true }}
+        <motion.footer
+          {...fade(0.2)}
           className="text-center mt-16 pt-8 border-t border-gray-700/50"
         >
           <p className="text-gray-500">
             © 2026 Muhammed Sheheen M T P. Engineering the future with AI.
           </p>
-        </motion.div>
+        </motion.footer>
       </div>
     </section>
   );

@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import {
   ArrowRight,
   Briefcase,
+  ChevronDown,
   FileDown,
   Github,
   Languages,
@@ -13,6 +14,7 @@ import {
   Sparkles,
 } from 'lucide-react';
 import { Button } from './ui/button';
+import { enter } from '../lib/motion';
 
 export function Hero() {
   const highlights = [
@@ -34,27 +36,22 @@ export function Hero() {
   ];
 
   return (
-    <section className="min-h-screen flex items-center justify-center px-6 py-20 relative">
+    <section id="home" className="hero-section min-h-screen flex items-center justify-center px-6 py-24 relative">
       <div className="text-center max-w-6xl">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="inline-flex items-center space-x-2 px-3 py-1 bg-blue-500/20 text-blue-300 rounded-full text-sm border border-blue-400/30 mb-6"
+          {...enter()}
+          className="accent-chip inline-flex items-center space-x-2 px-3 py-1 rounded-full text-sm mb-6"
         >
           <Sparkles className="w-4 h-4" />
           <span>Available for AI/ML opportunities</span>
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          {...enter(0.08)}
           className="mb-8"
         >
           <h1
-            className="font-bold mb-4"
-            style={{ fontSize: 'clamp(1.25rem, 5vw, 6rem)', whiteSpace: 'nowrap' }}
+            className="hero-name font-bold mb-4"
           >
             {'MUHAMMED SHEHEEN M T P'.split('').map((letter, index) => (
               <motion.span
@@ -67,7 +64,7 @@ export function Hero() {
                   ease: 'easeOut',
                 }}
                 whileHover={{ y: -6, scale: 1.06 }}
-                className="inline-block bg-gradient-to-r from-indigo-400 via-blue-500 to-cyan-500 bg-clip-text text-transparent"
+                className="inline-block hero-name-letter"
               >
                 {letter === ' ' ? '\u00A0' : letter}
               </motion.span>
@@ -75,9 +72,7 @@ export function Hero() {
           </h1>
 
           <motion.h2
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.45, duration: 0.7 }}
+            {...enter(0.28)}
             className="hero-role text-3xl md:text-5xl font-bold mb-6"
           >
             <span className="hero-role-accent">AI/ML</span>
@@ -85,18 +80,14 @@ export function Hero() {
           </motion.h2>
 
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.7 }}
+            {...enter(0.36)}
             className="text-xl md:text-2xl text-gray-300 mb-6 max-w-3xl mx-auto"
           >
             NLP • Machine Translation • LLMs • Computer Vision
           </motion.p>
 
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.72, duration: 0.7 }}
+            {...enter(0.44)}
             className="text-lg text-gray-400 mb-8 max-w-3xl mx-auto"
           >
             Building practical multilingual AI systems—from English–Malayalam corpus engineering
@@ -104,15 +95,13 @@ export function Hero() {
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.84, duration: 0.7 }}
-            className="flex flex-wrap justify-center gap-2 mb-6"
+            {...enter(0.52)}
+            className="flex flex-wrap justify-center gap-3 mb-6"
           >
             <Button
               asChild
               size="lg"
-              className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white"
+              className="primary-cta"
             >
               <a href="/Sheheen_Resume.pdf" download>
                 <FileDown size={18} />
@@ -129,9 +118,7 @@ export function Hero() {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.96, duration: 0.7 }}
+            {...enter(0.6)}
             className="flex items-center justify-center space-x-4 mb-8"
           >
             <Button asChild size="icon" variant="ghost" className="text-gray-400 hover:text-blue-400">
@@ -152,9 +139,7 @@ export function Hero() {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.05, duration: 0.7 }}
+            {...enter(0.68)}
             className="flex items-center justify-center space-x-2 text-gray-400 mb-12"
           >
             <MapPin className="w-4 h-4 text-blue-400" />
@@ -163,9 +148,7 @@ export function Hero() {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.15, duration: 0.8 }}
+          {...enter(0.76)}
           className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
           {highlights.map((highlight, index) => (
@@ -173,7 +156,7 @@ export function Hero() {
               key={highlight.value}
               whileHover={{ y: -6, scale: 1.02 }}
               transition={{ duration: 0.3, delay: index * 0.05 }}
-              className="bg-gray-900/50 backdrop-blur-sm border border-gray-700/50 rounded-lg p-6 hover:border-blue-400/50 transition-all duration-300"
+              className="surface-card h-full border rounded-2xl p-6 transition-all duration-300"
             >
               <highlight.icon className="w-6 h-6 text-blue-400 mx-auto mb-4" />
               <div className="text-xl font-bold text-white mb-2">{highlight.value}</div>
@@ -182,6 +165,24 @@ export function Hero() {
           ))}
         </motion.div>
       </div>
+
+      <motion.a
+        href="#about"
+        className="hero-scroll-cue"
+        aria-label="Scroll to the About section"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1, duration: 0.4 }}
+      >
+        <span>Explore</span>
+        <motion.span
+          aria-hidden="true"
+          animate={{ y: [0, 6, 0] }}
+          transition={{ delay: 1.3, duration: 1.8, repeat: Infinity }}
+        >
+          <ChevronDown />
+        </motion.span>
+      </motion.a>
     </section>
   );
 }

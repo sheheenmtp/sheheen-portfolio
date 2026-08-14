@@ -1,36 +1,35 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { Code, Coffee, Heart } from 'lucide-react';
-import photo from '../sheheen.jpeg';
+import photo from '../sheheen.webp';
+import { fade, reveal } from '../lib/motion';
 
 export function About() {
   return (
-    <section className="py-20 px-6">
+    <section id="about" className="py-20 px-6">
       <div className="max-w-6xl mx-auto">
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
+          {...reveal()}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+          <h2 className="section-title text-4xl md:text-5xl font-bold">
             About Me
           </h2>
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
+            {...reveal(0.06)}
           >
-            <div className="relative">
-              <div className="w-80 h-80 mx-auto rounded-full bg-gradient-to-r from-blue-500/20 to-purple-500/20 border-2 border-blue-400/30 p-4 flex items-center justify-center overflow-hidden">
+            <div className="about-portrait-wrap relative mx-auto">
+              <div className="about-portrait mx-auto rounded-full bg-blue-500/20 border-2 border-blue-400/30 p-3 md:p-4 flex items-center justify-center overflow-hidden">
                 <img 
                   src={photo} 
-                  alt="Muhammed Sheheen M T P " 
+                  alt="Muhammed Sheheen M T P"
+                  width="720"
+                  height="720"
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover rounded-full"
                 />
               </div>
@@ -43,10 +42,7 @@ export function About() {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            viewport={{ once: true }}
+            {...reveal(0.14)}
             className="space-y-6"
           >
             <h3 className="text-2xl font-bold text-white mb-6">
@@ -67,27 +63,24 @@ export function About() {
               vision using OpenCV and YOLOv8.
             </p>
 
-            <div className="flex items-center space-x-6 text-gray-400">
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-3 text-gray-400">
               <div className="flex items-center space-x-2">
                 <Code className="text-blue-400" size={20} />
                 <span>Malayalam NLP</span>
               </div>
               <div className="flex items-center space-x-2">
-                <Coffee className="text-purple-400" size={20} />
+                <Coffee className="text-blue-400" size={20} />
                 <span>Machine Translation</span>
               </div>
               <div className="flex items-center space-x-2">
-                <Heart className="text-pink-400" size={20} />
+                <Heart className="text-blue-400" size={20} />
                 <span>Applied AI</span>
               </div>
             </div>
 
             <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ delay: 0.5, duration: 0.8 }}
-              viewport={{ once: true }}
-              className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 p-6 rounded-lg border border-blue-400/20"
+              {...fade(0.22)}
+              className="surface-card p-6 border"
             >
               <p className="text-blue-300 italic">
                 "Building practical multilingual AI systems from high-quality data to live deployment."

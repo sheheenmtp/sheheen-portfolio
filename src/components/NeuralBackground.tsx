@@ -14,58 +14,67 @@ export function NeuralBackground() {
     if (!ctx) return;
 
     let animationFrameId = 0;
+    let viewportWidth = window.innerWidth;
+    let viewportHeight = window.innerHeight;
+    let lastFrameTime = 0;
+    let prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const targetFrameTime = 1000 / 30;
 
     const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      viewportWidth = window.innerWidth;
+      viewportHeight = window.innerHeight;
+      const pixelRatio = Math.min(window.devicePixelRatio || 1, 1.5);
+      canvas.width = Math.round(viewportWidth * pixelRatio);
+      canvas.height = Math.round(viewportHeight * pixelRatio);
+      ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
     };
 
     resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
 
     const nodes: Array<{ x: number; y: number; vx: number; vy: number }> = [];
-    const nodeCount = window.innerWidth < 768 ? 30 : 50;
+    const nodeCount = window.innerWidth < 768 ? 22 : 38;
     const nodeColor = isLight ? 'rgba(29, 78, 216, 0.78)' : 'rgba(59, 130, 246, 0.6)';
     const connectionColor = isLight ? '37, 99, 235' : '59, 130, 246';
 
     // Initialize nodes
     for (let i = 0; i < nodeCount; i++) {
       nodes.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.5,
-        vy: (Math.random() - 0.5) * 0.5,
+        x: Math.random() * viewportWidth,
+        y: Math.random() * viewportHeight,
+        vx: (Math.random() - 0.5) * 0.38,
+        vy: (Math.random() - 0.5) * 0.38,
       });
     }
 
-    function animate() {
+    const drawFrame = (updateNodes: boolean) => {
       if (!ctx || !canvas) return;
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.clearRect(0, 0, viewportWidth, viewportHeight);
 
-      // Update and draw nodes
       nodes.forEach((node, i) => {
-        node.x += node.vx;
-        node.y += node.vy;
+        if (updateNodes) {
+          node.x += node.vx;
+          node.y += node.vy;
+        }
 
-        // Wrap around edges
-        if (node.x < 0) node.x = canvas.width;
-        if (node.x > canvas.width) node.x = 0;
-        if (node.y < 0) node.y = canvas.height;
-        if (node.y > canvas.height) node.y = 0;
+        if (node.x < 0) node.x = viewportWidth;
+        if (node.x > viewportWidth) node.x = 0;
+        if (node.y < 0) node.y = viewportHeight;
+        if (node.y > viewportHeight) node.y = 0;
 
-        // Draw node
         ctx.beginPath();
         ctx.arc(node.x, node.y, isLight ? 2.4 : 2, 0, Math.PI * 2);
         ctx.fillStyle = nodeColor;
         ctx.fill();
 
-        // Draw connections
-        nodes.slice(i + 1).forEach(otherNode => {
-          const distance = Math.sqrt(
-            Math.pow(node.x - otherNode.x, 2) + Math.pow(node.y - otherNode.y, 2)
-          );
+        for (let otherIndex = i + 1; otherIndex < nodes.length; otherIndex += 1) {
+          const otherNode = nodes[otherIndex];
+          const deltaX = node.x - otherNode.x;
+          const deltaY = node.y - otherNode.y;
+          const distanceSquared = deltaX * deltaX + deltaY * deltaY;
 
-          if (distance < 150) {
+          if (distanceSquared < 22500) {
+            const distance = Math.sqrt(distanceSquared);
             ctx.beginPath();
             ctx.moveTo(node.x, node.y);
             ctx.lineTo(otherNode.x, otherNode.y);
@@ -74,16 +83,52 @@ export function NeuralBackground() {
             ctx.lineWidth = isLight ? 1.2 : 1;
             ctx.stroke();
           }
-        });
+        }
       });
+    };
+
+    function animate(timestamp: number) {
+      if (document.hidden || prefersReducedMotion) return;
+
+      if (timestamp - lastFrameTime >= targetFrameTime) {
+        drawFrame(true);
+        lastFrameTime = timestamp;
+      }
 
       animationFrameId = requestAnimationFrame(animate);
     }
 
-    animate();
+    const startAnimation = () => {
+      cancelAnimationFrame(animationFrameId);
+      lastFrameTime = 0;
+
+      if (prefersReducedMotion) {
+        drawFrame(false);
+      } else if (!document.hidden) {
+        animationFrameId = requestAnimationFrame(animate);
+      }
+    };
+
+    const handleResize = () => {
+      resizeCanvas();
+      if (prefersReducedMotion) drawFrame(false);
+    };
+
+    const handleVisibilityChange = () => startAnimation();
+    const handleMotionPreference = (event: MediaQueryListEvent) => {
+      prefersReducedMotion = event.matches;
+      startAnimation();
+    };
+
+    window.addEventListener('resize', handleResize, { passive: true });
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    motionPreference.addEventListener('change', handleMotionPreference);
+    startAnimation();
 
     return () => {
-      window.removeEventListener('resize', resizeCanvas);
+      window.removeEventListener('resize', handleResize);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      motionPreference.removeEventListener('change', handleMotionPreference);
       cancelAnimationFrame(animationFrameId);
     };
   }, [isLight]);
@@ -91,11 +136,12 @@ export function NeuralBackground() {
   return (
     <canvas
       ref={canvasRef}
+      aria-hidden="true"
       className="fixed inset-0 w-full h-full pointer-events-none"
       style={{
         background: isLight
-          ? 'linear-gradient(135deg, #f1f5f9 0%, #e0e7ff 52%, #ede9fe 100%)'
-          : 'linear-gradient(135deg, #020817 0%, #0f172a 100%)',
+          ? 'linear-gradient(135deg, #f5f8ff 0%, #e8f0ff 52%, #f1efff 100%)'
+          : 'linear-gradient(135deg, #050916 0%, #0b1730 100%)',
         transition: 'background 300ms ease',
       }}
     />

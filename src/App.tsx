@@ -7,14 +7,15 @@ import { Credentials } from './components/Credentials';
 import { TechStack } from './components/TechStack';
 import { Contact } from './components/Contact';
 import { NeuralBackground } from './components/NeuralBackground';
-import { ThemeToggle } from './components/ThemeToggle';
+import { Navbar } from './components/Navbar';
 
 export default function App() {
   return (
     <div className="portfolio-shell min-h-screen bg-background text-foreground relative overflow-x-hidden">
+      <a className="skip-link" href="#main-content">Skip to main content</a>
       <NeuralBackground />
-      <ThemeToggle />
-      <div className="portfolio-content relative z-10">
+      <Navbar />
+      <main id="main-content" className="portfolio-content relative z-10">
         <Hero />
         <About />
         <Projects />
@@ -22,7 +23,7 @@ export default function App() {
         <Credentials />
         <TechStack />
         <Contact />
-      </div>
+      </main>
     </div>
   );
 }

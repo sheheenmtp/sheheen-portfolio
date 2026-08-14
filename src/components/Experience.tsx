@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { Brain } from 'lucide-react';
+import { reveal } from '../lib/motion';
 
 export function Experience() {
   const work = [
@@ -34,19 +35,16 @@ export function Experience() {
 
 
   return (
-    <section className="py-20 px-6">
-      <div className="max-w-4xl mx-auto">
+    <section id="experience" className="py-20 px-6">
+      <div className="max-w-5xl mx-auto">
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
+          {...reveal()}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent">
+          <h2 className="section-title text-4xl md:text-5xl font-bold">
             Experience Timeline
           </h2>
-          <p className="text-gray-400 text-lg">
+          <p className="section-copy text-lg">
             Malayalam NLP, machine translation, LLM applications, and multilingual AI deployment
           </p>
         </motion.div>
@@ -54,28 +52,25 @@ export function Experience() {
         {/* Work Experience */}
         <h3 className="text-2xl font-semibold mb-4 text-white">Work Experience</h3>
         <div className="relative">
-          <div className="absolute left-3 md:left-1/2 transform md:-translate-x-1/2 w-1 h-full bg-gradient-to-b from-blue-400 via-purple-400 to-pink-400 rounded-full" />
+          <div className="absolute left-5 md:left-6 w-1 h-full bg-gradient-to-b from-blue-300 via-blue-500 to-blue-700 rounded-full" />
           {work.map((exp, index) => (
             <motion.div
               key={exp.title}
-              initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: index * 0.3 }}
-              viewport={{ once: true }}
-              className={`relative flex items-start md:items-center mb-10 md:mb-16 pl-10 md:pl-0 ${index % 2 === 0 ? 'md:justify-start' : 'md:justify-end'}`}
+              {...reveal(index * 0.08)}
+              className="relative mb-10 pl-14 md:pl-16"
             >
               <motion.div
                 initial={{ scale: 0 }}
                 whileInView={{ scale: 1 }}
-                transition={{ delay: index * 0.3 + 0.5, duration: 0.5 }}
+                transition={{ delay: index * 0.08 + 0.16, duration: 0.35 }}
                 viewport={{ once: true }}
-                className="absolute left-3 md:left-1/2 transform -translate-x-1/2 w-4 h-4 bg-blue-400 rounded-full border-4 border-gray-900 z-10"
+                className="absolute left-5 md:left-6 transform -translate-x-1/2 w-4 h-4 bg-blue-400 rounded-full border-4 border-gray-900 z-10"
               />
               <motion.div
-                whileHover={{ scale: 1.05 }}
-                className={`w-full md:w-5/12 ${index % 2 === 0 ? 'md:mr-auto' : 'md:ml-auto'}`}
+                whileHover={{ y: -4 }}
+                className="w-full"
               >
-                <div className="bg-gray-900/80 backdrop-blur-sm border border-gray-700/50 rounded-lg p-6 hover:border-blue-400/50 transition-all duration-300">
+                <div className="surface-card border p-6 transition-all duration-300">
                   <div className="flex items-start md:items-center mb-4">
                     <div className="p-2 bg-blue-500/20 rounded-full mr-4">
                       <exp.icon className="w-6 h-6 text-blue-400" />
@@ -86,15 +81,15 @@ export function Experience() {
                     </div>
                   </div>
                   <p className="text-gray-400 text-sm mb-3">{exp.location}</p>
-                  <p className="text-purple-300 text-sm mb-3">{exp.period}</p>
-                  <div className="text-gray-300 mb-4 space-y-3">
+                  <p className="text-blue-300 text-sm mb-3">{exp.period}</p>
+                  <ul className="experience-details text-gray-300 mb-5 space-y-3">
                     {exp.details.map((detail) => (
-                      <p key={detail}>• {detail}</p>
+                      <li key={detail}>{detail}</li>
                     ))}
-                  </div>
+                  </ul>
                   <div className="flex flex-wrap gap-2">
                     {exp.skills.map((skill) => (
-                      <span key={skill} className="px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full text-sm border border-purple-400/30">
+                      <span key={skill} className="accent-chip px-3 py-1 rounded-full text-sm">
                         {skill}
                       </span>
                     ))}

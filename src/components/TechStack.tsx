@@ -15,6 +15,7 @@ import {
   type LucideIcon,
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
+import { reveal } from '../lib/motion';
 
 export function TechStack() {
   const techCategories: Array<{
@@ -132,19 +133,16 @@ export function TechStack() {
   };
 
   return (
-    <section className="py-20 px-6">
+    <section id="tech-stack" className="py-20 px-6">
       <div className="max-w-6xl mx-auto">
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
+          {...reveal()}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">
+          <h2 className="section-title text-4xl md:text-5xl font-bold">
             Tech Stack
           </h2>
-          <p className="text-gray-400 text-lg">
+          <p className="section-copy text-lg">
             Technologies and tools I use to build intelligent systems
           </p>
         </motion.div>
@@ -153,17 +151,15 @@ export function TechStack() {
           {techCategories.map((category, categoryIndex) => (
             <motion.div
               key={category.category}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: categoryIndex * 0.12 }}
-              viewport={{ once: true }}
-              whileHover={{ scale: 1.02 }}
+              {...reveal(categoryIndex * 0.08)}
+              whileHover={{ y: -4 }}
+              className="h-full"
             >
-              <Card className="bg-gray-900/50 border-gray-700/50 hover:border-purple-400/50 transition-all duration-300">
+              <Card className="surface-card h-full transition-all duration-300">
                 <CardHeader>
                   <div className="flex items-center space-x-4">
-                    <div className="p-2 bg-purple-500/20 rounded-full">
-                      <category.icon className="w-6 h-6 text-purple-400" />
+                    <div className="accent-icon p-2 rounded-full">
+                      <category.icon className="w-6 h-6" />
                     </div>
                     <CardTitle className="text-xl font-bold text-white">
                       {category.category}
@@ -180,7 +176,7 @@ export function TechStack() {
                         <motion.div
                           key={skill}
                           whileHover={{ scale: 1.05 }}
-                          className="flex items-center space-x-2 px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full text-sm border border-purple-400/30"
+                          className="accent-chip flex items-center space-x-2 px-3 py-1 rounded-full text-sm"
                         >
                           {SkillIcon && <SkillIcon className="w-4 h-4" />}
                           <span>{skill}</span>
