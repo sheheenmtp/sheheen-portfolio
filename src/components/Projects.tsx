@@ -1,80 +1,57 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { ExternalLink, Github, ChefHat, Bot, BarChart3, Hand, Languages, Code2, Ship } from 'lucide-react';
+import { ExternalLink, Github, Hand, Languages, Code2, Ship, Terminal } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
 import { Button } from './ui/button';
 
 export function Projects() {
- const projects = [
-  {
-    title: "Interactive Python AI Tutor",
-    description:
-      "AI-powered tutoring system that evaluates Python code, provides rule-based feedback, tracks learner progress, and guides students toward correct solutions using LLMs.",
-    icon: Code2,
-    tech: [
-      "Python",
-      "FastAPI",
-      "LLMs",
-      "Prompt Engineering",
-      "Judge0 API",
-      "NLP"
-    ],
-    gradient: "from-indigo-400 to-purple-600",
-    demo: "#",
-    github: "https://github.com/sheheenmtp/AI_Tutor"
-  },
-  // { 
-  //   title: "DL-DISCO Machine Translation (Malayalam NLP)",
-  //   description:
-  //     "Linguistic data annotation and preprocessing pipeline for Malayalam POS tagging, NER, and chunking to support machine translation research at ICFOSS.",
-  //   icon: Languages,
-  //   tech: [
-  //     "NLP",
-  //     "POS Tagging",
-  //     "NER",
-  //     "Chunking",
-  //     "Python",
-  //     "Data Preprocessing"
-  //   ],
-  //   gradient: "from-emerald-400 to-teal-600",
-  //   demo: "#",
-  //   github: "#"
-  // },
-  {
-    title: "Autonomous USV for Floating Waste Detection",
-    description:
-      "Vision-powered unmanned surface vehicle for real-time plastic waste detection using YOLOv8 with ESP32-based navigation and WebSocket control.",
-    icon: Ship,
-    tech: [
-      "YOLOv8",
-      "Computer Vision",
-      "ESP32",
-      "WebSocket",
-      "Python",
-      "OpenCV",
-      "TFLite"
-    ],
-    gradient: "from-blue-400 to-cyan-600",
-    demo: "#",
-    github: "#"
-  },
-  {
-    title: "Gesture_Sync – Multi-Modal Interaction System",
-    description:
-      "Real-time hand gesture recognition system to control system actions such as volume, cursor movement, and shortcuts using vision and speech.",
-    icon: Hand,
-    tech: [
-      "Python",
-      "OpenCV",
-      "MediaPipe",
-      "SpeechRecognition",
-      "Computer Vision"
-    ],
-    gradient: "from-pink-400 to-rose-600",
-    demo: "#",
-    github: "#"
-  }
-];
+  const projects = [
+    {
+      title: "AI Tutor Platform",
+      description:
+        "Full-stack adaptive coding platform with 15 REST APIs for auth, learner progress, problem recommendation, code evaluation, and AI feedback. Adaptive prompting and learner-state logic.",
+      icon: Code2,
+      tech: ["FastAPI", "PostgreSQL", "SQLAlchemy", "Ollama", "Judge0", "Docker"],
+      gradient: "from-indigo-400 to-purple-600",
+      github: "https://github.com/sheheenmtp/AI_Tutor"
+    },
+    {
+      title: "English–Malayalam NMT and Corpus Quality Pipeline",
+      description:
+        "Bilingual corpus preparation, semantic filtering, Transformer training experiments, inference, and translation-quality evaluation; optimized NLLB fine-tuning for limited GPU resources.",
+      icon: Languages,
+      tech: ["Python", "PyTorch", "Transformers", "NLLB-200", "OpenNMT", "PEFT/LoRA"],
+      gradient: "from-emerald-400 to-teal-600",
+      github: "#"
+    },
+    {
+      title: "Autonomous USV for Aquatic Waste Detection",
+      description:
+        "Computer-vision subsystem for floating-waste detection and autonomous surface-vehicle operation; YOLOv8 + OpenCV + ESP32 control.",
+      icon: Ship,
+      tech: ["Python", "YOLOv8", "OpenCV", "ESP32"],
+      gradient: "from-blue-400 to-cyan-600",
+      github: "#"
+    },
+    {
+      title: "GestureSync",
+      description:
+        "Multimodal HCI system combining real-time hand-landmark recognition with voice-command processing for hands-free desktop control.",
+      icon: Hand,
+      tech: ["Python", "OpenCV", "MediaPipe", "Speech Recognition"],
+      gradient: "from-pink-400 to-rose-600",
+      github: "#"
+    },
+    {
+      title: "Linux Adaptive Tutor",
+      description:
+        "AI-assisted Linux learning platform with adaptive lesson difficulty, multiple explanation modes, progress tracking, and secure Bash command execution.",
+      icon: Terminal,
+      tech: ["FastAPI", "PostgreSQL", "Ollama", "Judge0"],
+      gradient: "from-purple-400 to-blue-600",
+      github: "#"
+    }
+  ];
 
   return (
     <section className="py-20 px-6">

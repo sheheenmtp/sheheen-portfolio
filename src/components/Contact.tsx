@@ -1,59 +1,140 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { Mail, Github, Linkedin, Send, MessageSquare, Phone } from 'lucide-react';
+import {
+  AlertCircle,
+  Briefcase,
+  CheckCircle2,
+  Clock,
+  Github,
+  Globe,
+  Linkedin,
+  Mail,
+  MapPin,
+  MessageSquare,
+  Phone,
+  Send,
+  Sparkles,
+} from 'lucide-react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
-import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
+
+type SubmissionStatus = {
+  type: 'success' | 'error';
+  message: string;
+} | null;
+
+const apiBaseUrl = (import.meta.env.VITE_API_URL || 'http://localhost:3001').replace(/\/$/, '');
 
 export function Contact() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    message: ''
+    message: '',
   });
-
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submissionStatus, setSubmissionStatus] = useState<SubmissionStatus>(null);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const contactLinks = [
+    {
+      icon: Mail,
+      label: 'Email',
+      value: 'muhamammedsheheen0@gmail.com',
+      href: 'mailto:muhamammedsheheen0@gmail.com',
+      color: 'from-red-400 to-pink-400',
+      external: false,
+    },
+    {
+      icon: Phone,
+      label: 'Phone',
+      value: '+91 9895057468',
+      href: 'tel:+919895057468',
+      color: 'from-green-400 to-blue-400',
+      external: false,
+    },
+    {
+      icon: Linkedin,
+      label: 'LinkedIn',
+      value: 'linkedin.com/in/sheheen-mtp',
+      href: 'https://www.linkedin.com/in/sheheen-mtp/',
+      color: 'from-blue-400 to-blue-600',
+      external: true,
+    },
+    {
+      icon: Github,
+      label: 'GitHub',
+      value: 'github.com/sheheenmtp',
+      href: 'https://github.com/sheheenmtp',
+      color: 'from-gray-400 to-gray-600',
+      external: true,
+    },
+    {
+      icon: Globe,
+      label: 'Portfolio',
+      value: 'sheheenmtp.vercel.app',
+      href: 'https://sheheenmtp.vercel.app',
+      color: 'from-purple-400 to-blue-400',
+      external: true,
+    },
+  ];
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     setIsSubmitting(true);
+    setSubmissionStatus(null);
 
     try {
-      const response = await fetch('http://localhost:3001/send-email', {
+      const response = await fetch(`${apiBaseUrl}/send-email`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          message: formData.message.trim(),
+        }),
       });
 
-      const result = await response.json();
+      const result = await response.json().catch(() => ({}));
 
-      if (response.ok && result.success) {
-        alert('✅ Message sent successfully!');
-        // Clear the form after successful submission
-        setFormData({ name: "", email: "", message: "" });
-      } else {
-        alert(`❌ ${result.message || 'Failed to send message. Please try again later.'}`);
+      if (!response.ok || !result.success) {
+        throw new Error(result.message || 'Unable to send your message right now.');
       }
-    } catch (err) {
-      console.error('Error:', err);
-      alert('❌ Network error. Please check your connection and try again.');
+
+      setSubmissionStatus({
+        type: 'success',
+        message: 'Message sent successfully. I’ll get back to you soon.',
+      });
+      setFormData({ name: '', email: '', message: '' });
+    } catch (error) {
+      console.error('Contact form error:', error);
+      setSubmissionStatus({
+        type: 'error',
+        message:
+          error instanceof Error
+            ? error.message
+            : 'Network error. Please email me directly or try again later.',
+      });
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData((currentData) => ({
+      ...currentData,
+      [event.target.name]: event.target.value,
+    }));
+
+    if (submissionStatus) {
+      setSubmissionStatus(null);
+    }
   };
 
   return (
-    <section className="py-20 px-6">
+    <section id="contact" className="py-20 px-6">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -62,78 +143,178 @@ export function Contact() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
+          <div className="inline-flex items-center space-x-2 px-3 py-1 bg-blue-500/20 text-blue-300 rounded-full text-sm border border-blue-400/30 mb-6">
+            <Sparkles className="w-4 h-4" />
+            <span>Open to meaningful collaborations</span>
+          </div>
           <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-green-400 bg-clip-text text-transparent">
-            Let's Connect
+            Let’s Build Something Useful
           </h2>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            Ready to collaborate on the next big AI innovation? Let's build something amazing together.
+            Have an idea involving NLP, machine translation, LLM applications, backend AI, or
+            computer vision? Share the context and let’s start a conversation.
           </p>
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-start">
-          {/* Contact Form */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
+            className="space-y-8"
           >
             <Card className="bg-gray-900/80 backdrop-blur-sm border-gray-700/50 hover:border-blue-400/50 transition-all duration-300">
               <CardHeader>
                 <CardTitle className="text-white flex items-center space-x-2">
-                  <MessageSquare className="text-blue-400" />
-                  <span>Send a Message</span>
+                  <Briefcase className="text-blue-400" />
+                  <span>Available for Opportunities</span>
                 </CardTitle>
+                <CardDescription>
+                  AI/ML engineering roles, research collaborations, and practical multilingual AI projects.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="flex items-center space-x-3 text-gray-300">
+                  <MapPin className="w-5 h-5 text-blue-400" />
+                  <span>Thiruvananthapuram, Kerala, India</span>
+                </div>
+                <div className="flex items-center space-x-3 text-gray-300">
+                  <Clock className="w-5 h-5 text-purple-400" />
+                  <span>Typically responds within 1–2 working days</span>
+                </div>
+              </CardContent>
+            </Card>
+
+            <div>
+              <h3 className="text-xl font-bold text-white mb-6">Contact & Profiles</h3>
+              <div className="space-y-3">
+                {contactLinks.map((contact, index) => (
+                  <motion.a
+                    key={contact.label}
+                    href={contact.href}
+                    target={contact.external ? '_blank' : undefined}
+                    rel={contact.external ? 'noopener noreferrer' : undefined}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.08, duration: 0.45 }}
+                    whileHover={{ scale: 1.02, x: 6 }}
+                    viewport={{ once: true }}
+                    className="flex items-center space-x-4 p-4 bg-gray-900/50 rounded-lg border border-gray-700/50 hover:border-blue-400/50 transition-all duration-300 group"
+                  >
+                    <div className={`p-2 rounded-full bg-gradient-to-r ${contact.color} bg-opacity-20`}>
+                      <contact.icon className="w-5 h-5 text-white" />
+                    </div>
+                    <div className="contact-link-label">
+                      <div className="text-blue-400 text-sm">{contact.label}</div>
+                      <div className="text-gray-300 group-hover:text-white transition-colors duration-300">
+                        {contact.value}
+                      </div>
+                    </div>
+                  </motion.a>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.15 }}
+            viewport={{ once: true }}
+          >
+            <Card className="bg-gray-900/80 backdrop-blur-sm border-gray-700/50 hover:border-purple-400/50 transition-all duration-300">
+              <CardHeader>
+                <CardTitle className="text-white flex items-center space-x-2">
+                  <MessageSquare className="text-purple-400" />
+                  <span>Start a Conversation</span>
+                </CardTitle>
+                <CardDescription>
+                  Tell me what you’re building, the problem you’re solving, and how I can help.
+                </CardDescription>
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-6">
-                  <div>
+                  <div className="space-y-3">
+                    <label htmlFor="contact-name" className="text-gray-300 text-sm">
+                      Your name
+                    </label>
                     <Input
+                      id="contact-name"
                       type="text"
                       name="name"
-                      placeholder="Your Name"
+                      autoComplete="name"
+                      placeholder="How should I address you?"
                       value={formData.name}
                       onChange={handleChange}
-                      className="bg-gray-800/50 border-gray-600 text-white placeholder:text-gray-400 focus:border-blue-400"
+                      className="contact-form-control bg-gray-800/50 border-gray-600 text-white placeholder:text-gray-400 focus:border-blue-400"
                       required
                     />
                   </div>
-                  <div>
+
+                  <div className="space-y-3">
+                    <label htmlFor="contact-email" className="text-gray-300 text-sm">
+                      Email address
+                    </label>
                     <Input
+                      id="contact-email"
                       type="email"
                       name="email"
-                      placeholder="Your Email"
+                      autoComplete="email"
+                      placeholder="you@example.com"
                       value={formData.email}
                       onChange={handleChange}
-                      className="bg-gray-800/50 border-gray-600 text-white placeholder:text-gray-400 focus:border-blue-400"
+                      className="contact-form-control bg-gray-800/50 border-gray-600 text-white placeholder:text-gray-400 focus:border-blue-400"
                       required
                     />
                   </div>
-                  <div>
+
+                  <div className="space-y-3">
+                    <label htmlFor="contact-message" className="text-gray-300 text-sm">
+                      Project or message
+                    </label>
                     <Textarea
+                      id="contact-message"
                       name="message"
-                      placeholder="Your Message"
+                      placeholder="Share a few details about your idea, role, or collaboration."
                       value={formData.message}
                       onChange={handleChange}
-                      rows={5}
-                      className="bg-gray-800/50 border-gray-600 text-white placeholder:text-gray-400 focus:border-blue-400 resize-none"
+                      rows={7}
+                      className="contact-form-control bg-gray-800/50 border-gray-600 text-white placeholder:text-gray-400 focus:border-blue-400 resize-none"
                       required
                     />
                   </div>
+
+                  {submissionStatus && (
+                    <div
+                      className={`contact-status contact-status--${submissionStatus.type}`}
+                      role={submissionStatus.type === 'error' ? 'alert' : 'status'}
+                      aria-live="polite"
+                    >
+                      {submissionStatus.type === 'success' ? (
+                        <CheckCircle2 className="w-5 h-5" />
+                      ) : (
+                        <AlertCircle className="w-5 h-5" />
+                      )}
+                      <span>{submissionStatus.message}</span>
+                    </div>
+                  )}
+
                   <Button
                     type="submit"
+                    size="lg"
                     disabled={isSubmitting}
                     className="w-full bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white disabled:opacity-50"
                   >
                     {isSubmitting ? (
                       <>
-                        <div className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-solid border-white border-r-transparent"></div>
-                        Sending...
+                        <div className="h-4 w-4 animate-spin rounded-full border-2 border-solid border-white border-r-transparent" />
+                        Sending message...
                       </>
                     ) : (
                       <>
-                        <Send className="mr-2" size={16} />
-                        Launch Message
+                        <Send size={18} />
+                        Send Message
                       </>
                     )}
                   </Button>
@@ -141,83 +322,12 @@ export function Contact() {
               </CardContent>
             </Card>
           </motion.div>
-
-          {/* AI Avatar & Social Links */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            viewport={{ once: true }}
-            className="space-y-8"
-          >
-            {/* Animated AI Avatar */}
-            <div className="text-center">
-              <motion.div
-                animate={{ 
-                  scale: [1, 1.1, 1],
-                  rotate: [0, 5, -5, 0]
-                }}
-                transition={{ 
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-                className="w-40 h-40 mx-auto mb-6 relative"
-              >
-                <div className="w-full h-full rounded-full bg-gradient-to-r from-blue-500/20 to-purple-500/20 border-2 border-blue-400/30 flex items-center justify-center text-6xl">
-                  
-                </div>
-                <motion.div
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-                  className="absolute inset-0 border-2 border-dashed border-purple-400/20 rounded-full"
-                />
-              </motion.div>
-              <p className="text-gray-300 text-lg">
-                "Ready to process your ideas into reality!"
-              </p>
-            </div>
-
-            {/* Social Links */}
-            <div className="space-y-4">
-              <h3 className="text-xl font-bold text-white text-center mb-6">Connect With Me</h3>
-              <div className="space-y-3">
-                {[
-                  { icon: Mail, label: "muhammedsheheen0@gmail.com", href: "mailto:muhammedsheheen0@gmail.com", color: "from-red-400 to-pink-400" },
-                  { icon: Phone, label: "+919895057468", href: "tel:+919895057468", color: "from-green-400 to-blue-400" },
-                  { icon: Github, label: "GitHub Profile", href: "https://github.com/sheheenmtp", color: "from-gray-400 to-gray-600" },
-                  { icon: Linkedin, label: "LinkedIn Profile", href: "https://www.linkedin.com/in/sheheen-mtp/", color: "from-blue-400 to-blue-600" }
-                ].map((social, index) => (
-                  <motion.a
-                    key={social.label}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.1, duration: 0.5 }}
-                    whileHover={{ scale: 1.05, x: 10 }}
-                    viewport={{ once: true }}
-                    className="flex items-center space-x-4 p-4 bg-gray-900/50 rounded-lg border border-gray-700/50 hover:border-blue-400/50 transition-all duration-300 group"
-                  >
-                    <div className={`p-2 rounded-full bg-gradient-to-r ${social.color} bg-opacity-20`}>
-                      <social.icon className="w-5 h-5 text-white" />
-                    </div>
-                    <span className="text-gray-300 group-hover:text-white transition-colors duration-300">
-                      {social.label}
-                    </span>
-                  </motion.a>
-                ))}
-              </div>
-            </div>
-          </motion.div>
         </div>
 
-        {/* Footer */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          transition={{ delay: 0.5, duration: 0.8 }}
+          transition={{ delay: 0.4, duration: 0.8 }}
           viewport={{ once: true }}
           className="text-center mt-16 pt-8 border-t border-gray-700/50"
         >

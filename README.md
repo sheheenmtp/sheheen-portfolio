@@ -1,204 +1,216 @@
+# Sheheen Portfolio
 
-# Sheheen's Portfolio
+A responsive personal portfolio for Muhammed Sheheen M T P, focused on AI/ML work, projects, experience, and technical skills. The site is a React single-page application with an optional Express service that sends contact-form messages through Gmail SMTP.
 
-A modern, interactive portfolio website showcasing AI/ML projects, technical expertise, and professional experience. Built with React, TypeScript, and Vite for optimal performance.
+[View the live site](https://sheheen-portfolio.vercel.app)
 
-**[🌐 Live Demo](https://sheheen-portfolio.vercel.app)**
+## Features
 
----
+- Responsive, dark-themed single-page layout
+- Animated hero, content sections, and neural-network background
+- Project, experience, and technology showcases
+- Downloadable resume
+- Contact form backed by an Express and Nodemailer API
+- Vercel Analytics and Speed Insights
 
-## 🎯 About
+## Technology
 
-Graduate AI Engineer passionate about building intelligent, real-world systems. This portfolio demonstrates expertise in:
-- **Machine Learning & Deep Learning** – model development, data analysis
-- **Computer Vision & Edge AI** – real-time system integration
-- **Full-Stack Development** – frontend and backend architecture
-- **Data Science** – practical, efficient, and impactful solutions
+| Area | Tools |
+| --- | --- |
+| Frontend | React 18, TypeScript, Vite 6 |
+| UI | Tailwind-generated CSS, Radix UI primitives, Lucide icons |
+| Animation | Motion for React |
+| Backend | Node.js, Express, Nodemailer |
+| Monitoring | Vercel Analytics, Vercel Speed Insights |
 
----
+## Repository structure
 
-## ✨ Features
-
-- **Responsive Design** – works seamlessly on desktop, tablet, and mobile
-- **Smooth Animations** – motion effects with Framer Motion
-- **Dark Theme** – optimized for modern web aesthetics
-- **Project Showcase** – interactive project cards with links
-- **Tech Stack Display** – categorized skills and technologies
-- **Contact Integration** – easy ways to get in touch
-- **Neural Background** – animated neural network visualization
-
----
-
-## 🛠️ Tech Stack
-
-### Frontend
-- **React 18** – UI library
-- **TypeScript** – type-safe development
-- **Vite** – lightning-fast build tool
-- **Tailwind CSS** – utility-first styling
-- **Framer Motion** – smooth animations
-- **Lucide Icons** – beautiful icon library
-
-### Backend
-- **Node.js** – runtime
-- **Express** – web framework
-- **CORS** – cross-origin support
-
-### Design
-- **Figma** – original design: [Portfolio Design](https://www.figma.com/design/vFDKBkjeDQdlK0tZAdiMmJ/SHEHEEN_PORTFOLIO)
-
----
-
-## 📁 Project Structure
-
-```
+```text
 .
+├── public/
+│   └── Sheheen_Resume.pdf       # Downloadable resume
 ├── src/
 │   ├── components/
-│   │   ├── Hero.tsx          # Landing section with intro
-│   │   ├── About.tsx         # About me section
-│   │   ├── Projects.tsx      # Project showcase
-│   │   ├── Experience.tsx    # Work & education history
-│   │   ├── TechStack.tsx     # Skills & technologies
-│   │   ├── Contact.tsx       # Contact section
-│   │   ├── NeuralBackground.tsx  # Animated background
-│   │   └── ui/               # Reusable UI components
-│   ├── App.tsx               # Main app component
-│   ├── main.tsx              # Entry point
-│   └── styles/               # Global styles
+│   │   ├── ui/                  # Reusable UI primitives
+│   │   ├── About.tsx
+│   │   ├── Contact.tsx
+│   │   ├── Experience.tsx
+│   │   ├── Hero.tsx
+│   │   ├── NeuralBackground.tsx
+│   │   ├── Projects.tsx
+│   │   └── TechStack.tsx
+│   ├── App.tsx                  # Page composition
+│   ├── index.css                # Generated utilities and global theme
+│   └── main.tsx                 # Browser entry point and analytics
 ├── backend/
-│   ├── server.js             # Express server
-│   └── package.json          # Backend dependencies
-├── index.html                # HTML template
-├── vite.config.ts            # Vite configuration
-└── package.json              # Dependencies & scripts
+│   ├── .env.example             # Backend environment template
+│   ├── server.js                # Contact API
+│   ├── test-endpoint.js         # Endpoint smoke test
+│   └── package.json
+├── index.html
+├── package.json                 # Frontend dependencies and scripts
+└── vite.config.ts
 ```
 
----
+## Prerequisites
 
-## 🚀 Getting Started
+- Node.js 18 or newer
+- npm
+- A Gmail account with two-factor authentication and an app password, if the contact form should send email
 
-### Prerequisites
-- Node.js (v16 or higher)
-- npm or yarn
+## Local development
 
-### Installation & Development
+The frontend and backend use separate dependency trees and run as separate processes.
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/sheheenmtp/sheheen-portfolio.git
-   cd sheheen-portfolio
-   ```
+### 1. Install the frontend
 
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
+```bash
+git clone https://github.com/sheheenmtp/sheheen-portfolio.git
+cd sheheen-portfolio
+npm install
+npm run dev
+```
 
-3. **Start the development server**
-   ```bash
-   npm run dev
-   ```
-   Open [http://localhost:5173](http://localhost:5173) in your browser.
+Vite serves the site at `http://localhost:3000` and opens it in the default browser.
 
-4. **Build for production**
-   ```bash
-   npm run build
-   ```
+### 2. Configure and start the contact API
 
-### Running the Backend
+In a second terminal:
 
 ```bash
 cd backend
 npm install
-npm start
+cp .env.example .env
 ```
-Backend runs on `http://localhost:3000` by default.
 
-### Testing Backend
+Update `backend/.env` with real credentials:
+
+```dotenv
+EMAIL_USER=your_email@gmail.com
+EMAIL_PASS=your_gmail_app_password
+PORT=3001
+```
+
+Then start the API:
 
 ```bash
-cd backend
-npm test
+npm run dev
 ```
 
----
+The frontend currently posts the contact form to `http://localhost:3001/send-email`, so port `3001` should be used for local development.
 
-## 🌐 Deployment
+### Environment variables
 
-### Deploy to Vercel
+| Variable | Required | Default | Purpose |
+| --- | --- | --- | --- |
+| `EMAIL_USER` | Yes, for email | None | Gmail address used as sender and recipient |
+| `EMAIL_PASS` | Yes, for email | None | Gmail app password; do not use the account password |
+| `PORT` | No | `3001` | Backend HTTP port |
 
-1. Connect your GitHub repository to Vercel
-2. Vercel will auto-detect Vite configuration (the project builds to `dist/` by default)
-3. Set build command: `npm run build`
-4. Ensure **Output Directory** is set to `dist` in the Vercel project settings (or add a `vercel.json` with `{"outputDirectory":"dist"}`).
-5. Deploy automatically on every push to `main`
+Never commit `.env` or real email credentials.
 
-**Current Deployment:** [vercel.com](https://sheheen-portfolio.vercel.app)
+## Available scripts
 
-### Environment Variables
+From the repository root:
 
-Create a `.env` file for local development:
-```
-VITE_API_URL=http://localhost:3000
-```
+| Command | Description |
+| --- | --- |
+| `npm run dev` | Start the Vite development server |
+| `npm run build` | Create a production bundle in `dist/` |
 
----
+From `backend/`:
 
-## 📝 Key Files
+| Command | Description |
+| --- | --- |
+| `npm start` | Start the API with Node.js |
+| `npm run dev` | Start the API with Nodemon and reload on changes |
+| `npm test` | Run the endpoint smoke test against a running API |
 
-- [Hero Component](src/components/Hero.tsx) – Landing page with animated name
-- [About Component](src/components/About.tsx) – Bio and key highlights
-- [Projects Component](src/components/Projects.tsx) – Featured projects
-- [Tech Stack Component](src/components/TechStack.tsx) – Skills and tools
-- [Backend Server](backend/server.js) – API endpoints
+The backend smoke test attempts to send a real message when valid credentials are configured.
 
----
+## Contact API
 
-## 🎨 Customization
+### Health check
 
-### Change Name Title Color
-
-Edit [src/components/Hero.tsx](src/components/Hero.tsx):
-```tsx
-// Find the className with gradient
-className="inline-block bg-gradient-to-r from-blue-700 via-blue-600 to-blue-500 bg-clip-text text-transparent"
-
-// Change gradient colors:
-// from-blue-700 → starting color
-// via-blue-600 → middle color
-// to-blue-500 → ending color
+```http
+GET /
 ```
 
-### Update Content
+Successful response:
 
-- **About:** [src/components/About.tsx](src/components/About.tsx)
-- **Projects:** [src/components/Projects.tsx](src/components/Projects.tsx)
-- **Experience:** [src/components/Experience.tsx](src/components/Experience.tsx)
-- **Contact:** [src/components/Contact.tsx](src/components/Contact.tsx)
+```json
+{
+  "message": "Portfolio backend server is running!"
+}
+```
 
----
+### Send a message
 
-## 📞 Contact
+```http
+POST /send-email
+Content-Type: application/json
+```
 
-- **Email:** [Your Email]
-- **LinkedIn:** [Your LinkedIn]
-- **GitHub:** [@sheheenmtp](https://github.com/sheheenmtp)
-- **Twitter/X:** [Your Handle]
+Request body:
 
----
+```json
+{
+  "name": "Visitor Name",
+  "email": "visitor@example.com",
+  "message": "Hello from the portfolio."
+}
+```
 
-## 📄 License
+Successful response (`200`):
 
-This project is open source and available under the MIT License.
+```json
+{
+  "success": true,
+  "message": "Message sent successfully!"
+}
+```
 
----
+Invalid or missing input returns `400`; mail transport failures return `500`.
 
-## 🙏 Attributions
+To exercise the validation path without sending mail:
 
-See [ATTRIBUTIONS.md](src/Attributions.md) for libraries and resources used.
+```bash
+curl -X POST http://localhost:3001/send-email \
+  -H "Content-Type: application/json" \
+  -d '{"name":"Test User","email":"invalid","message":"Hello"}'
+```
 
----
+## Production build and deployment
 
-**Happy coding! 🚀**
-  
+Build the frontend with:
+
+```bash
+npm run build
+```
+
+The static output is written to `dist/`. It can be deployed to Vercel or any static host that supports a Vite single-page application.
+
+The Express API must be deployed separately to a Node.js host such as Render or Railway, with `EMAIL_USER` and `EMAIL_PASS` configured in the host's secret manager. Before deploying, replace the hard-coded local API URL in `src/components/Contact.tsx` with the deployed backend URL or an environment-based configuration.
+
+## Content updates
+
+Portfolio content is colocated with the component that renders it:
+
+- Introduction and resume link: `src/components/Hero.tsx`
+- Biography: `src/components/About.tsx`
+- Featured work: `src/components/Projects.tsx`
+- Work and education history: `src/components/Experience.tsx`
+- Skills: `src/components/TechStack.tsx`
+- Contact details and form endpoint: `src/components/Contact.tsx`
+
+## Current implementation notes
+
+- The contact endpoint is hard-coded for local development; the frontend does not currently read an API URL from an environment variable.
+- CORS currently allows requests from any origin. Restrict it to the deployed frontend origin in production.
+- The custom rate-limit middleware is registered after the `/send-email` route, so it does not currently protect that endpoint. Move it before the route or use a maintained rate-limiting package before relying on it.
+- User-provided values are interpolated into the HTML email. Escape or sanitize them before treating the endpoint as production-ready.
+- There is no automated frontend test suite or lint script at present.
+
+## Attributions
+
+The interface includes components derived from [shadcn/ui](https://ui.shadcn.com/) under the MIT license. Additional attribution details are in [`src/Attributions.md`](src/Attributions.md).
