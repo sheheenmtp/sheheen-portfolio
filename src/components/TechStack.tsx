@@ -1,17 +1,45 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import {
+  AlignLeft,
+  BetweenHorizontalStart,
+  Binary,
   Bot,
   Brain,
+  BrainCircuit,
+  Cable,
+  Camera,
+  ChartLine,
+  ChartSpline,
+  Cloud,
   Code,
+  Combine,
   Container,
   Database,
   Eye,
+  FileChartColumn,
+  FileStack,
+  Filter,
   GitBranch,
+  GitFork,
+  Layers3,
   Languages,
+  ListChecks,
+  Network,
+  NotebookTabs,
+  Repeat2,
+  ScanEye,
+  ScanText,
+  Scissors,
   Server,
+  Sigma,
+  SlidersHorizontal,
   Sparkles,
+  Table2,
+  Tags,
   Terminal,
+  Waypoints,
+  Workflow,
   type LucideIcon,
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
@@ -115,21 +143,57 @@ export function TechStack() {
   const skillIcons: Partial<Record<string, LucideIcon>> = {
     Python: Code,
     SQL: Database,
-    'Hugging Face Datasets': Database,
+    PyTorch: BrainCircuit,
+    TensorFlow: Network,
+    'scikit-learn': Binary,
+    'Deep Learning': BrainCircuit,
+    'Transfer Learning': GitFork,
+    'Model Evaluation': ListChecks,
+    'Hugging Face Transformers': Workflow,
+    'NLLB-200': Languages,
+    OpenNMT: Languages,
+    'Sentence Transformers': BetweenHorizontalStart,
+    LaBSE: BetweenHorizontalStart,
+    Tokenization: Scissors,
+    'POS Tagging': Tags,
+    NER: ScanText,
+    Chunking: Combine,
+    'Dependency Parsing': GitFork,
+    'Discourse Annotation': AlignLeft,
+    'Morphological Segmentation': Scissors,
+    Summarization: AlignLeft,
+    Paraphrasing: Repeat2,
+    PEFT: SlidersHorizontal,
+    LoRA: Layers3,
+    QLoRA: Layers3,
+    Quantization: Binary,
     'Prompt Engineering': Sparkles,
     Ollama: Bot,
     'Qwen2.5-Coder': Bot,
+    NumPy: Sigma,
+    Pandas: Table2,
+    'Hugging Face Datasets': FileStack,
+    'Semantic Similarity': BetweenHorizontalStart,
+    'Cosine Similarity': Waypoints,
+    'Corpus Filtering': Filter,
+    BLEU: ChartSpline,
+    chrF: ChartLine,
+    'Loss & Perplexity Analysis': FileChartColumn,
     FastAPI: Server,
+    SQLAlchemy: Database,
     PostgreSQL: Database,
-    'REST APIs': Server,
+    'REST APIs': Cable,
     Docker: Container,
     'Docker Compose': Container,
     Judge0: Terminal,
     Git: GitBranch,
     Linux: Terminal,
-    OpenCV: Eye,
-    YOLOv8: Eye,
-    'Object Detection': Eye,
+    Jupyter: NotebookTabs,
+    'Google Colab': Cloud,
+    OpenCV: Camera,
+    YOLOv8: ScanEye,
+    'Object Detection': ScanEye,
+    MediaPipe: Waypoints,
   };
 
   return (
@@ -159,7 +223,7 @@ export function TechStack() {
                 <CardHeader>
                   <div className="flex items-center space-x-4">
                     <div className="accent-icon p-2 rounded-full">
-                      <category.icon className="w-6 h-6" />
+                      <category.icon className="w-6 h-6" aria-hidden="true" />
                     </div>
                     <CardTitle className="text-xl font-bold text-white">
                       {category.category}
@@ -178,7 +242,7 @@ export function TechStack() {
                           whileHover={{ scale: 1.05 }}
                           className="accent-chip flex items-center space-x-2 px-3 py-1 rounded-full text-sm"
                         >
-                          {SkillIcon && <SkillIcon className="w-4 h-4" />}
+                          {SkillIcon && <SkillIcon className="w-4 h-4" aria-hidden="true" />}
                           <span>{skill}</span>
                         </motion.div>
                       );

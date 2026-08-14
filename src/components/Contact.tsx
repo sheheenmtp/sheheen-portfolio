@@ -141,9 +141,11 @@ export function Contact() {
           {...reveal()}
           className="text-center mb-16"
         >
-          <div className="accent-chip inline-flex items-center space-x-2 px-3 py-1 rounded-full text-sm mb-6">
-            <Sparkles className="w-4 h-4" />
-            <span>Open to meaningful collaborations</span>
+          <div className="flex justify-center mb-6">
+            <div className="accent-chip inline-flex items-center space-x-2 px-3 py-1 rounded-full text-sm">
+              <Sparkles className="w-4 h-4" />
+              <span>Open to meaningful collaborations</span>
+            </div>
           </div>
           <h2 className="section-title text-4xl md:text-5xl font-bold">
             Let’s Build Something Useful

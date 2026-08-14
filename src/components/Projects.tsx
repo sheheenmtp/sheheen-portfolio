@@ -26,22 +26,23 @@ export function Projects() {
       github: "#"
     },
     {
-      title: "Autonomous USV for Aquatic Waste Detection",
+      title: "Autonomous USV for Debris Collection",
       description:
-        "Computer-vision subsystem for floating-waste detection and autonomous surface-vehicle operation; YOLOv8 + OpenCV + ESP32 control.",
+        "AI-powered unmanned surface vehicle for detecting and collecting floating plastic waste using YOLOv8, OpenCV, and ESP32 control.",
       icon: Ship,
       tech: ["Python", "YOLOv8", "OpenCV", "ESP32"],
       gradient: "from-blue-400 to-blue-600",
-      github: "#"
+      github: "https://github.com/sheheenmtp/usv-debris-collection"
     },
     {
       title: "GestureSync",
       description:
-        "Multimodal HCI system combining real-time hand-landmark recognition with voice-command processing for hands-free desktop control.",
+        "Collaborative multimodal HCI project combining real-time hand-landmark recognition with voice-command processing for hands-free desktop control.",
       icon: Hand,
       tech: ["Python", "OpenCV", "MediaPipe", "Speech Recognition"],
       gradient: "from-blue-400 to-blue-600",
-      github: "#"
+      github: "https://github.com/sheheenmtp/Gesture_Sync",
+      attribution: "Team project · linked to my fork"
     },
     {
       title: "Linux Adaptive Tutor",
@@ -122,6 +123,9 @@ export function Projects() {
                 </CardHeader>
                 
                 <CardContent className="relative">
+                  {'attribution' in project && project.attribution && (
+                    <p className="section-copy mb-4 text-sm">{project.attribution}</p>
+                  )}
                   <div className="flex flex-wrap gap-2">
                     {project.tech.map((tech) => (
                       <span

@@ -7,8 +7,10 @@ import {
   Briefcase,
   Code2,
   Database,
+  ExternalLink,
   GraduationCap,
   Settings,
+  ShieldCheck,
   Sparkles,
 } from 'lucide-react';
 import { reveal } from '../lib/motion';
@@ -35,36 +37,70 @@ export function Credentials() {
       issuer: 'IBM',
       category: 'Prompt Engineering',
       icon: Sparkles,
+      verificationUrl: 'https://coursera.org/share/4598dafeedc050fe3c4d097668a96ca5',
     },
     {
       title: 'Generative AI: Introduction and Applications',
       issuer: 'IBM',
       category: 'Generative AI',
       icon: Brain,
+      verificationUrl: 'https://coursera.org/share/606711336eacfb22bd1aba11129e47a9',
     },
     {
-      title: 'Introduction to Artificial Intelligence',
+      title: 'Introduction to Artificial Intelligence (AI)',
       issuer: 'IBM',
       category: 'Artificial Intelligence',
       icon: Brain,
+      verificationUrl: 'https://coursera.org/share/3266fa2b23c4475bcc1bbfb0c19245b6',
     },
     {
       title: 'AI Foundations for Business Specialization',
       issuer: 'IBM',
       category: 'Business AI',
       icon: Briefcase,
+      verificationUrl: 'https://coursera.org/share/1968bc1cd55e460c208ac7a5d22af337',
     },
     {
-      title: 'Python for Data Science, AI and Development',
+      title: 'Python for Data Science, AI & Development',
       issuer: 'IBM',
       category: 'Python',
       icon: Code2,
+      verificationUrl: 'https://coursera.org/share/6ba369bbe4c1393607ede83fb6838e76',
     },
     {
       title: 'PostgreSQL for Everybody Specialization',
       issuer: 'University of Michigan',
       category: 'PostgreSQL',
       icon: Database,
+      verificationUrl: 'https://coursera.org/share/6d068dfd47c5ae8fe8aa17eef258af30',
+    },
+    {
+      title: 'Google Cybersecurity Specialization',
+      issuer: 'Google / Coursera',
+      category: 'Cybersecurity',
+      icon: ShieldCheck,
+      verificationUrl: 'https://coursera.org/share/874206645a7bfde7908160b58b9f62fb',
+    },
+    {
+      title: 'Tools for Data Science',
+      issuer: 'IBM / Coursera',
+      category: 'Data Science',
+      icon: Database,
+      verificationUrl: 'https://coursera.org/verify/0BX2136DCGZH',
+    },
+    {
+      title: 'Tools of the Trade: Linux and SQL',
+      issuer: 'Google / Coursera',
+      category: 'Linux & SQL',
+      icon: Settings,
+      verificationUrl: 'https://coursera.org/verify/AT8EYQUUKTHE',
+    },
+    {
+      title: 'SQL (Advanced)',
+      issuer: 'HackerRank',
+      category: 'SQL',
+      icon: Database,
+      certificateId: 'F8F80D286164',
     },
   ];
 
@@ -141,6 +177,23 @@ export function Credentials() {
                       <BadgeCheck className="w-5 h-5 text-blue-400" />
                       <span>Issued by {certification.issuer}</span>
                     </div>
+                    {'verificationUrl' in certification && certification.verificationUrl && (
+                      <a
+                        href={certification.verificationUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="certificate-link mt-4"
+                        aria-label={`Verify ${certification.title} certificate`}
+                      >
+                        Verify certificate
+                        <ExternalLink aria-hidden="true" />
+                      </a>
+                    )}
+                    {'certificateId' in certification && certification.certificateId && (
+                      <p className="section-copy mt-4 text-sm">
+                        Certificate ID: {certification.certificateId}
+                      </p>
+                    )}
                   </div>
                 </div>
               </motion.article>
