@@ -1,10 +1,9 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import {
-  ArrowRight,
   Briefcase,
   ChevronDown,
-  FileDown,
+  FileText,
   Github,
   Languages,
   Linkedin,
@@ -103,16 +102,20 @@ export function Hero() {
               size="lg"
               className="primary-cta"
             >
-              <a href="/Sheheen_Resume.pdf" download>
-                <FileDown size={18} />
-                Download Resume
+              <a
+                href="/Sheheen_Resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FileText size={18} />
+                View Resume
               </a>
             </Button>
 
             <Button asChild size="lg" variant="outline">
-              <a href="mailto:muhamammedsheheen0@gmail.com">
-                Let's Connect
-                <ArrowRight size={18} />
+              <a href="#contact">
+                <Mail size={18} />
+                Get in Touch
               </a>
             </Button>
           </motion.div>

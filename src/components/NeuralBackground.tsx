@@ -34,8 +34,10 @@ export function NeuralBackground() {
 
     const nodes: Array<{ x: number; y: number; vx: number; vy: number }> = [];
     const nodeCount = window.innerWidth < 768 ? 22 : 38;
-    const nodeColor = isLight ? 'rgba(29, 78, 216, 0.78)' : 'rgba(59, 130, 246, 0.6)';
+    const nodeColor = isLight ? 'rgba(29, 78, 216, 0.88)' : 'rgba(96, 165, 250, 0.86)';
     const connectionColor = isLight ? '37, 99, 235' : '59, 130, 246';
+    const connectionDistance = 175;
+    const connectionDistanceSquared = connectionDistance * connectionDistance;
 
     // Initialize nodes
     for (let i = 0; i < nodeCount; i++) {
@@ -63,7 +65,7 @@ export function NeuralBackground() {
         if (node.y > viewportHeight) node.y = 0;
 
         ctx.beginPath();
-        ctx.arc(node.x, node.y, isLight ? 2.4 : 2, 0, Math.PI * 2);
+        ctx.arc(node.x, node.y, isLight ? 2.5 : 2.3, 0, Math.PI * 2);
         ctx.fillStyle = nodeColor;
         ctx.fill();
 
@@ -73,14 +75,14 @@ export function NeuralBackground() {
           const deltaY = node.y - otherNode.y;
           const distanceSquared = deltaX * deltaX + deltaY * deltaY;
 
-          if (distanceSquared < 22500) {
+          if (distanceSquared < connectionDistanceSquared) {
             const distance = Math.sqrt(distanceSquared);
             ctx.beginPath();
             ctx.moveTo(node.x, node.y);
             ctx.lineTo(otherNode.x, otherNode.y);
-            const opacity = (isLight ? 0.34 : 0.3) - distance / (isLight ? 700 : 500);
-            ctx.strokeStyle = `rgba(${connectionColor}, ${Math.max(opacity, isLight ? 0.1 : 0.03)})`;
-            ctx.lineWidth = isLight ? 1.2 : 1;
+            const opacity = (isLight ? 0.38 : 0.34) - distance / (isLight ? 820 : 760);
+            ctx.strokeStyle = `rgba(${connectionColor}, ${Math.max(opacity, isLight ? 0.14 : 0.1)})`;
+            ctx.lineWidth = isLight ? 1.2 : 1.1;
             ctx.stroke();
           }
         }

@@ -4,6 +4,7 @@ import { createRoot } from "react-dom/client";
 import { ThemeProvider } from "next-themes";
 import { MotionConfig } from "motion/react";
 import App from "./App.tsx";
+import "./flaticon.css";
 import "./index.css";
 import "./theme.css";
 

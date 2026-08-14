@@ -329,6 +329,12 @@ export function Contact() {
           <p className="text-gray-500">
             © 2026 Muhammed Sheheen M T P. Engineering the future with AI.
           </p>
+          <p className="mt-2 text-sm text-gray-500">
+            UIcons by{' '}
+            <a href="https://www.flaticon.com/uicons" target="_blank" rel="noopener noreferrer">
+              Flaticon
+            </a>
+          </p>
         </motion.footer>
       </div>
     </section>

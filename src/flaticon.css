@@ -1,0 +1,63 @@
+/* Flaticon UIcons subset used by TechStack.tsx. */
+@font-face {
+  font-family: "uicons-regular-rounded";
+  src: url("../node_modules/@flaticon/flaticon-uicons/css/uicons-regular-rounded-J3WOUERV.woff2") format("woff2");
+  font-display: swap;
+}
+
+i[class^="fi-rr-"]::before,
+i[class*=" fi-rr-"]::before {
+  font-family: "uicons-regular-rounded" !important;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 400 !important;
+  line-height: 1;
+  text-transform: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.fi-rr-algorithm::before { content: "\f138"; }
+.fi-rr-align-left::before { content: "\f13d"; }
+.fi-rr-api::before { content: "\f165"; }
+.fi-rr-arrows-h-copy::before { content: "\f1c1"; }
+.fi-rr-arrows-repeat::before { content: "\f1c4"; }
+.fi-rr-artificial-intelligence::before { content: "\f1cd"; }
+.fi-rr-assessment::before { content: "\f1d0"; }
+.fi-rr-binary::before { content: "\f24e"; }
+.fi-rr-brain-circuit::before { content: "\f2dd"; }
+.fi-rr-camera::before { content: "\f348"; }
+.fi-rr-camera-viewfinder::before { content: "\f347"; }
+.fi-rr-chart-histogram::before { content: "\f3a2"; }
+.fi-rr-chart-line-up-down::before { content: "\f3a4"; }
+.fi-rr-chart-network::before { content: "\f3a9"; }
+.fi-rr-chart-scatter::before { content: "\f3b2"; }
+.fi-rr-cloud-code::before { content: "\f461"; }
+.fi-rr-code-branch::before { content: "\f482"; }
+.fi-rr-code-fork::before { content: "\f485"; }
+.fi-rr-code-simple::before { content: "\f48a"; }
+.fi-rr-comment-code::before { content: "\f4a6"; }
+.fi-rr-container-storage::before { content: "\f4d2"; }
+.fi-rr-data-transfer::before { content: "\f524"; }
+.fi-rr-database::before { content: "\f525"; }
+.fi-rr-eye::before { content: "\f5f8"; }
+.fi-rr-filter::before { content: "\f67e"; }
+.fi-rr-folder-open::before { content: "\f6b5"; }
+.fi-rr-hand::before { content: "\f76c"; }
+.fi-rr-language::before { content: "\f868"; }
+.fi-rr-layers::before { content: "\f87c"; }
+.fi-rr-network-analytic::before { content: "\f99f"; }
+.fi-rr-notebook::before { content: "\f9ba"; }
+.fi-rr-objects-column::before { content: "\f9c4"; }
+.fi-rr-robot::before { content: "\fb61"; }
+.fi-rr-scanner-image::before { content: "\fb9b"; }
+.fi-rr-scissors::before { content: "\fba2"; }
+.fi-rr-search-alt::before { content: "\fbb6"; }
+.fi-rr-settings-sliders::before { content: "\fbd1"; }
+.fi-rr-sigma::before { content: "\fc09"; }
+.fi-rr-sitemap::before { content: "\fc24"; }
+.fi-rr-table::before { content: "\fd41"; }
+.fi-rr-tags::before { content: "\fd51"; }
+.fi-rr-terminal::before { content: "\fd78"; }
+.fi-rr-text::before { content: "\fd85"; }
+.fi-rr-token::before { content: "\fdc4"; }

@@ -1,64 +1,22 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import {
-  AlignLeft,
-  BetweenHorizontalStart,
-  Binary,
-  Bot,
-  Brain,
-  BrainCircuit,
-  Cable,
-  Camera,
-  ChartLine,
-  ChartSpline,
-  Cloud,
-  Code,
-  Combine,
-  Container,
-  Database,
-  Eye,
-  FileChartColumn,
-  FileStack,
-  Filter,
-  GitBranch,
-  GitFork,
-  Layers3,
-  Languages,
-  ListChecks,
-  Network,
-  NotebookTabs,
-  Repeat2,
-  ScanEye,
-  ScanText,
-  Scissors,
-  Server,
-  Sigma,
-  SlidersHorizontal,
-  Sparkles,
-  Table2,
-  Tags,
-  Terminal,
-  Waypoints,
-  Workflow,
-  type LucideIcon,
-} from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { reveal } from '../lib/motion';
 
 export function TechStack() {
   const techCategories: Array<{
     category: string;
-    icon: LucideIcon;
+    icon: string;
     skills: string[];
   }> = [
     {
       category: 'Programming',
-      icon: Code,
+      icon: 'fi-rr-code-simple',
       skills: ['Python', 'SQL'],
     },
     {
       category: 'Machine Learning',
-      icon: Brain,
+      icon: 'fi-rr-artificial-intelligence',
       skills: [
         'PyTorch',
         'TensorFlow',
@@ -70,7 +28,7 @@ export function TechStack() {
     },
     {
       category: 'NLP / Machine Translation',
-      icon: Languages,
+      icon: 'fi-rr-language',
       skills: [
         'Hugging Face Transformers',
         'NLLB-200',
@@ -90,7 +48,7 @@ export function TechStack() {
     },
     {
       category: 'LLM / Generative AI',
-      icon: Sparkles,
+      icon: 'fi-rr-robot',
       skills: [
         'PEFT',
         'LoRA',
@@ -103,7 +61,7 @@ export function TechStack() {
     },
     {
       category: 'Data / Evaluation',
-      icon: Database,
+      icon: 'fi-rr-database',
       skills: [
         'NumPy',
         'Pandas',
@@ -118,7 +76,7 @@ export function TechStack() {
     },
     {
       category: 'Backend / Infrastructure',
-      icon: Server,
+      icon: 'fi-rr-data-transfer',
       skills: [
         'FastAPI',
         'SQLAlchemy',
@@ -135,65 +93,65 @@ export function TechStack() {
     },
     {
       category: 'Computer Vision',
-      icon: Eye,
+      icon: 'fi-rr-eye',
       skills: ['OpenCV', 'YOLOv8', 'Object Detection', 'MediaPipe'],
     },
   ];
 
-  const skillIcons: Partial<Record<string, LucideIcon>> = {
-    Python: Code,
-    SQL: Database,
-    PyTorch: BrainCircuit,
-    TensorFlow: Network,
-    'scikit-learn': Binary,
-    'Deep Learning': BrainCircuit,
-    'Transfer Learning': GitFork,
-    'Model Evaluation': ListChecks,
-    'Hugging Face Transformers': Workflow,
-    'NLLB-200': Languages,
-    OpenNMT: Languages,
-    'Sentence Transformers': BetweenHorizontalStart,
-    LaBSE: BetweenHorizontalStart,
-    Tokenization: Scissors,
-    'POS Tagging': Tags,
-    NER: ScanText,
-    Chunking: Combine,
-    'Dependency Parsing': GitFork,
-    'Discourse Annotation': AlignLeft,
-    'Morphological Segmentation': Scissors,
-    Summarization: AlignLeft,
-    Paraphrasing: Repeat2,
-    PEFT: SlidersHorizontal,
-    LoRA: Layers3,
-    QLoRA: Layers3,
-    Quantization: Binary,
-    'Prompt Engineering': Sparkles,
-    Ollama: Bot,
-    'Qwen2.5-Coder': Bot,
-    NumPy: Sigma,
-    Pandas: Table2,
-    'Hugging Face Datasets': FileStack,
-    'Semantic Similarity': BetweenHorizontalStart,
-    'Cosine Similarity': Waypoints,
-    'Corpus Filtering': Filter,
-    BLEU: ChartSpline,
-    chrF: ChartLine,
-    'Loss & Perplexity Analysis': FileChartColumn,
-    FastAPI: Server,
-    SQLAlchemy: Database,
-    PostgreSQL: Database,
-    'REST APIs': Cable,
-    Docker: Container,
-    'Docker Compose': Container,
-    Judge0: Terminal,
-    Git: GitBranch,
-    Linux: Terminal,
-    Jupyter: NotebookTabs,
-    'Google Colab': Cloud,
-    OpenCV: Camera,
-    YOLOv8: ScanEye,
-    'Object Detection': ScanEye,
-    MediaPipe: Waypoints,
+  const skillIcons: Record<string, string> = {
+    Python: 'fi-rr-code-simple',
+    SQL: 'fi-rr-database',
+    PyTorch: 'fi-rr-brain-circuit',
+    TensorFlow: 'fi-rr-chart-network',
+    'scikit-learn': 'fi-rr-algorithm',
+    'Deep Learning': 'fi-rr-artificial-intelligence',
+    'Transfer Learning': 'fi-rr-code-fork',
+    'Model Evaluation': 'fi-rr-assessment',
+    'Hugging Face Transformers': 'fi-rr-layers',
+    'NLLB-200': 'fi-rr-language',
+    OpenNMT: 'fi-rr-language',
+    'Sentence Transformers': 'fi-rr-arrows-h-copy',
+    LaBSE: 'fi-rr-network-analytic',
+    Tokenization: 'fi-rr-token',
+    'POS Tagging': 'fi-rr-tags',
+    NER: 'fi-rr-search-alt',
+    Chunking: 'fi-rr-objects-column',
+    'Dependency Parsing': 'fi-rr-sitemap',
+    'Discourse Annotation': 'fi-rr-text',
+    'Morphological Segmentation': 'fi-rr-scissors',
+    Summarization: 'fi-rr-align-left',
+    Paraphrasing: 'fi-rr-arrows-repeat',
+    PEFT: 'fi-rr-settings-sliders',
+    LoRA: 'fi-rr-layers',
+    QLoRA: 'fi-rr-layers',
+    Quantization: 'fi-rr-binary',
+    'Prompt Engineering': 'fi-rr-comment-code',
+    Ollama: 'fi-rr-robot',
+    'Qwen2.5-Coder': 'fi-rr-robot',
+    NumPy: 'fi-rr-sigma',
+    Pandas: 'fi-rr-table',
+    'Hugging Face Datasets': 'fi-rr-folder-open',
+    'Semantic Similarity': 'fi-rr-arrows-h-copy',
+    'Cosine Similarity': 'fi-rr-chart-scatter',
+    'Corpus Filtering': 'fi-rr-filter',
+    BLEU: 'fi-rr-chart-histogram',
+    chrF: 'fi-rr-chart-histogram',
+    'Loss & Perplexity Analysis': 'fi-rr-chart-line-up-down',
+    FastAPI: 'fi-rr-api',
+    SQLAlchemy: 'fi-rr-database',
+    PostgreSQL: 'fi-rr-database',
+    'REST APIs': 'fi-rr-api',
+    Docker: 'fi-rr-container-storage',
+    'Docker Compose': 'fi-rr-layers',
+    Judge0: 'fi-rr-terminal',
+    Git: 'fi-rr-code-branch',
+    Linux: 'fi-rr-terminal',
+    Jupyter: 'fi-rr-notebook',
+    'Google Colab': 'fi-rr-cloud-code',
+    OpenCV: 'fi-rr-camera',
+    YOLOv8: 'fi-rr-camera-viewfinder',
+    'Object Detection': 'fi-rr-scanner-image',
+    MediaPipe: 'fi-rr-hand',
   };
 
   return (
@@ -223,7 +181,7 @@ export function TechStack() {
                 <CardHeader>
                   <div className="flex items-center space-x-4">
                     <div className="accent-icon p-2 rounded-full">
-                      <category.icon className="w-6 h-6" aria-hidden="true" />
+                      <i className={`fi ${category.icon} tech-flaticon tech-flaticon--category`} aria-hidden="true" />
                     </div>
                     <CardTitle className="text-xl font-bold text-white">
                       {category.category}
@@ -234,7 +192,7 @@ export function TechStack() {
                 <CardContent>
                   <div className="flex flex-wrap gap-2">
                     {category.skills.map((skill) => {
-                      const SkillIcon = skillIcons[skill];
+                      const skillIcon = skillIcons[skill];
 
                       return (
                         <motion.div
@@ -242,7 +200,7 @@ export function TechStack() {
                           whileHover={{ scale: 1.05 }}
                           className="accent-chip flex items-center space-x-2 px-3 py-1 rounded-full text-sm"
                         >
-                          {SkillIcon && <SkillIcon className="w-4 h-4" aria-hidden="true" />}
+                          <i className={`fi ${skillIcon} tech-flaticon`} aria-hidden="true" />
                           <span>{skill}</span>
                         </motion.div>
                       );
