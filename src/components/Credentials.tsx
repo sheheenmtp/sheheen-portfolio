@@ -112,7 +112,7 @@ export function Credentials() {
           className="text-center mb-16"
         >
           <h2 className="section-title text-4xl md:text-5xl font-bold">
-            Education & Certifications
+            Education & Credentials
           </h2>
           <p className="section-copy text-lg">
             Academic foundations and continued learning in AI, data, and engineering

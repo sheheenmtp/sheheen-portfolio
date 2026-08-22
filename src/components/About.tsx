@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { Code, Coffee, Heart } from 'lucide-react';
+import { BrainCircuit, Code2, Workflow } from 'lucide-react';
 import photo from '../sheheen.webp';
 import { fade, reveal } from '../lib/motion';
 
@@ -46,46 +46,41 @@ export function About() {
             className="space-y-6"
           >
             <h3 className="text-2xl font-bold text-white mb-6">
-              AI/ML Engineer specializing in language technology and intelligent systems
+              I build and integrate AI models into usable software systems.
             </h3>
             
             <p className="text-gray-300 text-lg leading-relaxed">
-              I have one year of hands-on experience as a Paid Intern at ICFOSS, contributing to
-              Malayalam NLP and BHASHINI language-technology workflows. My work spans linguistic
-              data annotation, English–Malayalam corpus engineering, semantic filtering, NLLB-200
-              fine-tuning, OpenNMT experiments, and translation evaluation.
+              My work spans AI/ML, Generative AI, LLM applications, backend API engineering,
+              computer vision, data processing, and multilingual machine translation. At ICFOSS,
+              I have contributed to research and engineering workflows from dataset preparation
+              and model experimentation through application integration.
             </p>
 
             <p className="text-gray-300 text-lg leading-relaxed">
-              I also build LLM-powered applications and backend APIs and have supported live multilingual
-              AI deployments. My core toolkit includes Python, PyTorch, Hugging Face Transformers,
-              PEFT/LoRA, FastAPI, PostgreSQL, Docker, and Linux, with additional experience in computer
-              vision using OpenCV and YOLOv8.
+              I use Python, PyTorch, scikit-learn, Hugging Face, FastAPI, PostgreSQL, Docker,
+              OpenCV, and Ollama to turn models into practical tools. I also have basic hands-on
+              experience creating n8n workflows with APIs, webhooks, and multi-step automation.
             </p>
 
             <div className="flex flex-wrap items-center gap-x-6 gap-y-3 text-gray-400">
               <div className="flex items-center space-x-2">
-                <Code className="text-blue-400" size={20} />
-                <span>Malayalam NLP</span>
+                <BrainCircuit className="text-blue-400" size={20} />
+                <span>AI Systems</span>
               </div>
               <div className="flex items-center space-x-2">
-                <Coffee className="text-blue-400" size={20} />
-                <span>Machine Translation</span>
+                <Code2 className="text-blue-400" size={20} />
+                <span>Backend APIs</span>
               </div>
               <div className="flex items-center space-x-2">
-                <Heart className="text-blue-400" size={20} />
-                <span>Applied AI</span>
+                <Workflow className="text-blue-400" size={20} />
+                <span>AI Automation</span>
               </div>
             </div>
 
-            <motion.div
-              {...fade(0.22)}
-              className="surface-card p-6 border"
-            >
-              <p className="text-blue-300 italic">
-                "Building practical multilingual AI systems from high-quality data to live deployment."
-              </p>
-            </motion.div>
+            <motion.p {...fade(0.22)} className="section-copy text-sm">
+              NLP and NMT are part of this broader engineering practice, including NLLB fine-tuning,
+              OpenNMT experimentation, and English–Malayalam parallel-corpus processing.
+            </motion.p>
           </motion.div>
         </div>
       </div>

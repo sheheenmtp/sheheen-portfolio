@@ -193,6 +193,64 @@ textarea:focus-visible {
   font-size: 1.35rem;
 }
 
+.technical-highlights-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.technical-highlight-card {
+  min-height: 10rem;
+}
+
+.featured-project {
+  grid-column: span 2;
+}
+
+.project-category {
+  margin-top: 0.25rem;
+  color: var(--portfolio-blue);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.project-evidence {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.55rem;
+  padding: 0;
+  color: var(--portfolio-text-muted);
+  font-size: 0.82rem;
+  list-style: none;
+}
+
+.project-evidence li {
+  position: relative;
+  padding-left: 0.9rem;
+}
+
+.project-evidence li::before {
+  content: "";
+  position: absolute;
+  top: 0.58em;
+  left: 0;
+  width: 0.32rem;
+  height: 0.32rem;
+  border-radius: 50%;
+  background: var(--portfolio-blue);
+}
+
+.core-skill-chip {
+  padding: 0.55rem 0.9rem;
+  border: 1px solid color-mix(in srgb, var(--portfolio-blue) 48%, transparent);
+  border-radius: 0.7rem;
+  color: var(--portfolio-text);
+  background: color-mix(in srgb, var(--portfolio-blue) 16%, transparent);
+  font-weight: 700;
+}
+
 .primary-cta {
   border: 1px solid color-mix(in srgb, var(--portfolio-blue) 70%, white 12%);
   color: #ffffff !important;
@@ -350,6 +408,8 @@ textarea:focus-visible {
   padding-bottom: 0.24em;
   font-family: var(--font-heading);
   letter-spacing: -0.035em;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .hero-role::after {
@@ -647,6 +707,15 @@ footer a:hover {
     gap: 0.2em;
   }
 
+  .technical-highlights-grid,
+  .project-evidence {
+    grid-template-columns: 1fr;
+  }
+
+  .featured-project {
+    grid-column: auto;
+  }
+
   .hero-scroll-cue {
     display: none;
   }
@@ -662,6 +731,10 @@ footer a:hover {
 }
 
 @media (max-width: 1120px) {
+  .technical-highlights-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
   .nav-links {
     display: none;
   }
@@ -678,6 +751,13 @@ footer a:hover {
   .mobile-nav .nav-link {
     width: 100%;
     padding-inline: 0.9rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .technical-highlights-grid,
+  .project-evidence {
+    grid-template-columns: 1fr;
   }
 }
 

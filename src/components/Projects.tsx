@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { Github, Hand, Languages, Code2, Ship, Terminal } from 'lucide-react';
+import { ExternalLink, Github, Hand, Languages, Code2, Ship, Terminal } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
 import { Button } from './ui/button';
 import { reveal } from '../lib/motion';
@@ -8,27 +8,35 @@ import { reveal } from '../lib/motion';
 export function Projects() {
   const projects = [
     {
-      title: "AI Tutor Platform",
+      title: "AI Tutor — AI-Powered Coding Education Platform",
+      category: "Featured · Full-Stack AI Engineering",
       description:
-        "Full-stack adaptive coding platform with 15 REST APIs for auth, learner progress, problem recommendation, code evaluation, and AI feedback. Adaptive prompting and learner-state logic.",
+        "Built a full-stack coding education platform integrating local LLM inference, adaptive learning, automated code execution, learner-state tracking, REST APIs, and persistent storage.",
       icon: Code2,
-      tech: ["FastAPI", "PostgreSQL", "SQLAlchemy", "Ollama", "Judge0", "Docker"],
+      tech: ["React", "Vite", "Python", "FastAPI", "PostgreSQL", "SQLAlchemy", "Ollama", "Qwen2.5-Coder", "Judge0", "Docker"],
+      evidence: ["15+ REST API endpoints", "PostgreSQL-backed learner state", "Local Qwen2.5-Coder inference", "Judge0 code execution", "Dockerized backend"],
       gradient: "from-blue-400 to-blue-600",
-      github: "https://github.com/sheheenmtp/AI_Tutor"
+      github: "https://github.com/sheheenmtp/AI_Tutor",
+      featured: true,
     },
     {
-      title: "English–Malayalam NMT and Corpus Quality Pipeline",
+      title: "NLLB Malayalam Machine Translation",
+      category: "Generative AI · Model Fine-Tuning · Machine Translation",
       description:
-        "Bilingual corpus preparation, semantic filtering, Transformer training experiments, inference, and translation-quality evaluation; optimized NLLB fine-tuning for limited GPU resources.",
+        "Fine-tuned NLLB for English–Malayalam translation using parameter-efficient LoRA/QLoRA workflows, including parallel-corpus preprocessing, tokenization, training, inference, and evaluation.",
       icon: Languages,
-      tech: ["Python", "PyTorch", "Transformers", "NLLB-200", "OpenNMT", "PEFT/LoRA"],
+      tech: ["Python", "PyTorch", "Hugging Face", "NLLB", "QLoRA", "LoRA"],
+      evidence: ["Parameter-efficient fine-tuning", "Parallel-corpus preprocessing", "Model shared on Hugging Face"],
       gradient: "from-blue-400 to-blue-600",
-      github: "#"
+      github: "#",
+      projectUrl: "https://huggingface.co/Muhammed-sheheen/NLLB_FINETUNIG",
+      linkLabel: "Hugging Face model",
     },
     {
       title: "Autonomous USV for Debris Collection",
+      category: "Computer Vision · Autonomous Systems",
       description:
-        "AI-powered unmanned surface vehicle for detecting and collecting floating plastic waste using YOLOv8, OpenCV, and ESP32 control.",
+        "Built an unmanned surface vehicle that detects floating plastic waste with YOLOv8 and OpenCV, then connects visual detections to ESP32-based collection and control hardware.",
       icon: Ship,
       tech: ["Python", "YOLOv8", "OpenCV", "ESP32"],
       gradient: "from-blue-400 to-blue-600",
@@ -36,8 +44,9 @@ export function Projects() {
     },
     {
       title: "GestureSync",
+      category: "Computer Vision · Human–Computer Interaction",
       description:
-        "Collaborative multimodal HCI project combining real-time hand-landmark recognition with voice-command processing for hands-free desktop control.",
+        "Built a hands-free desktop control system combining real-time MediaPipe hand-landmark recognition, OpenCV video processing, and voice commands.",
       icon: Hand,
       tech: ["Python", "OpenCV", "MediaPipe", "Speech Recognition"],
       gradient: "from-blue-400 to-blue-600",
@@ -46,6 +55,7 @@ export function Projects() {
     },
     {
       title: "Linux Adaptive Tutor",
+      category: "AI Application · Backend",
       description:
         "AI-assisted Linux learning platform with adaptive lesson difficulty, multiple explanation modes, progress tracking, and secure Bash command execution.",
       icon: Terminal,
@@ -66,7 +76,7 @@ export function Projects() {
             Featured Projects
           </h2>
           <p className="section-copy text-lg max-w-2xl mx-auto">
-           Interactive gallery showcasing real-world AI/ML projects focused on computer vision, NLP, and intelligent systems.
+            Applied AI systems spanning LLM applications, model fine-tuning, backend engineering, and computer vision.
           </p>
         </motion.div>
 
@@ -76,7 +86,7 @@ export function Projects() {
               key={project.title}
               {...reveal(index * 0.08)}
               whileHover={{ y: -10, scale: 1.02 }}
-              className="group h-full"
+              className={`group h-full${project.featured ? ' featured-project' : ''}`}
             >
               <Card className="surface-card h-full transition-all duration-300 overflow-hidden relative">
                 <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-300`} />
@@ -117,6 +127,7 @@ export function Projects() {
                   <CardTitle className="text-white group-hover:text-blue-400 transition-colors duration-300">
                     {project.title}
                   </CardTitle>
+                  <p className="project-category">{project.category}</p>
                   <CardDescription className="text-gray-400">
                     {project.description}
                   </CardDescription>
@@ -125,6 +136,11 @@ export function Projects() {
                 <CardContent className="relative">
                   {'attribution' in project && project.attribution && (
                     <p className="section-copy mb-4 text-sm">{project.attribution}</p>
+                  )}
+                  {'evidence' in project && project.evidence && (
+                    <ul className="project-evidence mb-5">
+                      {project.evidence.map((item) => <li key={item}>{item}</li>)}
+                    </ul>
                   )}
                   <div className="flex flex-wrap gap-2">
                     {project.tech.map((tech) => (
@@ -136,6 +152,12 @@ export function Projects() {
                       </span>
                     ))}
                   </div>
+                  {'projectUrl' in project && project.projectUrl && (
+                    <a href={project.projectUrl} target="_blank" rel="noopener noreferrer" className="certificate-link mt-5">
+                      {project.linkLabel}
+                      <ExternalLink aria-hidden="true" />
+                    </a>
+                  )}
                 </CardContent>
               </Card>
             </motion.div>

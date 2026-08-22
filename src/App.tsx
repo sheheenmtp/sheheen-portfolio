@@ -8,6 +8,7 @@ import { TechStack } from './components/TechStack';
 import { Contact } from './components/Contact';
 import { NeuralBackground } from './components/NeuralBackground';
 import { Navbar } from './components/Navbar';
+import { TechnicalHighlights } from './components/TechnicalHighlights';
 
 export default function App() {
   return (
@@ -18,10 +19,11 @@ export default function App() {
       <main id="main-content" className="portfolio-content relative z-10">
         <Hero />
         <About />
-        <Projects />
+        <TechnicalHighlights />
         <Experience />
-        <Credentials />
+        <Projects />
         <TechStack />
+        <Credentials />
         <Contact />
       </main>
     </div>

@@ -5,11 +5,11 @@ import {
   ChevronDown,
   FileText,
   Github,
-  Languages,
   Linkedin,
-  Mail,
   MapPin,
-  Server,
+  Boxes,
+  BrainCircuit,
+  Workflow,
   Sparkles,
 } from 'lucide-react';
 import { Button } from './ui/button';
@@ -18,19 +18,19 @@ import { enter } from '../lib/motion';
 export function Hero() {
   const highlights = [
     {
-      value: '1 Year',
-      label: 'Hands-on experience at ICFOSS',
+      value: 'AI Systems',
+      label: 'LLM applications, ML pipelines, and model integration',
       icon: Briefcase,
     },
     {
-      value: '15 REST APIs',
-      label: 'Built for an adaptive AI Tutor',
-      icon: Server,
+      value: 'Backend & APIs',
+      label: 'FastAPI, PostgreSQL, and Dockerized services',
+      icon: Boxes,
     },
     {
-      value: 'English–Malayalam',
-      label: 'NLP and machine-translation workflows',
-      icon: Languages,
+      value: 'Applied AI',
+      label: 'Computer vision, data processing, and automation',
+      icon: Workflow,
     },
   ];
 
@@ -74,23 +74,16 @@ export function Hero() {
             {...enter(0.28)}
             className="hero-role text-3xl md:text-5xl font-bold mb-6"
           >
-            <span className="hero-role-accent">AI/ML</span>
-            <span className="hero-role-title">Engineer</span>
+            <span className="hero-role-accent">AI/ML Engineer</span>
+            <span className="hero-role-title">| Generative AI | AI Systems</span>
           </motion.h2>
 
           <motion.p
             {...enter(0.36)}
             className="text-xl md:text-2xl text-gray-300 mb-6 max-w-3xl mx-auto"
           >
-            NLP • Machine Translation • LLMs • Computer Vision
-          </motion.p>
-
-          <motion.p
-            {...enter(0.44)}
-            className="text-lg text-gray-400 mb-8 max-w-3xl mx-auto"
-          >
-            Building practical multilingual AI systems—from English–Malayalam corpus engineering
-            and NLLB-200 fine-tuning to LLM-powered APIs and live deployment.
+            Building intelligent software systems, LLM-powered applications, ML pipelines, and AI
+            automation workflows with Python and modern AI infrastructure.
           </motion.p>
 
           <motion.div
@@ -102,48 +95,37 @@ export function Hero() {
               size="lg"
               className="primary-cta"
             >
-              <a
-                href="/Sheheen_Resume.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <FileText size={18} />
-                View Resume
+              <a href="#projects">
+                <BrainCircuit size={18} />
+                View Projects
               </a>
             </Button>
 
             <Button asChild size="lg" variant="outline">
-              <a href="#contact">
-                <Mail size={18} />
-                Get in Touch
+              <a href="https://github.com/sheheenmtp" target="_blank" rel="noopener noreferrer">
+                <Github size={18} />
+                GitHub
               </a>
             </Button>
-          </motion.div>
 
-          <motion.div
-            {...enter(0.6)}
-            className="flex items-center justify-center space-x-4 mb-8"
-          >
-            <Button asChild size="icon" variant="ghost" className="text-gray-400 hover:text-blue-400">
-              <a href="https://github.com/sheheenmtp" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile">
-                <Github />
+            <Button asChild size="lg" variant="outline">
+              <a href="https://www.linkedin.com/in/sheheen-mtp/" target="_blank" rel="noopener noreferrer">
+                <Linkedin size={18} />
+                LinkedIn
               </a>
             </Button>
-            <Button asChild size="icon" variant="ghost" className="text-gray-400 hover:text-blue-400">
-              <a href="https://www.linkedin.com/in/sheheen-mtp/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile">
-                <Linkedin />
-              </a>
-            </Button>
-            <Button asChild size="icon" variant="ghost" className="text-gray-400 hover:text-blue-400">
-              <a href="mailto:muhamammedsheheen0@gmail.com" aria-label="Send email">
-                <Mail />
+
+            <Button asChild size="lg" variant="outline">
+              <a href="/Sheheen_Resume.pdf" target="_blank" rel="noopener noreferrer">
+                <FileText size={18} />
+                Resume
               </a>
             </Button>
           </motion.div>
 
           <motion.div
             {...enter(0.68)}
-            className="flex items-center justify-center space-x-2 text-gray-400 mb-12"
+            className="flex items-center justify-center space-x-2 text-gray-400 mt-8 mb-12"
           >
             <MapPin className="w-4 h-4 text-blue-400" />
             <span>Thiruvananthapuram, Kerala, India</span>

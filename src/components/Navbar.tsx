@@ -5,10 +5,10 @@ import { ThemeToggle } from './ThemeToggle';
 
 const navItems = [
   { label: 'About', href: '#about', id: 'about' },
-  { label: 'Projects', href: '#projects', id: 'projects' },
   { label: 'Experience', href: '#experience', id: 'experience' },
-  { label: 'Credentials', href: '#credentials', id: 'credentials' },
-  { label: 'Tech Stack', href: '#tech-stack', id: 'tech-stack' },
+  { label: 'Projects', href: '#projects', id: 'projects' },
+  { label: 'Skills', href: '#tech-stack', id: 'tech-stack' },
+  { label: 'Education', href: '#credentials', id: 'credentials' },
   { label: 'Contact', href: '#contact', id: 'contact' },
 ];
 

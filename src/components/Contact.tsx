@@ -5,6 +5,7 @@ import {
   Briefcase,
   CheckCircle2,
   Clock,
+  FileText,
   Github,
   Globe,
   Linkedin,
@@ -78,6 +79,14 @@ export function Contact() {
       color: 'from-blue-400 to-blue-600',
       external: true,
     },
+    {
+      icon: FileText,
+      label: 'Resume',
+      value: 'View PDF resume',
+      href: '/Sheheen_Resume.pdf',
+      color: 'from-blue-400 to-blue-600',
+      external: true,
+    },
   ];
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -144,15 +153,14 @@ export function Contact() {
           <div className="flex justify-center mb-6">
             <div className="accent-chip inline-flex items-center space-x-2 px-3 py-1 rounded-full text-sm">
               <Sparkles className="w-4 h-4" />
-              <span>Open to meaningful collaborations</span>
+              <span>Open to AI engineering opportunities</span>
             </div>
           </div>
           <h2 className="section-title text-4xl md:text-5xl font-bold">
-            Let’s Build Something Useful
+            Open to AI/ML Engineering Opportunities
           </h2>
           <p className="section-copy text-lg max-w-2xl mx-auto">
-            Have an idea involving NLP, machine translation, LLM applications, backend AI, or
-            computer vision? Share the context and let’s start a conversation.
+            Open to AI/ML engineering, Generative AI, AI automation, backend AI, and computer vision roles.
           </p>
         </motion.div>
 
@@ -168,7 +176,7 @@ export function Contact() {
                   <span>Available for Opportunities</span>
                 </CardTitle>
                 <CardDescription>
-                  AI/ML engineering roles, research collaborations, and practical multilingual AI projects.
+                  AI/ML engineering roles, Generative AI work, automation, and applied AI collaborations.
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -221,7 +229,7 @@ export function Contact() {
                   <span>Start a Conversation</span>
                 </CardTitle>
                 <CardDescription>
-                  Tell me what you’re building, the problem you’re solving, and how I can help.
+                  Share the role, project context, or engineering problem you would like to discuss.
                 </CardDescription>
               </CardHeader>
               <CardContent>

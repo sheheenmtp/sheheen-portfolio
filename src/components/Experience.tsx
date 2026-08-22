@@ -6,29 +6,37 @@ import { reveal } from '../lib/motion';
 export function Experience() {
   const work = [
     {
-      title: "Paid Intern",
-      company: "ICFOSS — International Centre for Free and Open Source Solutions, Government of Kerala",
+      title: "AI/ML Research Intern",
+      company: "International Centre for Free and Open Source Software (ICFOSS)",
       location: "Thiruvananthapuram, Kerala",
       period: "August 2025 – August 2026",
       details: [
-        "Contributed to Malayalam NLP and machine-translation data engineering for BHASHINI: POS tagging, NER, chunking, dependency-parser correction, discourse annotation, morphological segmentation, summarization, and paraphrasing.",
-        "Built and validated English–Malayalam parallel-corpus workflows: text normalization, Unicode correction, language validation, duplicate removal, length-ratio checks, and sentence-alignment review.",
-        "Designed semantic-quality filtering with multilingual sentence embeddings and cosine similarity to flag noisy or weakly aligned bilingual pairs.",
-        "Fine-tuned Meta NLLB-200 Distilled 600M with Hugging Face Transformers and PEFT/LoRA; handled tokenization, language codes, checkpoints, adapter merging, inference, and BLEU/chrF evaluation.",
-        "Applied 8-bit quantization, gradient checkpointing, gradient accumulation, mixed precision, dynamic padding, and batch-size tuning for resource-constrained training.",
-        "Developed an AI Tutor backend with FastAPI, PostgreSQL, SQLAlchemy, and Docker: 15 REST endpoints, adaptive learner-state logic, LLM feedback via Ollama, and secure multi-language code execution via Judge0.",
-        "Supported live Bhashini AI deployment at the VISION 2031 conference: real-time ASR and multilingual translation, audio integration, sync monitoring, and acoustic troubleshooting.",
-        "Prepared domain-specific Malayalam resources: dialect mappings, medicinal-plant data, OCR/ASR verification, and large-scale English–Malayalam translation batches."
+        "Developed an AI Tutor backend with FastAPI, PostgreSQL, SQLAlchemy, Ollama, Judge0, and Docker, including 15+ REST endpoints and adaptive learner-state logic.",
+        "Integrated local LLM inference and automated code execution into an AI application, connecting persistent learner state, adaptive recommendation logic, AI-generated feedback, and REST services.",
+        "Supported a live Bhashini AI deployment using real-time ASR and multilingual translation, with audio integration, synchronization monitoring, and technical troubleshooting.",
+        "Fine-tuned NLLB-200 with Hugging Face, PyTorch, and PEFT/LoRA; worked across tokenization, resource-aware training, inference, and BLEU/chrF evaluation.",
+        "Conducted multilingual and Malayalam NLP research using NLLB, OpenNMT, sentence embeddings, corpus preprocessing, and translation-quality evaluation.",
+        "Engineered and validated English–Malayalam parallel corpora with Python workflows for normalization, Unicode correction, language validation, deduplication, alignment review, and semantic-quality filtering."
       ],
       icon: Brain,
       skills: [
-        "Malayalam NLP",
+        "FastAPI",
+        "REST APIs",
+        "LLM Integration",
+        "PostgreSQL",
+        "Docker",
+        "Python",
+        "PyTorch",
+        "Hugging Face",
+        "Model Fine-Tuning",
+        "Data Cleaning",
+        "Data Preprocessing",
+        "Dataset Engineering",
+        "Parallel Corpus Processing",
+        "Model Evaluation",
         "Machine Translation",
         "NLLB-200",
-        "PEFT/LoRA",
-        "FastAPI",
-        "PostgreSQL",
-        "Docker"
+        "PEFT/LoRA"
       ],
     }
   ];
@@ -42,10 +50,10 @@ export function Experience() {
           className="text-center mb-16"
         >
           <h2 className="section-title text-4xl md:text-5xl font-bold">
-            Experience Timeline
+            Experience
           </h2>
           <p className="section-copy text-lg">
-            Malayalam NLP, machine translation, LLM applications, and multilingual AI deployment
+            AI application engineering, backend systems, deployment, model research, and multilingual data workflows
           </p>
         </motion.div>
 
