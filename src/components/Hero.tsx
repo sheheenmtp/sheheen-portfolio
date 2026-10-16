@@ -1,9 +1,8 @@
 import { hero, profile } from '../content';
 import { ButtonLink } from './ui/button';
 import { HandLine } from './ui/HandLine';
-import { Todo } from './ui/Todo';
 import { TalkBadge } from './TalkBadge';
-import portrait from '../sheheen.webp';
+import portrait from '../assets/portrait-cutout.webp';
 
 export function Hero() {
   return (
@@ -24,25 +23,23 @@ export function Hero() {
 
       <div className="hero__art">
         <div className="hero__blob hero__blob--sand" aria-hidden="true" />
-        <div className="hero__blob hero__blob--water" aria-hidden="true" />
-        <figure className="hero__arch">
-          {/* TODO(Sheheen): replace with a black-and-white cutout (transparent PNG/WebP) so the
-              line can loop in front of and behind you. Until then the photo is greyed with CSS. */}
-          <img
-            src={portrait}
-            alt={`Portrait of ${profile.name}`}
-            width={720}
-            height={720}
-            fetchPriority="high"
-            decoding="async"
-          />
-        </figure>
-        <HandLine variant="portrait-loop" className="hero__loop" />
+        <div className="hero__arch" aria-hidden="true" />
+        {/* The loop is drawn twice: behind the portrait, then the shoulder-and-arm stretch in front. */}
+        <HandLine variant="portrait-loop" className="hero__loop hero__loop--back" />
+        <img
+          className="hero__portrait"
+          src={portrait}
+          alt={`Portrait of ${profile.name}`}
+          width={720}
+          height={1040}
+          fetchPriority="high"
+          decoding="async"
+        />
+        <HandLine variant="portrait-loop" className="hero__loop hero__loop--front" />
         <p className="hero__note">
           {hero.note} <span aria-hidden="true">↗</span>
         </p>
         <TalkBadge />
-        <Todo className="hero__todo">swap in a black-and-white cutout portrait</Todo>
       </div>
     </section>
   );

@@ -445,14 +445,6 @@ a:hover {
   filter: blur(14px);
 }
 
-.hero__blob--water {
-  left: 4%;
-  top: 20%;
-  width: 82%;
-  height: 66%;
-  background: radial-gradient(circle at 40% 40%, var(--color-backwater), transparent 70%);
-}
-
 .hero__blob--sand {
   right: -4%;
   top: 2%;
@@ -461,23 +453,24 @@ a:hover {
   background: radial-gradient(circle, var(--color-sand), transparent 70%);
 }
 
+/* A pale arch sits behind the cutout; the head rises above its top edge. */
 .hero__arch {
   position: absolute;
   left: 14.8%;
-  top: 6.5%;
+  top: 22%;
   width: 66.7%;
-  height: 83.9%;
-  overflow: hidden;
+  height: 68.4%;
   border-radius: var(--radius-arch);
-  background: var(--color-rule);
+  background: var(--color-backwater);
 }
 
-.hero__arch img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 50% 30%;
-  filter: grayscale(1) contrast(1.08);
+.hero__portrait {
+  position: absolute;
+  left: 14%;
+  bottom: 9.6%;
+  width: 72%;
+  height: auto;
+  z-index: 2;
 }
 
 .hero__loop {
@@ -486,10 +479,22 @@ a:hover {
   width: 100%;
   height: 100%;
   pointer-events: none;
+  z-index: 1;
+}
+
+/* Only the stretch from the right shoulder down the arm is drawn over the portrait. */
+.hero__loop--front {
+  z-index: 3;
+}
+
+.hero__loop--front path {
+  stroke-dasharray: 0.3 1;
+  stroke-dashoffset: -0.7;
 }
 
 .hero__note {
   position: absolute;
+  z-index: 4;
   left: -26%;
   top: 80%;
   max-width: 11.5rem;
@@ -500,15 +505,13 @@ a:hover {
   transform: rotate(-4deg);
 }
 
-.hero__todo {
-  position: absolute;
-  left: 14.8%;
-  top: 92%;
-}
-
 @media (max-width: 959px) {
   .hero__art {
     margin-bottom: var(--space-7);
+  }
+
+  .talk-badge {
+    right: -2%;
   }
 
   .hero__note {
@@ -518,21 +521,14 @@ a:hover {
     font-size: var(--text-sm);
     transform: rotate(-2deg);
   }
-
-  .hero__todo {
-    left: auto;
-    right: 0;
-    top: 100%;
-    max-width: 50%;
-    text-align: right;
-  }
 }
 
 /* ---------- Talk badge ---------- */
 .talk-badge {
   position: absolute;
-  right: -3%;
-  top: 52%;
+  z-index: 4;
+  right: -6%;
+  top: 72%;
   width: var(--badge-size);
   aspect-ratio: 1;
   border-radius: 50%;
@@ -1162,6 +1158,12 @@ a:hover {
     }
   }
 
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+  }
+
   @keyframes spin {
     to {
       transform: rotate(360deg);
@@ -1192,9 +1194,13 @@ a:hover {
     animation-delay: 120ms;
   }
 
-  .hero__loop path {
+  .hero__loop--back path {
     stroke-dasharray: 1;
     animation: draw var(--duration-draw) var(--ease-out) 450ms both;
+  }
+
+  .hero__loop--front {
+    animation: fade-in 300ms var(--ease-out) 1500ms both;
   }
 
   .talk-badge__ring {

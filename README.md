@@ -198,7 +198,7 @@ The Express API must be deployed separately to a Node.js host such as Render or 
 
 All text lives in [`src/content.ts`](src/content.ts). Edit it there rather than in the components. Items with a `todo` field render a visible "TODO:" note on the page until they are filled in. Only add real projects, roles and numbers.
 
-To replace the portrait, swap `src/sheheen.webp` (a black-and-white cutout with a transparent background works best).
+The hero portrait is `src/assets/portrait-cutout.webp`: a black-and-white cutout with a transparent background, 720 × 1040 px. Replace it with another cutout of the same proportions.
 
 ## Backend notes
 
