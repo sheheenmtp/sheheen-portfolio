@@ -8,6 +8,7 @@
 import aiTutorShot from './assets/ai-tutor-workspace.webp';
 import linuxTutorShot from './assets/linux-tutor-lesson.webp';
 import nmtDemo from './assets/nmt-demo.webp';
+import usvShot from './assets/usv-boat-and-detection.webp';
 
 export const profile = {
   name: 'Muhammed Sheheen M T P',
@@ -167,21 +168,28 @@ export const projects: Project[] = [
   {
     id: 'usv',
     title: 'Autonomous boat for floating plastic',
-    context: 'B.Tech final project',
+    context: 'B.Tech major project, 2025',
     team: 'Team of four',
     summary:
-      'A catamaran-style unmanned surface vehicle. A phone camera streams video to a laptop running YOLOv8, which spots floating plastic and sends steering commands to an ESP32 that drives the motors and collector.',
+      'A catamaran-style unmanned surface vehicle built on PVC hulls. A phone camera streams video to a laptop running a YOLOv8 model trained on our own dataset; it spots floating plastic, estimates its distance, and sends left, right or forward commands over WebSocket to an ESP32 that drives the motors and collector. A Bluetooth remote mode covers manual control.',
     stack: ['Python', 'YOLOv8', 'OpenCV', 'ESP32-WROOM-32', 'WebSocket'],
+    shot: {
+      src: usvShot,
+      alt: 'Left: the PVC-hulled boat on a pond next to a floating plastic bottle. Right: the laptop view, with a bottle boxed as "Plastic Detected", a distance label and the steering direction FORWARD.',
+      width: 1606,
+      height: 600,
+      caption: 'the boat on the water, and what the laptop sees',
+    },
     links: [{ label: 'Code on GitHub', href: 'https://github.com/sheheenmtp/usv-debris-collection' }],
   },
   {
     id: 'gesture-sync',
     title: 'GestureSync',
-    context: 'B.Tech mini project',
+    context: 'B.Tech mini project, 2024',
     team: 'Team of four',
     summary:
-      'Hands-free desktop control: MediaPipe hand landmarks drive the mouse and volume, and voice commands launch and switch applications.',
-    stack: ['Python', 'OpenCV', 'MediaPipe', 'Speech Recognition'],
+      'Hands-free desktop control: MediaPipe hand landmarks drive the mouse and volume, voice commands launch and switch applications, and a desktop GUI covers manual control.',
+    stack: ['Python', 'OpenCV', 'MediaPipe', 'PyAutoGUI', 'Speech Recognition', 'PyAudio'],
     links: [{ label: 'Code on GitHub (my fork)', href: 'https://github.com/sheheenmtp/Gesture_Sync' }],
   },
 ];
