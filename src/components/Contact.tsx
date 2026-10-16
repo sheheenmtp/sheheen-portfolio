@@ -121,7 +121,6 @@ export function Contact() {
 
       <footer className="site-footer">
         <p>© {new Date().getFullYear()} {profile.name}</p>
-        <p>Set in Bricolage Grotesque, Atkinson Hyperlegible, Kalam and Manjari.</p>
       </footer>
     </section>
   );
