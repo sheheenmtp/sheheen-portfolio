@@ -16,11 +16,11 @@ export function About() {
             <p key={paragraph}>{paragraph}</p>
           ))}
         </div>
-        <aside className="about__margin" aria-label="Margin notes">
+        <aside className="about__margin reveal-late" aria-label="Margin notes">
           {about.margin.map((note) => (
             <p
               key={note.text}
-              className={note.malayalam ? 'margin-note margin-note--ml' : 'margin-note'}
+              className={note.malayalam ? 'margin-note margin-note--ml write-on' : 'margin-note write-on'}
               lang={note.malayalam ? 'ml' : undefined}
             >
               {note.text}

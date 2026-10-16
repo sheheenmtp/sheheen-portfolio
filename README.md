@@ -10,7 +10,7 @@ A light, notebook-like layout: off-white paper with grain, a black-and-white por
 
 - **Tokens:** every colour, font, size, space, radius, shadow and timing is defined once in [`src/styles/tokens.css`](src/styles/tokens.css). [`src/styles/site.css`](src/styles/site.css) only references those variables.
 - **Type:** Bricolage Grotesque (headings), Atkinson Hyperlegible (body), Kalam (handwritten notes) and Manjari (Malayalam), all self-hosted through Fontsource.
-- **Motion:** CSS only. One hero entrance (text rises, the line draws itself), a slowly rotating badge, and gentle scroll reveals. Everything is visible without JavaScript and all motion is off under `prefers-reduced-motion`.
+- **Motion:** mostly CSS. One hero entrance (text rises, the line draws itself), a slowly rotating badge, and gentle scroll reveals. On scroll, handwritten notes write themselves, the project pipeline diagrams build one step at a time, and the Path timeline fills as you read (`src/hooks/useTimelineProgress.ts`). Everything is visible without JavaScript and all motion is off under `prefers-reduced-motion`.
 
 ## Technology
 

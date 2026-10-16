@@ -96,5 +96,8 @@
   --duration-quick: 180ms;
   --duration-reveal: 700ms;
   --duration-draw: 1800ms;
+  --duration-write: 1300ms; /* handwritten notes writing themselves */
+  --step-stagger: 320ms; /* pipeline boxes appearing one by one */
+  --ease-pen: cubic-bezier(0.45, 0.05, 0.55, 0.95);
   --duration-badge-spin: 28s;
 }

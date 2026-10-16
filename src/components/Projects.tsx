@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import { projects, type Project } from '../content';
 import { HandLine } from './ui/HandLine';
@@ -52,10 +53,10 @@ function Spread({ project }: { project: Project }) {
         <ProjectLinks project={project} />
       </div>
       {project.diagram && (
-        <figure className="sheet">
+        <figure className="sheet reveal-late">
           <ol className="sheet__steps" aria-label={`How ${project.title} works`}>
-            {project.diagram.steps.map((step) => (
-              <li key={step.title}>
+            {project.diagram.steps.map((step, index) => (
+              <li key={step.title} style={{ '--i': index } as CSSProperties}>
                 <strong>{step.title}</strong>
                 <span>{step.detail}</span>
               </li>
@@ -66,7 +67,7 @@ function Spread({ project }: { project: Project }) {
         </figure>
       )}
       {project.shot && (
-        <figure className="spread__shot">
+        <figure className="spread__shot reveal-late">
           <img
             src={project.shot.src}
             alt={project.shot.alt}
@@ -75,7 +76,7 @@ function Spread({ project }: { project: Project }) {
             loading="lazy"
             decoding="async"
           />
-          <figcaption>{project.shot.caption}</figcaption>
+          <figcaption className="write-on">{project.shot.caption}</figcaption>
         </figure>
       )}
     </article>
@@ -95,7 +96,7 @@ function Entry({ project }: { project: Project }) {
         <strong>Built with</strong> {project.stack.join(', ')}
       </p>
       {project.shot && (
-        <figure className="entry__shot">
+        <figure className="entry__shot reveal-late">
           <img
             src={project.shot.src}
             alt={project.shot.alt}
@@ -104,10 +105,10 @@ function Entry({ project }: { project: Project }) {
             loading="lazy"
             decoding="async"
           />
-          <figcaption>{project.shot.caption}</figcaption>
+          <figcaption className="write-on">{project.shot.caption}</figcaption>
         </figure>
       )}
-      {project.note && <p className="margin-note entry__note">{project.note}</p>}
+      {project.note && <p className="margin-note entry__note write-on">{project.note}</p>}
       <ProjectLinks project={project} />
       {project.todo && <Todo>{project.todo}</Todo>}
     </article>

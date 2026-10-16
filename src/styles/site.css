@@ -855,6 +855,21 @@ a:hover {
   border-left: var(--line-ink) dashed var(--color-sage);
 }
 
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: calc(-1 * var(--line-ink));
+  top: 0;
+  width: var(--line-ink);
+  height: calc(var(--progress, 1) * 100%);
+  background: var(--color-sage-deep);
+}
+
+.timeline__item.is-reached::before {
+  border-color: var(--color-sage-deep);
+  background: var(--color-sage-deep);
+}
+
 .timeline__item {
   position: relative;
   display: grid;
@@ -1242,6 +1257,98 @@ a:hover {
   .js .reveal.is-visible {
     opacity: 1;
     transform: none;
+  }
+
+  /* Path: dots fill smoothly as the line reaches them */
+  .timeline__item::before {
+    transition:
+      background-color 300ms var(--ease-out),
+      border-color 300ms var(--ease-out);
+  }
+
+  /* Pipeline sheets: each arrow draws, then its box appears */
+  .js .sheet .sheet__steps li {
+    border-color: transparent;
+    background: transparent;
+    transition:
+      border-color 400ms var(--ease-out),
+      background-color 400ms var(--ease-out);
+    transition-delay: calc(var(--i) * var(--step-stagger) + 160ms);
+  }
+
+  .js .sheet .sheet__steps li > * {
+    opacity: 0;
+    transform: translateY(6px);
+    transition:
+      opacity 400ms var(--ease-out),
+      transform 400ms var(--ease-out);
+    transition-delay: calc(var(--i) * var(--step-stagger) + 200ms);
+  }
+
+  .js .sheet .sheet__steps li + li::before {
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 200ms var(--ease-out);
+    transition-delay: calc(var(--i) * var(--step-stagger));
+  }
+
+  .js .sheet .sheet__steps li + li::after {
+    opacity: 0;
+    transition: opacity 120ms linear;
+    transition-delay: calc(var(--i) * var(--step-stagger) + 140ms);
+  }
+
+  .js .sheet.is-visible .sheet__steps li {
+    border-color: var(--color-graphite);
+    background: var(--color-paper);
+  }
+
+  .js .sheet.is-visible .sheet__steps li > * {
+    opacity: 1;
+    transform: none;
+  }
+
+  .js .sheet.is-visible .sheet__steps li + li::before {
+    transform: scaleY(1);
+  }
+
+  .js .sheet.is-visible .sheet__steps li + li::after {
+    opacity: 1;
+  }
+
+  /* Handwritten notes write themselves, left to right */
+  @keyframes write {
+    from {
+      clip-path: inset(-0.4em 100% -0.4em -0.4em);
+    }
+    to {
+      clip-path: inset(-0.4em -0.4em -0.4em -0.4em);
+    }
+  }
+
+  .hero__note {
+    animation: write var(--duration-write) var(--ease-pen) 2200ms both;
+  }
+
+  .js .write-on,
+  .js .sheet .sheet__note {
+    clip-path: inset(-0.4em 100% -0.4em -0.4em);
+    transition: clip-path var(--duration-write) var(--ease-pen);
+  }
+
+  .js .write-on.is-visible,
+  .js .is-visible > .write-on,
+  .js .sheet.is-visible .sheet__note {
+    clip-path: inset(-0.4em -0.4em -0.4em -0.4em);
+  }
+
+  .js .is-visible > figcaption.write-on,
+  .js .is-visible > .write-on + .write-on {
+    transition-delay: 450ms;
+  }
+
+  .js .sheet.is-visible .sheet__note {
+    transition-delay: calc(4 * var(--step-stagger) + 300ms);
   }
 
   .js .reveal .section__underline path {

@@ -1,7 +1,11 @@
+import { useRef } from 'react';
 import { path } from '../content';
+import { useTimelineProgress } from '../hooks/useTimelineProgress';
 import { HandLine } from './ui/HandLine';
 
 export function Experience() {
+  const listRef = useRef<HTMLOListElement>(null);
+  useTimelineProgress(listRef);
   return (
     <section id="path" className="section path" aria-labelledby="path-title">
       <div className="section__head reveal">
@@ -10,7 +14,7 @@ export function Experience() {
         </h2>
         <HandLine variant="underline" className="section__underline" />
       </div>
-      <ol className="timeline">
+      <ol className="timeline" ref={listRef}>
         {path.map((entry) => (
           <li key={`${entry.place}-${entry.title}`} className={entry.current ? 'timeline__item is-current reveal' : 'timeline__item reveal'}>
             <p className="timeline__period">{entry.period}</p>
