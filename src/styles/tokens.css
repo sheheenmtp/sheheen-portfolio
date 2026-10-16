@@ -1,0 +1,100 @@
+/*
+ * Design tokens for the "Margin Notes" direction.
+ * Every colour, font, size, space, radius, shadow and timing used on the site lives here.
+ * Component styles in site.css must only reference these variables.
+ */
+:root {
+  color-scheme: light;
+
+  /* Colour */
+  --color-paper: #f5f5ef; /* page background, cooler than cream */
+  --color-paper-raised: #ffffff; /* notebook sheets */
+  --color-graphite: #1f201d; /* primary text, buttons */
+  --color-pencil: #62665e; /* secondary text, 5.4:1 on paper */
+  --color-sage: #8fa58a; /* hand-drawn lines, decoration only */
+  --color-sage-deep: #4c6a48; /* links, accents, focus, 5.6:1 on paper */
+  --color-backwater: #cfe3e6; /* soft blob behind the portrait */
+  --color-sand: #e8dfc8; /* second, warmer blob */
+  --color-rule: #d6d8cf; /* hairlines and dashed rules */
+  --color-todo: #9a5b2f; /* TODO markers, 4.9:1 on paper */
+  --color-on-graphite: #f5f5ef;
+  --color-paper-glass: rgba(245, 245, 239, 0.9); /* sticky nav background */
+  --color-success: #3f6b3b;
+  --color-error: #a3372b;
+  --color-shadow: rgba(31, 32, 29, 0.28);
+
+  /* Type families */
+  --font-display: "Bricolage Grotesque Variable", "Bricolage Grotesque", system-ui, sans-serif;
+  --font-body: "Atkinson Hyperlegible", system-ui, sans-serif;
+  --font-hand: "Kalam", "Comic Sans MS", cursive;
+  --font-malayalam: "Manjari", "Noto Sans Malayalam", sans-serif;
+
+  /* Type scale (rem = 16px) */
+  --text-xs: 0.8125rem; /* 13 */
+  --text-sm: 0.9375rem; /* 15 */
+  --text-base: 1.0625rem; /* 17 */
+  --text-md: 1.1875rem; /* 19 */
+  --text-lg: 1.375rem; /* 22 */
+  --text-xl: clamp(1.625rem, 1.3rem + 1.2vw, 2.125rem); /* 26 to 34 */
+  --text-2xl: clamp(2rem, 1.4rem + 2.4vw, 3.375rem); /* 32 to 54 */
+  --text-display: clamp(2.75rem, 1.6rem + 4.6vw, 5.125rem); /* 44 to 82 */
+
+  --leading-tight: 1.02;
+  --leading-snug: 1.25;
+  --leading-body: 1.65;
+  --tracking-display: -0.035em;
+  --tracking-heading: -0.02em;
+
+  --weight-regular: 400;
+  --weight-medium: 560;
+  --weight-bold: 700;
+
+  /* Space */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4.5rem;
+  --space-9: 6.5rem;
+  --space-10: 9rem;
+
+  /* Layout */
+  --page-max: 78rem;
+  --gutter: clamp(1.25rem, 0.6rem + 3.4vw, 4.5rem);
+  --rail-width: 4.5rem;
+  --measure: 34rem; /* comfortable line length for body copy */
+  --nav-height: 4.25rem;
+  --hero-art-max: 34rem;
+  --badge-size: clamp(6.5rem, 5rem + 4vw, 9.5rem);
+  --badge-ring-text: 13.5px; /* in the badge's 150-unit SVG space */
+  --badge-center-text: 15px;
+
+  /* Radii */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-pill: 999px;
+  --radius-arch: 999px 999px 18px 18px;
+
+  /* Lines */
+  --line-hair: 1px;
+  --line-ink: 1.6px;
+  --line-hand: 3.2px;
+  --focus-ring: 3px solid var(--color-sage-deep);
+  --focus-offset: 3px;
+
+  /* Texture: paper grain (SVG noise; the alpha in feColorMatrix sets its strength) */
+  --texture-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.12 0 0 0 0 0.12 0 0 0 0 0.11 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+
+  /* Elevation */
+  --shadow-sheet: 0 1px 0 rgba(31, 32, 29, 0.05), 0 22px 40px -26px var(--color-shadow);
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-quick: 180ms;
+  --duration-reveal: 700ms;
+  --duration-draw: 1800ms;
+  --duration-badge-spin: 28s;
+}
