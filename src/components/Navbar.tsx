@@ -18,7 +18,7 @@ export function Navbar() {
     <header className="site-header">
       <nav className="site-nav" aria-label="Primary">
         <a href="#top" className="site-nav__brand" aria-label={`${profile.name}, back to top`}>
-          sheheen
+          {profile.name}
         </a>
         <button
           type="button"

@@ -250,6 +250,7 @@ a:hover {
 .site-nav__brand {
   font-family: var(--font-display);
   font-size: var(--text-lg);
+  white-space: nowrap;
   font-weight: var(--weight-bold);
   letter-spacing: var(--tracking-heading);
   color: var(--color-graphite);
