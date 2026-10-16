@@ -9,6 +9,7 @@ import aiTutorShot from './assets/ai-tutor-workspace.webp';
 import linuxTutorShot from './assets/linux-tutor-lesson.webp';
 import nmtDemo from './assets/nmt-demo.webp';
 import usvShot from './assets/usv-boat-and-detection.webp';
+import xogridShot from './assets/xogrid-record-payment.webp';
 
 export const profile = {
   name: 'Muhammed Sheheen M T P',
@@ -68,7 +69,7 @@ export type Project = {
   team?: string;
   links: { label: string; href: string }[];
   diagram?: Diagram;
-  shot?: { src: string; alt: string; width: number; height: number; caption: string };
+  shot?: { src: string; alt: string; width: number; height: number; caption: string; narrow?: boolean };
   note?: string;
   todo?: string;
 };
@@ -133,11 +134,26 @@ export const projects: Project[] = [
     title: 'XO Grid booking automation',
     context: 'XOGRID, AI automation engineer',
     summary:
-      'Turned a workspace business’s booking process into Google Workspace workflows: client intake, seat and cabin allocation, client documents, monthly processing, renewal matching and payment-status tracking, on scheduled and edit triggers.',
-    stack: ['Google Apps Script', 'JavaScript', 'Google Sheets', 'Forms', 'Drive'],
+      'Turned a coworking space’s bookings into Google Workspace automation: form intake, seat and cabin allocation, monthly booking sheets, a payment history with invoice numbers, renewal matching, and payment statuses that update on every edit and again each night. A custom menu adds a payment form, previews, dry runs and rule tests before anything touches live records.',
+    stack: ['Google Apps Script', 'JavaScript', 'HTML Service', 'Google Sheets', 'Forms', 'Drive'],
     links: [],
-    note: 'runs on edit triggers and a monthly schedule',
-    todo: 'Add a screenshot of the booking sheet with client names blurred.',
+    diagram: {
+      steps: [
+        { title: 'Google Form intake', detail: 'new clients and bookings' },
+        { title: 'Monthly booking sheets', detail: 'seats, cabins, packages' },
+        { title: 'Apps Script rules', detail: 'payment cycles, coverage, renewals' },
+        { title: 'Triggers + Drive', detail: 'on submit, on edit, daily at 1 am' },
+      ],
+      note: 'every rule has a test and a dry run before it touches real records',
+    },
+    shot: {
+      src: xogridShot,
+      alt: 'The Record Payment dialog inside Google Sheets: booking, payment date, amount, UPI, invoice XOG-1048, and a coverage note saying the payment covers 01/10/26 to 31/10/26. The client name is blurred.',
+      width: 1200,
+      height: 1115,
+      caption: 'the payment form works out which dates a payment covers',
+      narrow: true,
+    },
   },
   {
     id: 'linux-tutor',

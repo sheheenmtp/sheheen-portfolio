@@ -699,6 +699,10 @@ a:hover {
   margin-inline: auto;
 }
 
+.spread__shot--narrow {
+  max-width: 34rem;
+}
+
 .spread__shot img {
   width: 100%;
   height: auto;

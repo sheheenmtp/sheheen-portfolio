@@ -67,7 +67,7 @@ function Spread({ project }: { project: Project }) {
         </figure>
       )}
       {project.shot && (
-        <figure className="spread__shot reveal-late">
+        <figure className={project.shot.narrow ? 'spread__shot spread__shot--narrow reveal-late' : 'spread__shot reveal-late'}>
           <img
             src={project.shot.src}
             alt={project.shot.alt}
@@ -126,7 +126,7 @@ export function Projects() {
         </h2>
         <HandLine variant="underline" className="section__underline" />
         <p className="section__intro">
-          Two pages from the notebook in detail, then the rest of what I have built.
+          Three pages from the notebook in detail, then the rest of what I have built.
         </p>
       </div>
       <div className="work__spreads">
