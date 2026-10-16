@@ -1,127 +1,50 @@
-import React, { useEffect, useState } from 'react';
-import { AnimatePresence, motion } from 'motion/react';
+import { useEffect, useState } from 'react';
 import { Menu, X } from 'lucide-react';
-import { ThemeToggle } from './ThemeToggle';
-
-const navItems = [
-  { label: 'About', href: '#about', id: 'about' },
-  { label: 'Experience', href: '#experience', id: 'experience' },
-  { label: 'Projects', href: '#projects', id: 'projects' },
-  { label: 'Skills', href: '#tech-stack', id: 'tech-stack' },
-  { label: 'Education', href: '#credentials', id: 'credentials' },
-  { label: 'Contact', href: '#contact', id: 'contact' },
-];
+import { navItems, profile } from '../content';
 
 export function Navbar() {
-  const [activeSection, setActiveSection] = useState('home');
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 16);
-    handleScroll();
-    window.addEventListener('scroll', handleScroll, { passive: true });
-
-    const sections = ['home', ...navItems.map((item) => item.id)]
-      .map((id) => document.getElementById(id))
-      .filter((section): section is HTMLElement => Boolean(section));
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visibleSection = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-
-        if (visibleSection?.target.id) {
-          setActiveSection(visibleSection.target.id);
-        }
-      },
-      { rootMargin: '-24% 0px -58% 0px', threshold: [0, 0.1, 0.3, 0.6] },
-    );
-
-    sections.forEach((section) => observer.observe(section));
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      observer.disconnect();
+    if (!open) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setOpen(false);
     };
-  }, []);
-
-  useEffect(() => {
-    if (!isMenuOpen) return;
-
-    const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setIsMenuOpen(false);
-    };
-
-    window.addEventListener('keydown', handleEscape);
-    return () => window.removeEventListener('keydown', handleEscape);
-  }, [isMenuOpen]);
-
-  const navLinkClass = (id: string) =>
-    `nav-link${activeSection === id ? ' nav-link--active' : ''}`;
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [open]);
 
   return (
-    <header className={`site-header${isScrolled ? ' site-header--scrolled' : ''}`}>
-      <nav className="site-nav" aria-label="Primary navigation">
-        <a href="#home" className="site-brand" aria-label="Muhammed Sheheen — home">
-          <span aria-hidden="true">MS</span>
-          <span className="site-brand__name">Muhammed Sheheen</span>
+    <header className="site-header">
+      <nav className="site-nav" aria-label="Primary">
+        <a href="#top" className="site-nav__brand" aria-label={`${profile.name}, back to top`}>
+          {profile.name}
         </a>
-
-        <div className="nav-links" aria-label="Portfolio sections">
+        <button
+          type="button"
+          className="site-nav__toggle"
+          aria-expanded={open}
+          aria-controls="site-nav-links"
+          aria-label={open ? 'Close menu' : 'Open menu'}
+          onClick={() => setOpen((value) => !value)}
+        >
+          {open ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
+        </button>
+        <ul id="site-nav-links" className={open ? 'site-nav__links is-open' : 'site-nav__links'}>
           {navItems.map((item) => (
-            <a
-              key={item.id}
-              href={item.href}
-              className={navLinkClass(item.id)}
-              aria-current={activeSection === item.id ? 'location' : undefined}
-            >
-              {item.label}
-            </a>
-          ))}
-        </div>
-
-        <div className="nav-actions">
-          <ThemeToggle />
-          <button
-            type="button"
-            className="mobile-menu-button"
-            onClick={() => setIsMenuOpen((open) => !open)}
-            aria-expanded={isMenuOpen}
-            aria-controls="mobile-navigation"
-            aria-label={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
-          >
-            {isMenuOpen ? <X /> : <Menu />}
-          </button>
-        </div>
-      </nav>
-
-      <AnimatePresence>
-        {isMenuOpen && (
-          <motion.nav
-            id="mobile-navigation"
-            aria-label="Mobile navigation"
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.2 }}
-            className="mobile-nav"
-          >
-            {navItems.map((item) => (
-              <a
-                key={item.id}
-                href={item.href}
-                className={navLinkClass(item.id)}
-                aria-current={activeSection === item.id ? 'location' : undefined}
-                onClick={() => setIsMenuOpen(false)}
-              >
+            <li key={item.href}>
+              <a href={item.href} onClick={() => setOpen(false)}>
                 {item.label}
               </a>
-            ))}
-          </motion.nav>
-        )}
-      </AnimatePresence>
+            </li>
+          ))}
+          <li>
+            <a href={profile.links.resume} target="_blank" rel="noopener noreferrer" onClick={() => setOpen(false)}>
+              Résumé
+            </a>
+          </li>
+        </ul>
+      </nav>
     </header>
   );
 }

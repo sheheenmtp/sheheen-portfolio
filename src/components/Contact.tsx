@@ -1,350 +1,127 @@
-import React, { useState } from 'react';
-import { AnimatePresence, motion } from 'motion/react';
-import {
-  AlertCircle,
-  Briefcase,
-  CheckCircle2,
-  Clock,
-  FileText,
-  Github,
-  Globe,
-  Linkedin,
-  Mail,
-  MapPin,
-  MessageSquare,
-  Phone,
-  Send,
-  Sparkles,
-} from 'lucide-react';
+import { useState, type ChangeEvent, type FormEvent } from 'react';
+import { ArrowUpRight } from 'lucide-react';
+import { profile } from '../content';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
-import { fade, reveal } from '../lib/motion';
 
-type SubmissionStatus = {
-  type: 'success' | 'error';
-  message: string;
-} | null;
+/** The form only renders when a deployed backend URL is configured (see backend/). */
+const apiBaseUrl = (import.meta.env.VITE_API_URL ?? '').replace(/\/$/, '');
 
-const apiBaseUrl = (import.meta.env.VITE_API_URL || 'http://localhost:3001').replace(/\/$/, '');
+type Status = { type: 'success' | 'error'; message: string } | null;
 
-export function Contact() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: '',
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submissionStatus, setSubmissionStatus] = useState<SubmissionStatus>(null);
+function ContactForm() {
+  const [form, setForm] = useState({ name: '', email: '', message: '' });
+  const [sending, setSending] = useState(false);
+  const [status, setStatus] = useState<Status>(null);
 
-  const contactLinks = [
-    {
-      icon: Mail,
-      label: 'Email',
-      value: 'muhamammedsheheen0@gmail.com',
-      href: 'mailto:muhamammedsheheen0@gmail.com',
-      color: 'from-blue-400 to-blue-600',
-      external: false,
-    },
-    {
-      icon: Phone,
-      label: 'Phone',
-      value: '+91 9895057468',
-      href: 'tel:+919895057468',
-      color: 'from-blue-400 to-blue-600',
-      external: false,
-    },
-    {
-      icon: Linkedin,
-      label: 'LinkedIn',
-      value: 'linkedin.com/in/sheheen-mtp',
-      href: 'https://www.linkedin.com/in/sheheen-mtp/',
-      color: 'from-blue-400 to-blue-600',
-      external: true,
-    },
-    {
-      icon: Github,
-      label: 'GitHub',
-      value: 'github.com/sheheenmtp',
-      href: 'https://github.com/sheheenmtp',
-      color: 'from-gray-400 to-gray-600',
-      external: true,
-    },
-    {
-      icon: Globe,
-      label: 'Portfolio',
-      value: 'sheheenmtp.vercel.app',
-      href: 'https://sheheenmtp.vercel.app',
-      color: 'from-blue-400 to-blue-600',
-      external: true,
-    },
-    {
-      icon: FileText,
-      label: 'Resume',
-      value: 'View PDF resume',
-      href: '/Sheheen_Resume.pdf',
-      color: 'from-blue-400 to-blue-600',
-      external: true,
-    },
-  ];
+  const onChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+    setForm((current) => ({ ...current, [event.target.name]: event.target.value }));
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setIsSubmitting(true);
-    setSubmissionStatus(null);
-
+    setSending(true);
+    setStatus(null);
     try {
       const response = await fetch(`${apiBaseUrl}/send-email`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          name: formData.name.trim(),
-          email: formData.email.trim(),
-          message: formData.message.trim(),
+          name: form.name.trim(),
+          email: form.email.trim(),
+          message: form.message.trim(),
         }),
       });
-
-      const result = await response.json().catch(() => ({}));
-
+      const result = (await response.json().catch(() => ({}))) as { success?: boolean; message?: string };
       if (!response.ok || !result.success) {
-        throw new Error(result.message || 'Unable to send your message right now.');
+        throw new Error(result.message ?? 'The message was not sent.');
       }
-
-      setSubmissionStatus({
-        type: 'success',
-        message: 'Message sent successfully. I’ll get back to you soon.',
-      });
-      setFormData({ name: '', email: '', message: '' });
+      setStatus({ type: 'success', message: 'Message sent. I will reply by email.' });
+      setForm({ name: '', email: '', message: '' });
     } catch (error) {
-      console.error('Contact form error:', error);
-      setSubmissionStatus({
-        type: 'error',
-        message:
-          error instanceof Error
-            ? error.message
-            : 'Network error. Please email me directly or try again later.',
-      });
+      const reason = error instanceof Error ? error.message : 'The message was not sent.';
+      setStatus({ type: 'error', message: `${reason} Email me directly at ${profile.email}.` });
     } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData((currentData) => ({
-      ...currentData,
-      [event.target.name]: event.target.value,
-    }));
-
-    if (submissionStatus) {
-      setSubmissionStatus(null);
+      setSending(false);
     }
   };
 
   return (
-    <section id="contact" className="py-20 px-6">
-      <div className="max-w-6xl mx-auto">
-        <motion.div
-          {...reveal()}
-          className="text-center mb-16"
-        >
-          <div className="flex justify-center mb-6">
-            <div className="accent-chip inline-flex items-center space-x-2 px-3 py-1 rounded-full text-sm">
-              <Sparkles className="w-4 h-4" />
-              <span>Open to AI engineering opportunities</span>
-            </div>
-          </div>
-          <h2 className="section-title text-4xl md:text-5xl font-bold">
-            Open to AI/ML Engineering Opportunities
-          </h2>
-          <p className="section-copy text-lg max-w-2xl mx-auto">
-            Open to AI/ML engineering, Generative AI, AI automation, backend AI, and computer vision roles.
-          </p>
-        </motion.div>
-
-        <div className="grid lg:grid-cols-2 gap-12 items-start">
-          <motion.div
-            {...reveal(0.06)}
-            className="space-y-8"
-          >
-            <Card className="surface-card transition-all duration-300">
-              <CardHeader>
-                <CardTitle className="text-white flex items-center space-x-2">
-                  <Briefcase className="text-blue-400" />
-                  <span>Available for Opportunities</span>
-                </CardTitle>
-                <CardDescription>
-                  AI/ML engineering roles, Generative AI work, automation, and applied AI collaborations.
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex items-center space-x-3 text-gray-300">
-                  <MapPin className="w-5 h-5 text-blue-400" />
-                  <span>Thiruvananthapuram, Kerala, India</span>
-                </div>
-                <div className="flex items-center space-x-3 text-gray-300">
-                  <Clock className="w-5 h-5 text-blue-400" />
-                  <span>Typically responds within 1–2 working days</span>
-                </div>
-              </CardContent>
-            </Card>
-
-            <div>
-              <h3 className="text-xl font-bold text-white mb-6">Contact & Profiles</h3>
-              <div className="space-y-3">
-                {contactLinks.map((contact, index) => (
-                  <motion.a
-                    key={contact.label}
-                    href={contact.href}
-                    target={contact.external ? '_blank' : undefined}
-                    rel={contact.external ? 'noopener noreferrer' : undefined}
-                    {...reveal(index * 0.08)}
-                    whileHover={{ scale: 1.02, x: 6 }}
-                    className="surface-card flex items-center space-x-4 p-4 border transition-all duration-300 group"
-                  >
-                    <div className={`contact-icon p-2 rounded-full bg-gradient-to-r ${contact.color}`}>
-                      <contact.icon className="w-5 h-5 text-white" />
-                    </div>
-                    <div className="contact-link-label">
-                      <div className="text-blue-400 text-sm">{contact.label}</div>
-                      <div className="text-gray-300 group-hover:text-white transition-colors duration-300">
-                        {contact.value}
-                      </div>
-                    </div>
-                  </motion.a>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-
-          <motion.div
-            {...reveal(0.14)}
-          >
-            <Card className="surface-card transition-all duration-300">
-              <CardHeader>
-                <CardTitle className="text-white flex items-center space-x-2">
-                  <MessageSquare className="text-blue-400" />
-                  <span>Start a Conversation</span>
-                </CardTitle>
-                <CardDescription>
-                  Share the role, project context, or engineering problem you would like to discuss.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="space-y-3">
-                    <label htmlFor="contact-name" className="text-gray-300 text-sm">
-                      Your name
-                    </label>
-                    <Input
-                      id="contact-name"
-                      type="text"
-                      name="name"
-                      autoComplete="name"
-                      placeholder="How should I address you?"
-                      value={formData.name}
-                      onChange={handleChange}
-                      className="contact-form-control bg-gray-800/50 border-gray-600 text-white placeholder:text-gray-400 focus:border-blue-400"
-                      required
-                    />
-                  </div>
-
-                  <div className="space-y-3">
-                    <label htmlFor="contact-email" className="text-gray-300 text-sm">
-                      Email address
-                    </label>
-                    <Input
-                      id="contact-email"
-                      type="email"
-                      name="email"
-                      autoComplete="email"
-                      placeholder="you@example.com"
-                      value={formData.email}
-                      onChange={handleChange}
-                      className="contact-form-control bg-gray-800/50 border-gray-600 text-white placeholder:text-gray-400 focus:border-blue-400"
-                      required
-                    />
-                  </div>
-
-                  <div className="space-y-3">
-                    <label htmlFor="contact-message" className="text-gray-300 text-sm">
-                      Project or message
-                    </label>
-                    <Textarea
-                      id="contact-message"
-                      name="message"
-                      placeholder="Share a few details about your idea, role, or collaboration."
-                      value={formData.message}
-                      onChange={handleChange}
-                      rows={7}
-                      className="contact-form-control bg-gray-800/50 border-gray-600 text-white placeholder:text-gray-400 focus:border-blue-400 resize-none"
-                      required
-                    />
-                  </div>
-
-                  <AnimatePresence initial={false} mode="wait">
-                    {submissionStatus && (
-                      <motion.div
-                        key={`${submissionStatus.type}-${submissionStatus.message}`}
-                        initial={{ opacity: 0, y: -8, height: 0 }}
-                        animate={{ opacity: 1, y: 0, height: 'auto' }}
-                        exit={{ opacity: 0, y: -6, height: 0 }}
-                        transition={{ duration: 0.24 }}
-                        className={`contact-status contact-status--${submissionStatus.type}`}
-                        role={submissionStatus.type === 'error' ? 'alert' : 'status'}
-                        aria-live="polite"
-                      >
-                        {submissionStatus.type === 'success' ? (
-                          <CheckCircle2 className="w-5 h-5" />
-                        ) : (
-                          <AlertCircle className="w-5 h-5" />
-                        )}
-                        <span>{submissionStatus.message}</span>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-
-                  <Button
-                    type="submit"
-                    size="lg"
-                    disabled={isSubmitting}
-                    className="primary-cta w-full disabled:opacity-50"
-                  >
-                    {isSubmitting ? (
-                      <>
-                        <div className="h-4 w-4 animate-spin rounded-full border-2 border-solid border-white border-r-transparent" />
-                        Sending message...
-                      </>
-                    ) : (
-                      <>
-                        <Send size={18} />
-                        Send Message
-                      </>
-                    )}
-                  </Button>
-                </form>
-              </CardContent>
-            </Card>
-          </motion.div>
-        </div>
-
-        <motion.footer
-          {...fade(0.2)}
-          className="text-center mt-16 pt-8 border-t border-gray-700/50"
-        >
-          <p className="text-gray-500">
-            © 2026 Muhammed Sheheen M T P. Engineering the future with AI.
-          </p>
-          <p className="mt-2 text-sm text-gray-500">
-            UIcons by{' '}
-            <a href="https://www.flaticon.com/uicons" target="_blank" rel="noopener noreferrer">
-              Flaticon
-            </a>
-          </p>
-        </motion.footer>
+    <form className="contact-form" onSubmit={onSubmit} noValidate={false}>
+      <div className="contact-form__row">
+        <label htmlFor="contact-name">Your name</label>
+        <Input id="contact-name" name="name" autoComplete="name" value={form.name} onChange={onChange} required />
       </div>
+      <div className="contact-form__row">
+        <label htmlFor="contact-email">Your email</label>
+        <Input id="contact-email" name="email" type="email" autoComplete="email" value={form.email} onChange={onChange} required />
+      </div>
+      <div className="contact-form__row">
+        <label htmlFor="contact-message">Message</label>
+        <Textarea id="contact-message" name="message" rows={5} value={form.message} onChange={onChange} required />
+      </div>
+      <Button type="submit" disabled={sending}>
+        {sending ? 'Sending…' : 'Send message'}
+      </Button>
+      <p className={status ? `contact-form__status is-${status.type}` : 'contact-form__status'} role="status" aria-live="polite">
+        {status?.message}
+      </p>
+    </form>
+  );
+}
+
+export function Contact() {
+  const profiles = [
+    { label: 'LinkedIn', href: profile.links.linkedin },
+    { label: 'GitHub', href: profile.links.github },
+    { label: 'Hugging Face', href: profile.links.huggingface },
+    { label: 'Résumé (PDF)', href: profile.links.resume },
+  ];
+
+  return (
+    <section id="contact" className="section contact" aria-labelledby="contact-title">
+      <div className="contact__intro reveal">
+        <h2 id="contact-title" className="contact__title">
+          Let&apos;s talk{' '}
+          <span className="contact__ml" lang="ml">
+            നമുക്ക് സംസാരിക്കാം
+          </span>
+        </h2>
+        <p className="contact__lede">
+          I am in {profile.location} and open to AI engineering, LLM backend and automation roles. Email is the fastest way to reach me.
+        </p>
+        <a className="contact__email" href={`mailto:${profile.email}`}>
+          {profile.email}
+        </a>
+      </div>
+
+      <div className="contact__details reveal">
+        <dl className="contact__phones">
+          {profile.phones.map((phone) => (
+            <div key={phone.label}>
+              <dt>{phone.label}</dt>
+              <dd>
+                <a href={phone.href}>{phone.display}</a>
+              </dd>
+            </div>
+          ))}
+        </dl>
+        <ul className="contact__profiles">
+          {profiles.map((item) => (
+            <li key={item.label}>
+              <a href={item.href} target="_blank" rel="noopener noreferrer">
+                {item.label}
+                <ArrowUpRight aria-hidden="true" />
+              </a>
+            </li>
+          ))}
+        </ul>
+        {apiBaseUrl && <ContactForm />}
+      </div>
+
+      <footer className="site-footer">
+        <p>© {new Date().getFullYear()} {profile.name}</p>
+      </footer>
     </section>
   );
 }

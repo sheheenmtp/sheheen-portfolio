@@ -1,26 +1,25 @@
 # Sheheen Portfolio
 
-A responsive personal portfolio for Muhammed Sheheen M T P, focused on AI/ML work, projects, experience, and technical skills. The site is a React single-page application with an optional Express service that sends contact-form messages through Gmail SMTP.
+Personal portfolio for Muhammed Sheheen M T P, AI engineer in Abu Dhabi. It is a React single-page site with an optional Express service for contact-form email.
 
-[View the live site](https://sheheen-portfolio.vercel.app)
+[View the live site](https://sheheenmtp.vercel.app/)
 
-## Features
+## Design: "Margin Notes"
 
-- Responsive, dark-themed single-page layout
-- Animated hero, content sections, and neural-network background
-- Project, experience, and technology showcases
-- Downloadable resume
-- Contact form backed by an Express and Nodemailer API
-- Vercel Analytics and Speed Insights
+A light, notebook-like layout: off-white paper with grain, a black-and-white portrait in an arch, a hand-drawn sage line that draws itself around it, handwritten margin notes, and a rotating "let's talk" badge in English and Malayalam.
+
+- **Tokens:** every colour, font, size, space, radius, shadow and timing is defined once in [`src/styles/tokens.css`](src/styles/tokens.css). [`src/styles/site.css`](src/styles/site.css) only references those variables.
+- **Type:** Bricolage Grotesque (headings), Atkinson Hyperlegible (body), Kalam (handwritten notes) and Manjari (Malayalam), all self-hosted through Fontsource.
+- **Motion:** mostly CSS. One hero entrance (text rises, the line draws itself), a slowly rotating badge, and gentle scroll reveals. On scroll, handwritten notes write themselves, the project pipeline diagrams build one step at a time, and the Path timeline fills as you read (`src/hooks/useTimelineProgress.ts`). Everything is visible without JavaScript and all motion is off under `prefers-reduced-motion`.
 
 ## Technology
 
 | Area | Tools |
 | --- | --- |
 | Frontend | React 18, TypeScript, Vite 6 |
-| UI | Tailwind-generated CSS, Radix UI primitives, Lucide icons |
-| Animation | Motion for React |
-| Backend | Node.js, Express, Nodemailer |
+| Styling | Plain CSS with design tokens, Fontsource fonts, Lucide icons |
+| Quality | TypeScript strict mode, ESLint (typescript-eslint, react-hooks) |
+| Backend | Node.js, Express, Nodemailer (optional) |
 | Monitoring | Vercel Analytics, Vercel Speed Insights |
 
 ## Repository structure
@@ -28,27 +27,26 @@ A responsive personal portfolio for Muhammed Sheheen M T P, focused on AI/ML wor
 ```text
 .
 ├── public/
-│   └── Sheheen_Resume.pdf       # Downloadable resume
+│   ├── Sheheen_Resume.pdf       # Downloadable résumé
+│   ├── favicon.svg, apple-touch-icon.png, og-image.png
 ├── src/
+│   ├── content.ts               # All copy: profile, projects, path, skills, certificates
+│   ├── styles/
+│   │   ├── tokens.css           # Design tokens (the only place values are defined)
+│   │   └── site.css             # Component styles
+│   ├── hooks/useReveal.ts       # Scroll reveals via IntersectionObserver
 │   ├── components/
-│   │   ├── ui/                  # Reusable UI primitives
-│   │   ├── About.tsx
-│   │   ├── Contact.tsx
-│   │   ├── Experience.tsx
-│   │   ├── Hero.tsx
-│   │   ├── NeuralBackground.tsx
-│   │   ├── Projects.tsx
-│   │   └── TechStack.tsx
-│   ├── App.tsx                  # Page composition
-│   ├── index.css                # Generated utilities and global theme
-│   └── main.tsx                 # Browser entry point and analytics
-├── backend/
-│   ├── .env.example             # Backend environment template
-│   ├── server.js                # Contact API
-│   ├── test-endpoint.js         # Endpoint smoke test
-│   └── package.json
-├── index.html
-├── package.json                 # Frontend dependencies and scripts
+│   │   ├── ui/                  # Button, Input, Textarea, HandLine, Todo
+│   │   ├── Navbar.tsx, SocialRail.tsx, TalkBadge.tsx
+│   │   ├── Hero.tsx, About.tsx, Projects.tsx
+│   │   ├── Experience.tsx       # "Path" timeline (work and education)
+│   │   ├── TechStack.tsx        # Skills
+│   │   ├── Credentials.tsx      # Certificates
+│   │   └── Contact.tsx
+│   ├── App.tsx
+│   └── main.tsx
+├── backend/                     # Optional contact API
+├── index.html                   # Meta tags, structured data, no-JS fallback
 └── vite.config.ts
 ```
 
@@ -97,7 +95,7 @@ Then start the API:
 npm run dev
 ```
 
-The frontend currently posts the contact form to `http://localhost:3001/send-email`, so port `3001` should be used for local development.
+The contact form only appears when `VITE_API_URL` is set for the frontend. For local testing create `.env.local` in the repository root with `VITE_API_URL=http://localhost:3001`.
 
 ### Environment variables
 
@@ -117,6 +115,10 @@ From the repository root:
 | --- | --- |
 | `npm run dev` | Start the Vite development server |
 | `npm run build` | Create a production bundle in `dist/` |
+| `npm run preview` | Serve the production bundle locally |
+| `npm run typecheck` | Type-check with TypeScript |
+| `npm run lint` | Lint with ESLint (warnings fail) |
+| `npm run check` | Typecheck, lint and build in one go |
 
 From `backend/`:
 
@@ -190,27 +192,20 @@ npm run build
 
 The static output is written to `dist/`. It can be deployed to Vercel or any static host that supports a Vite single-page application.
 
-The Express API must be deployed separately to a Node.js host such as Render or Railway, with `EMAIL_USER` and `EMAIL_PASS` configured in the host's secret manager. Before deploying, replace the hard-coded local API URL in `src/components/Contact.tsx` with the deployed backend URL or an environment-based configuration.
+The Express API must be deployed separately to a Node.js host such as Render or Railway, with `EMAIL_USER` and `EMAIL_PASS` configured in the host's secret manager. Then set `VITE_API_URL` to the deployed backend URL in the Vercel project settings; without it the site shows email, phone and profile links only.
 
 ## Content updates
 
-Portfolio content is colocated with the component that renders it:
+All text lives in [`src/content.ts`](src/content.ts). Edit it there rather than in the components. Items with a `todo` field render a visible "TODO:" note on the page until they are filled in. Only add real projects, roles and numbers.
 
-- Introduction and resume link: `src/components/Hero.tsx`
-- Biography: `src/components/About.tsx`
-- Featured work: `src/components/Projects.tsx`
-- Work and education history: `src/components/Experience.tsx`
-- Skills: `src/components/TechStack.tsx`
-- Contact details and form endpoint: `src/components/Contact.tsx`
+The hero portrait is `src/assets/portrait-cutout.webp`: a black-and-white cutout with a transparent background, 720 × 1040 px. Replace it with another cutout of the same proportions.
 
-## Current implementation notes
+## Backend notes
 
-- The contact endpoint is hard-coded for local development; the frontend does not currently read an API URL from an environment variable.
 - CORS currently allows requests from any origin. Restrict it to the deployed frontend origin in production.
 - The custom rate-limit middleware is registered after the `/send-email` route, so it does not currently protect that endpoint. Move it before the route or use a maintained rate-limiting package before relying on it.
 - User-provided values are interpolated into the HTML email. Escape or sanitize them before treating the endpoint as production-ready.
-- There is no automated frontend test suite or lint script at present.
 
 ## Attributions
 
-The interface includes components derived from [shadcn/ui](https://ui.shadcn.com/) under the MIT license. Additional attribution details are in [`src/Attributions.md`](src/Attributions.md).
+Fonts: Bricolage Grotesque, Atkinson Hyperlegible, Kalam and Manjari (SIL Open Font License). Icons: Lucide (ISC). See [`src/Attributions.md`](src/Attributions.md).
