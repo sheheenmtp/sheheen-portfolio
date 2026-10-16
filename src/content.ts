@@ -9,7 +9,8 @@ import aiTutorShot from './assets/ai-tutor-workspace.webp';
 import linuxTutorShot from './assets/linux-tutor-lesson.webp';
 import nmtDemo from './assets/nmt-demo.webp';
 import usvShot from './assets/usv-boat-and-detection.webp';
-import xogridShot from './assets/xogrid-record-payment.webp';
+import xogridPayment from './assets/xogrid-record-payment.webp';
+import xogridSheet from './assets/xogrid-sheet.webp';
 
 export const profile = {
   name: 'Muhammed Sheheen M T P',
@@ -58,6 +59,8 @@ export const about = {
 
 export type Diagram = { steps: { title: string; detail: string }[]; note: string };
 
+export type Shot = { src: string; alt: string; width: number; height: number; caption: string };
+
 export type Project = {
   id: string;
   title: string;
@@ -69,7 +72,7 @@ export type Project = {
   team?: string;
   links: { label: string; href: string }[];
   diagram?: Diagram;
-  shot?: { src: string; alt: string; width: number; height: number; caption: string; narrow?: boolean };
+  shots?: Shot[];
   note?: string;
   todo?: string;
 };
@@ -92,13 +95,15 @@ export const projects: Project[] = [
       ],
       note: 'learner state lives in PostgreSQL, so hint depth follows how you are doing',
     },
-    shot: {
-      src: aiTutorShot,
-      alt: 'The PyTutor workspace: a beginner "Check Prime Number" problem with examples on the left and a Python editor with Check and Submit buttons on the right.',
-      width: 1400,
-      height: 724,
-      caption: 'PyTutor: the problem on the left, the editor and Judge0 results on the right',
-    },
+    shots: [
+      {
+        src: aiTutorShot,
+        alt: 'The PyTutor workspace: a beginner "Check Prime Number" problem with examples on the left and a Python editor with Check and Submit buttons on the right.',
+        width: 1400,
+        height: 724,
+        caption: 'PyTutor: the problem on the left, the editor and Judge0 results on the right',
+      },
+    ],
   },
   {
     id: 'nmt',
@@ -120,13 +125,15 @@ export const projects: Project[] = [
       ],
       note: 'the adapter is merged before export, so serving is one model file',
     },
-    shot: {
-      src: nmtDemo,
-      alt: 'The translator web app turning "Kerala Khadi and Village Industries Board sell their khadi products in the market with a profit margin." into Malayalam, with beam size 4.',
-      width: 1216,
-      height: 750,
-      caption: 'the local demo: one 23-token sentence in 1.7 s on CPU (int8), beam 4',
-    },
+    shots: [
+      {
+        src: nmtDemo,
+        alt: 'The translator web app turning "Kerala Khadi and Village Industries Board sell their khadi products in the market with a profit margin." into Malayalam, with beam size 4.',
+        width: 1216,
+        height: 750,
+        caption: 'the local demo: one 23-token sentence in 1.7 s on CPU (int8), beam 4',
+      },
+    ],
     todo: 'Add your BLEU and chrF scores from the evaluation.',
   },
   {
@@ -146,14 +153,22 @@ export const projects: Project[] = [
       ],
       note: 'every rule has a test and a dry run before it touches real records',
     },
-    shot: {
-      src: xogridShot,
-      alt: 'The Record Payment dialog inside Google Sheets: booking, payment date, amount, UPI, invoice XOG-1048, and a coverage note saying the payment covers 01/10/26 to 31/10/26. The client name is blurred.',
-      width: 1200,
-      height: 1115,
-      caption: 'the payment form works out which dates a payment covers',
-      narrow: true,
-    },
+    shots: [
+      {
+        src: xogridSheet,
+        alt: 'The Working Employees sheet in Google Sheets with sample bookings: packages, seats, access cards, payment durations, colour-coded Paid, Due, Not Paid and Partially Paid statuses, invoice numbers and package status, plus the custom XO GRID Automation menu.',
+        width: 1600,
+        height: 616,
+        caption: 'the monthly sheet, with sample data',
+      },
+      {
+        src: xogridPayment,
+        alt: 'The Record Payment dialog: booking, payment date, amount, UPI, invoice XOG-1048, and a note saying the payment covers 01/10/26 to 31/10/26. Sample data.',
+        width: 1200,
+        height: 1115,
+        caption: 'the payment form works out which dates a payment covers',
+      },
+    ],
   },
   {
     id: 'linux-tutor',
@@ -162,13 +177,15 @@ export const projects: Project[] = [
     summary:
       'An AI-assisted Linux course with adaptive lesson difficulty, several explanation modes, progress tracking, sandboxed Bash execution and an “Ask teacher” assistant on every lesson. I worked on its UI, backend and database design and prepared its 240 course entries.',
     stack: ['FastAPI', 'PostgreSQL', 'Ollama', 'Judge0'],
-    shot: {
-      src: linuxTutorShot,
-      alt: 'A Linux lesson, "Why Userspace Matters", with module progress in the sidebar and the Ask teacher chat panel open on the right.',
-      width: 1400,
-      height: 724,
-      caption: 'a lesson with the Ask teacher panel open',
-    },
+    shots: [
+      {
+        src: linuxTutorShot,
+        alt: 'A Linux lesson, "Why Userspace Matters", with module progress in the sidebar and the Ask teacher chat panel open on the right.',
+        width: 1400,
+        height: 724,
+        caption: 'a lesson with the Ask teacher panel open',
+      },
+    ],
     links: [],
   },
   {
@@ -189,13 +206,15 @@ export const projects: Project[] = [
     summary:
       'A catamaran-style unmanned surface vehicle built on PVC hulls. A phone camera streams video to a laptop running a YOLOv8 model trained on our own dataset; it spots floating plastic, estimates its distance, and sends left, right or forward commands over WebSocket to an ESP32 that drives the motors and collector. A Bluetooth remote mode covers manual control.',
     stack: ['Python', 'YOLOv8', 'OpenCV', 'ESP32-WROOM-32', 'WebSocket'],
-    shot: {
-      src: usvShot,
-      alt: 'Left: the PVC-hulled boat on a pond next to a floating plastic bottle. Right: the laptop view, with a bottle boxed as "Plastic Detected", a distance label and the steering direction FORWARD.',
-      width: 1606,
-      height: 600,
-      caption: 'the boat on the water, and what the laptop sees',
-    },
+    shots: [
+      {
+        src: usvShot,
+        alt: 'Left: the PVC-hulled boat on a pond next to a floating plastic bottle. Right: the laptop view, with a bottle boxed as "Plastic Detected", a distance label and the steering direction FORWARD.',
+        width: 1606,
+        height: 600,
+        caption: 'the boat on the water, and what the laptop sees',
+      },
+    ],
     links: [{ label: 'Code on GitHub', href: 'https://github.com/sheheenmtp/usv-debris-collection' }],
   },
   {

@@ -693,14 +693,29 @@ a:hover {
   color: var(--color-sage-deep);
 }
 
-.spread__shot {
+.spread__shots {
   grid-column: 1 / -1;
+  display: grid;
+  gap: var(--space-7);
+  width: 100%;
   max-width: 52rem;
   margin-inline: auto;
 }
 
-.spread__shot--narrow {
-  max-width: 34rem;
+@media (min-width: 960px) {
+  .spread__shots--pair {
+    max-width: none;
+    /* Columns sized so a wide sheet and a near-square dialog end up the same height. */
+    grid-template-columns: 2.4fr 1fr;
+    align-items: end;
+  }
+}
+
+
+.spread__shot a,
+.entry__shot a {
+  display: block;
+  border-radius: var(--radius-sm);
 }
 
 .spread__shot img {

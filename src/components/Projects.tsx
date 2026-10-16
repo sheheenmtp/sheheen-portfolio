@@ -1,6 +1,6 @@
 import type { CSSProperties } from 'react';
 import { ArrowUpRight } from 'lucide-react';
-import { projects, type Project } from '../content';
+import { projects, type Project, type Shot } from '../content';
 import { HandLine } from './ui/HandLine';
 import { Todo } from './ui/Todo';
 
@@ -17,6 +17,17 @@ function ProjectLinks({ project }: { project: Project }) {
         </li>
       ))}
     </ul>
+  );
+}
+
+function Screenshot({ shot, className }: { shot: Shot; className: string }) {
+  return (
+    <figure className={`${className} reveal-late`}>
+      <a href={shot.src} target="_blank" rel="noopener noreferrer" aria-label={`Open full-size screenshot: ${shot.caption}`}>
+        <img src={shot.src} alt={shot.alt} width={shot.width} height={shot.height} loading="lazy" decoding="async" />
+      </a>
+      <figcaption className="write-on">{shot.caption}</figcaption>
+    </figure>
   );
 }
 
@@ -66,18 +77,12 @@ function Spread({ project }: { project: Project }) {
           {project.todo && <Todo>{project.todo}</Todo>}
         </figure>
       )}
-      {project.shot && (
-        <figure className={project.shot.narrow ? 'spread__shot spread__shot--narrow reveal-late' : 'spread__shot reveal-late'}>
-          <img
-            src={project.shot.src}
-            alt={project.shot.alt}
-            width={project.shot.width}
-            height={project.shot.height}
-            loading="lazy"
-            decoding="async"
-          />
-          <figcaption className="write-on">{project.shot.caption}</figcaption>
-        </figure>
+      {project.shots && (
+        <div className={project.shots.length > 1 ? 'spread__shots spread__shots--pair' : 'spread__shots'}>
+          {project.shots.map((shot) => (
+            <Screenshot key={shot.src} shot={shot} className="spread__shot" />
+          ))}
+        </div>
       )}
     </article>
   );
@@ -95,19 +100,9 @@ function Entry({ project }: { project: Project }) {
       <p className="project__stack">
         <strong>Built with</strong> {project.stack.join(', ')}
       </p>
-      {project.shot && (
-        <figure className="entry__shot reveal-late">
-          <img
-            src={project.shot.src}
-            alt={project.shot.alt}
-            width={project.shot.width}
-            height={project.shot.height}
-            loading="lazy"
-            decoding="async"
-          />
-          <figcaption className="write-on">{project.shot.caption}</figcaption>
-        </figure>
-      )}
+      {project.shots?.map((shot) => (
+        <Screenshot key={shot.src} shot={shot} className="entry__shot" />
+      ))}
       {project.note && <p className="margin-note entry__note write-on">{project.note}</p>}
       <ProjectLinks project={project} />
       {project.todo && <Todo>{project.todo}</Todo>}
