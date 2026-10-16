@@ -65,6 +65,19 @@ function Spread({ project }: { project: Project }) {
           {project.todo && <Todo>{project.todo}</Todo>}
         </figure>
       )}
+      {project.shot && (
+        <figure className="spread__shot">
+          <img
+            src={project.shot.src}
+            alt={project.shot.alt}
+            width={project.shot.width}
+            height={project.shot.height}
+            loading="lazy"
+            decoding="async"
+          />
+          <figcaption>{project.shot.caption}</figcaption>
+        </figure>
+      )}
     </article>
   );
 }

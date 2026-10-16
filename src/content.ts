@@ -5,6 +5,8 @@
  * Anything marked `todo` is rendered as a visible TODO note on the page.
  */
 
+import nmtDemo from './assets/nmt-demo.webp';
+
 export const profile = {
   name: 'Muhammed Sheheen M T P',
   shortName: 'Sheheen',
@@ -63,6 +65,7 @@ export type Project = {
   team?: string;
   links: { label: string; href: string }[];
   diagram?: Diagram;
+  shot?: { src: string; alt: string; width: number; height: number; caption: string };
   note?: string;
   todo?: string;
 };
@@ -105,7 +108,14 @@ export const projects: Project[] = [
       ],
       note: 'the adapter is merged before export, so serving is one model file',
     },
-    todo: 'Add one real sample translation and your BLEU / chrF scores.',
+    shot: {
+      src: nmtDemo,
+      alt: 'The translator web app turning "Kerala Khadi and Village Industries Board sell their khadi products in the market with a profit margin." into Malayalam, with beam size 4.',
+      width: 1216,
+      height: 750,
+      caption: 'the local demo: one 23-token sentence in 1.7 s on CPU (int8), beam 4',
+    },
+    todo: 'Add your BLEU and chrF scores from the evaluation.',
   },
   {
     id: 'xogrid',

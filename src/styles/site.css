@@ -696,6 +696,29 @@ a:hover {
   color: var(--color-sage-deep);
 }
 
+.spread__shot {
+  grid-column: 1 / -1;
+  max-width: 52rem;
+  margin-inline: auto;
+}
+
+.spread__shot img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sheet);
+  transform: rotate(-0.6deg);
+}
+
+.spread__shot figcaption {
+  margin-top: var(--space-4);
+  font-family: var(--font-hand);
+  font-size: var(--text-md);
+  line-height: var(--leading-snug);
+  color: var(--color-sage-deep);
+  text-align: center;
+}
+
 .sheet {
   display: grid;
   gap: var(--space-5);
