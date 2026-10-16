@@ -43,8 +43,8 @@ export const about = {
   heading: 'A short note',
   paragraphs: [
     'I started out with a diploma in mechanical engineering, moved into IT, and found the part I enjoy most: taking a model that works in a notebook and turning it into something people can use.',
-    'At ICFOSS in Thiruvananthapuram I built the backend of an AI coding tutor, fine-tuned NLLB-200 for English to Malayalam translation, cleaned parallel corpora for the BHASHINI programme and helped run a live speech-recognition and translation pipeline at the VISION 2031 conference.',
-    'Alongside that I automated booking and client records for XOGRID with Google Apps Script. These days I am in Abu Dhabi, building an n8n job-search automation and looking for my next AI engineering role.',
+    'During a year at ICFOSS in Thiruvananthapuram I built the backend of an AI coding tutor and an adaptive Linux course, tagged more than 200,000 Malayalam POS, chunk and NER entries, prepared fine-tuning data for Malayalam LLMs, and ran live speech recognition and translation for ministerial sessions at the VISION 2031 conference.',
+    'On my own I fine-tuned NLLB-200 for English to Malayalam translation and served it through FastAPI. I also automated booking and client records for XOGRID with Google Apps Script. These days I am in Abu Dhabi, building an n8n job-search automation and looking for my next AI engineering role.',
   ],
   margin: [
     { text: 'mechanical → IT → AI', placement: 'top' },
@@ -94,7 +94,9 @@ export const projects: Project[] = [
     id: 'nmt',
     title: 'English to Malayalam translation',
     malayalam: 'ഇംഗ്ലീഷ് → മലയാളം',
-    context: 'ICFOSS',
+    // TODO(Sheheen): the ICFOSS report (6.14) says fine-tuning there was study and pipeline prep only,
+    // so this is labelled a personal project. Change it if the NLLB model was trained elsewhere.
+    context: 'Personal project',
     summary:
       'Cleaned and aligned English–Malayalam parallel data, fine-tuned NLLB-200 Distilled 600M with LoRA and QLoRA, and scored it with BLEU and chrF. The adapter is merged back into the base model and exported to ONNX Runtime behind a small FastAPI service.',
     stack: ['Python', 'PyTorch', 'Hugging Face Transformers', 'NLLB-200', 'PEFT / LoRA', 'ONNX Runtime', 'FastAPI'],
@@ -133,7 +135,7 @@ export const projects: Project[] = [
     title: 'Linux adaptive tutor',
     context: 'ICFOSS',
     summary:
-      'An AI-assisted Linux course with adaptive lesson difficulty, several explanation modes, progress tracking and sandboxed Bash execution.',
+      'An AI-assisted Linux course with adaptive lesson difficulty, several explanation modes, progress tracking and sandboxed Bash execution. I worked on its UI, backend and database design and prepared its 240 course entries.',
     stack: ['FastAPI', 'PostgreSQL', 'Ollama', 'Judge0'],
     links: [],
   },
@@ -198,9 +200,11 @@ export const path: PathEntry[] = [
     points: [
       'Built and deployed the AI Tutor backend: 15 REST endpoints on FastAPI, PostgreSQL, SQLAlchemy and Docker.',
       'Integrated Ollama (qwen2.5-coder:14b) and Judge0 for adaptive hints and sandboxed code execution.',
-      'Fine-tuned NLLB-200 with LoRA / QLoRA and evaluated English–Malayalam translation with BLEU and chrF.',
-      'Prepared Malayalam data for BHASHINI: parallel corpora, OCR training data, ASR transcription QA.',
-      'Ran live speech recognition and translation at the VISION 2031 International Conference.',
+      'Worked on the UI, backend and database of an Adaptive Linux Course and prepared its 240 course entries.',
+      'Tagged more than 200,000 Malayalam POS, chunk and NER entries, and verified OCR and speech-transcription data for BHASHINI.',
+      'Prepared LLM training data: 11,567 SFT entries, 100 DPO entries and 11,600 agglutination examples; validated 1,620 Malayalam root words.',
+      'Ran live speech recognition and machine translation for ministerial sessions at VISION 2031 (Kerala State Planning Board).',
+      'Studied LoRA, QLoRA and tokenizer design, and worked on LoRA / QLoRA fine-tuning pipelines for administrative data.',
     ],
   },
   {
@@ -219,7 +223,7 @@ export const path: PathEntry[] = [
 ];
 
 export const skills: { group: string; items: string[] }[] = [
-  { group: 'LLMs and generative AI', items: ['LLM integration', 'Prompt engineering', 'Adaptive prompting', 'Ollama', 'Local inference', 'RAG'] },
+  { group: 'LLMs and generative AI', items: ['LLM integration', 'Prompt engineering', 'Adaptive prompting', 'Ollama', 'Local inference', 'RAG', 'SFT and DPO data preparation'] },
   { group: 'Machine learning and NLP', items: ['PyTorch', 'Hugging Face Transformers', 'NLLB-200', 'PEFT / LoRA / QLoRA', 'OpenNMT', 'BLEU, chrF', 'scikit-learn'] },
   { group: 'Backend and data', items: ['Python', 'FastAPI', 'REST APIs', 'SQLAlchemy', 'PostgreSQL', 'SQL', 'Docker', 'ONNX Runtime', 'Judge0'] },
   { group: 'Automation', items: ['n8n', 'Google Apps Script', 'Google Workspace', 'Webhooks'] },
