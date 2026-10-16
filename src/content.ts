@@ -131,7 +131,7 @@ export const projects: Project[] = [
   {
     id: 'xogrid',
     title: 'XO Grid booking automation',
-    context: 'XOGRID, technical consultant',
+    context: 'XOGRID, AI automation engineer',
     summary:
       'Turned a workspace business’s booking process into Google Workspace workflows: client intake, seat and cabin allocation, client documents, monthly processing, renewal matching and payment-status tracking, on scheduled and edit triggers.',
     stack: ['Google Apps Script', 'JavaScript', 'Google Sheets', 'Forms', 'Drive'],
@@ -206,7 +206,7 @@ export type PathEntry = {
 export const path: PathEntry[] = [
   {
     period: 'Aug 2025 – Oct 2026',
-    title: 'Technical Consultant',
+    title: 'AI Automation Engineer',
     place: 'XOGRID',
     location: 'Google Workspace automation',
     points: [
