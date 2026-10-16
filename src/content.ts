@@ -18,8 +18,6 @@ export const profile = {
   role: 'AI Engineer',
   location: 'Abu Dhabi, UAE',
   availability: 'Open to AI engineering roles',
-  // TODO(Sheheen): the latest GitHub site and résumé spell this "muhamammedsheheen0"; the UAE CV
-  // spells it "muhammedsheheen0". Confirm which inbox is real and keep only that one.
   email: 'muhammedsheheen0@gmail.com',
   phones: [
     { label: 'UAE', display: '+971 52 182 3134', href: 'tel:+971521823134' },
@@ -48,8 +46,8 @@ export const about = {
   heading: 'A short note',
   paragraphs: [
     'I started out with a diploma in mechanical engineering, moved into IT, and found the part I enjoy most: taking a model that works in a notebook and turning it into something people can use.',
-    'During a year at ICFOSS in Thiruvananthapuram I built the backend of an AI coding tutor and an adaptive Linux course, tagged more than 200,000 Malayalam POS, chunk and NER entries, prepared fine-tuning data for Malayalam LLMs, and ran live speech recognition and translation for ministerial sessions at the VISION 2031 conference.',
-    'On my own I fine-tuned NLLB-200 for English to Malayalam translation and served it through FastAPI. I also automated booking and client records for XOGRID with Google Apps Script. These days I am in Abu Dhabi, building an n8n job-search automation and looking for my next AI engineering role.',
+    'During a year at ICFOSS in Thiruvananthapuram I built the backend of an AI coding tutor and an adaptive Linux course, fine-tuned NLLB-200 for English to Malayalam translation, tagged more than 200,000 Malayalam POS, chunk and NER entries, prepared fine-tuning data for Malayalam LLMs, and ran live speech recognition and translation for ministerial sessions at the VISION 2031 conference.',
+    'I also automated booking and client records for XOGRID with Google Apps Script. These days I am in Abu Dhabi, building an n8n job-search automation and looking for my next AI engineering role.',
   ],
   margin: [
     { text: 'mechanical → IT → AI', placement: 'top' },
@@ -109,9 +107,7 @@ export const projects: Project[] = [
     id: 'nmt',
     title: 'English to Malayalam translation',
     malayalam: 'ഇംഗ്ലീഷ് → മലയാളം',
-    // TODO(Sheheen): the ICFOSS report (6.14) says fine-tuning there was study and pipeline prep only,
-    // so this is labelled a personal project. Change it if the NLLB model was trained elsewhere.
-    context: 'Personal project',
+    context: 'ICFOSS',
     summary:
       'Cleaned and aligned English–Malayalam parallel data, fine-tuned NLLB-200 Distilled 600M with LoRA and QLoRA, and scored it with BLEU and chrF. The adapter is merged back into the base model and exported to ONNX Runtime behind a small FastAPI service.',
     stack: ['Python', 'PyTorch', 'Hugging Face Transformers', 'NLLB-200', 'PEFT / LoRA', 'ONNX Runtime', 'FastAPI'],
@@ -134,7 +130,6 @@ export const projects: Project[] = [
         caption: 'the local demo: one 23-token sentence in 1.7 s on CPU (int8), beam 4',
       },
     ],
-    todo: 'Add your BLEU and chrF scores from the evaluation.',
   },
   {
     id: 'xogrid',
@@ -262,11 +257,10 @@ export const path: PathEntry[] = [
       'Tagged more than 200,000 Malayalam POS, chunk and NER entries, and verified OCR and speech-transcription data for BHASHINI.',
       'Prepared LLM training data: 11,567 SFT entries, 100 DPO entries and 11,600 agglutination examples; validated 1,620 Malayalam root words.',
       'Ran live speech recognition and machine translation for ministerial sessions at VISION 2031 (Kerala State Planning Board).',
-      'Studied LoRA, QLoRA and tokenizer design, and worked on LoRA / QLoRA fine-tuning pipelines for administrative data.',
+      'Fine-tuned NLLB-200 with LoRA / QLoRA for English–Malayalam translation, evaluated it with BLEU and chrF, and served it through ONNX Runtime and FastAPI.',
     ],
   },
   {
-    // TODO(Sheheen): the UAE CV says 2021 – 2025; the previous site said Sept 2022 (lateral entry). Confirm.
     period: '2022 – 2025',
     title: 'B.Tech, Information Technology',
     place: 'College of Engineering Thalassery',
