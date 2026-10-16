@@ -818,6 +818,25 @@ a:hover {
   letter-spacing: var(--tracking-heading);
 }
 
+.entry__shot {
+  margin-top: var(--space-5);
+}
+
+.entry__shot img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sheet);
+}
+
+.entry__shot figcaption {
+  margin-top: var(--space-3);
+  font-family: var(--font-hand);
+  font-size: var(--text-md);
+  line-height: var(--leading-snug);
+  color: var(--color-sage-deep);
+}
+
 .entry__note {
   margin-top: var(--space-3);
   transform: rotate(-1deg);

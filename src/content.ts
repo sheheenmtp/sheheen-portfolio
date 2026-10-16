@@ -5,6 +5,8 @@
  * Anything marked `todo` is rendered as a visible TODO note on the page.
  */
 
+import aiTutorShot from './assets/ai-tutor-workspace.webp';
+import linuxTutorShot from './assets/linux-tutor-lesson.webp';
 import nmtDemo from './assets/nmt-demo.webp';
 
 export const profile = {
@@ -88,7 +90,13 @@ export const projects: Project[] = [
       ],
       note: 'learner state lives in PostgreSQL, so hint depth follows how you are doing',
     },
-    todo: 'Add a screenshot of the tutor UI (editor + feedback panel).',
+    shot: {
+      src: aiTutorShot,
+      alt: 'The PyTutor workspace: a beginner "Check Prime Number" problem with examples on the left and a Python editor with Check and Submit buttons on the right.',
+      width: 1400,
+      height: 724,
+      caption: 'PyTutor: the problem on the left, the editor and Judge0 results on the right',
+    },
   },
   {
     id: 'nmt',
@@ -135,8 +143,15 @@ export const projects: Project[] = [
     title: 'Linux adaptive tutor',
     context: 'ICFOSS',
     summary:
-      'An AI-assisted Linux course with adaptive lesson difficulty, several explanation modes, progress tracking and sandboxed Bash execution. I worked on its UI, backend and database design and prepared its 240 course entries.',
+      'An AI-assisted Linux course with adaptive lesson difficulty, several explanation modes, progress tracking, sandboxed Bash execution and an “Ask teacher” assistant on every lesson. I worked on its UI, backend and database design and prepared its 240 course entries.',
     stack: ['FastAPI', 'PostgreSQL', 'Ollama', 'Judge0'],
+    shot: {
+      src: linuxTutorShot,
+      alt: 'A Linux lesson, "Why Userspace Matters", with module progress in the sidebar and the Ask teacher chat panel open on the right.',
+      width: 1400,
+      height: 724,
+      caption: 'a lesson with the Ask teacher panel open',
+    },
     links: [],
   },
   {

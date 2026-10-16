@@ -94,6 +94,19 @@ function Entry({ project }: { project: Project }) {
       <p className="project__stack">
         <strong>Built with</strong> {project.stack.join(', ')}
       </p>
+      {project.shot && (
+        <figure className="entry__shot">
+          <img
+            src={project.shot.src}
+            alt={project.shot.alt}
+            width={project.shot.width}
+            height={project.shot.height}
+            loading="lazy"
+            decoding="async"
+          />
+          <figcaption>{project.shot.caption}</figcaption>
+        </figure>
+      )}
       {project.note && <p className="margin-note entry__note">{project.note}</p>}
       <ProjectLinks project={project} />
       {project.todo && <Todo>{project.todo}</Todo>}
