@@ -1,6 +1,6 @@
 # Sheheen Portfolio
 
-Personal portfolio for Muhammed Sheheen M T P, AI engineer in Abu Dhabi. It is a React single-page site with an optional Express service for contact-form email.
+Personal portfolio for Muhammed Sheheen M T P, Applied AI engineer in the UAE specialising in AI automation. It is a React single-page site with an optional Express service for contact-form email.
 
 [View the live site](https://sheheenmtp.vercel.app/)
 

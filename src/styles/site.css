@@ -374,7 +374,7 @@ a:hover {
 
 @media (min-width: 960px) {
   .hero {
-    grid-template-columns: 1.05fr 1fr;
+    grid-template-columns: 1.3fr 1fr;
     gap: var(--space-7);
     min-height: calc(100svh - var(--nav-height));
     padding-block: var(--space-7);
@@ -382,7 +382,7 @@ a:hover {
 }
 
 .hero__copy {
-  max-width: 38rem;
+  max-width: 44rem;
 }
 
 .hero__title {
@@ -496,8 +496,8 @@ a:hover {
 .hero__note {
   position: absolute;
   z-index: 4;
-  left: -26%;
-  top: 80%;
+  left: 2%;
+  top: 93%;
   max-width: 11.5rem;
   font-family: var(--font-hand);
   font-size: var(--text-md);
