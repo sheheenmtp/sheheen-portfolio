@@ -1,6 +1,6 @@
 # Sheheen Portfolio
 
-Personal portfolio for Muhammed Sheheen M T P, Applied AI engineer in the UAE specialising in AI automation. It is a React single-page site with an optional Express service for contact-form email.
+Personal portfolio for Muhammed Sheheen M T P, Applied AI engineer in the UAE specialising in AI automation. It is a React single-page site on Vercel, with a serverless function that emails contact-form messages.
 
 [View the live site](https://sheheenmtp.vercel.app/)
 
@@ -19,7 +19,7 @@ A light, notebook-like layout: off-white paper with grain, a black-and-white por
 | Frontend | React 18, TypeScript, Vite 6 |
 | Styling | Plain CSS with design tokens, Fontsource fonts, Lucide icons |
 | Quality | TypeScript strict mode, ESLint (typescript-eslint, react-hooks) |
-| Backend | Node.js, Express, Nodemailer (optional) |
+| Contact form | Vercel serverless function (`api/contact.ts`), Nodemailer over Gmail |
 | Monitoring | Vercel Analytics, Vercel Speed Insights |
 
 ## Repository structure
@@ -45,22 +45,12 @@ A light, notebook-like layout: off-white paper with grain, a black-and-white por
 │   │   └── Contact.tsx
 │   ├── App.tsx
 │   └── main.tsx
-├── backend/                     # Optional contact API
+├── api/contact.ts               # Contact form endpoint (Vercel function)
 ├── index.html                   # Meta tags, structured data, no-JS fallback
 └── vite.config.ts
 ```
 
-## Prerequisites
-
-- Node.js 18 or newer
-- npm
-- A Gmail account with two-factor authentication and an app password, if the contact form should send email
-
 ## Local development
-
-The frontend and backend use separate dependency trees and run as separate processes.
-
-### 1. Install the frontend
 
 ```bash
 git clone https://github.com/sheheenmtp/sheheen-portfolio.git
@@ -69,47 +59,9 @@ npm install
 npm run dev
 ```
 
-Vite serves the site at `http://localhost:3000` and opens it in the default browser.
-
-### 2. Configure and start the contact API
-
-In a second terminal:
-
-```bash
-cd backend
-npm install
-cp .env.example .env
-```
-
-Update `backend/.env` with real credentials:
-
-```dotenv
-EMAIL_USER=your_email@gmail.com
-EMAIL_PASS=your_gmail_app_password
-PORT=3001
-```
-
-Then start the API:
-
-```bash
-npm run dev
-```
-
-The contact form only appears when `VITE_API_URL` is set for the frontend. For local testing create `.env.local` in the repository root with `VITE_API_URL=http://localhost:3001`.
-
-### Environment variables
-
-| Variable | Required | Default | Purpose |
-| --- | --- | --- | --- |
-| `EMAIL_USER` | Yes, for email | None | Gmail address used as sender and recipient |
-| `EMAIL_PASS` | Yes, for email | None | Gmail app password; do not use the account password |
-| `PORT` | No | `3001` | Backend HTTP port |
-
-Never commit `.env` or real email credentials.
+Vite serves the site at `http://localhost:3000`. The contact form posts to `/api/contact`, which only exists on Vercel; locally it shows a "not sent, email me directly" message. To run the function locally too, use the Vercel CLI: `npx vercel dev`.
 
 ## Available scripts
-
-From the repository root:
 
 | Command | Description |
 | --- | --- |
@@ -120,91 +72,45 @@ From the repository root:
 | `npm run lint` | Lint with ESLint (warnings fail) |
 | `npm run check` | Typecheck, lint and build in one go |
 
-From `backend/`:
+## Contact form
 
-| Command | Description |
+`api/contact.ts` is deployed by Vercel as `POST /api/contact`. It validates the input, escapes it before putting it in the email, rate-limits each IP (best effort, per serverless instance), silently drops bot submissions (a hidden honeypot field and a minimum fill time), and emails the message through Gmail with the visitor as Reply-To.
+
+### Setup (once)
+
+1. In your Google Account, turn on 2-Step Verification, then create an **App password** (Security → App passwords). Google shows a 16-character password.
+2. In Vercel → Project → Settings → Environment Variables, add for Production (and Preview if you want it there too):
+
+| Variable | Required | Purpose |
+| --- | --- | --- |
+| `EMAIL_USER` | Yes | Gmail address that sends the messages |
+| `EMAIL_PASS` | Yes | The Gmail App password (never your normal password) |
+| `CONTACT_TO` | No | Where messages are delivered; defaults to `EMAIL_USER` |
+
+3. Redeploy. Until the variables are set the endpoint answers `503` and the form tells visitors to email directly.
+
+Never commit `.env` files or credentials.
+
+### Responses
+
+| Status | Meaning |
 | --- | --- |
-| `npm start` | Start the API with Node.js |
-| `npm run dev` | Start the API with Nodemon and reload on changes |
-| `npm test` | Run the endpoint smoke test against a running API |
-
-The backend smoke test attempts to send a real message when valid credentials are configured.
-
-## Contact API
-
-### Health check
-
-```http
-GET /
-```
-
-Successful response:
-
-```json
-{
-  "message": "Portfolio backend server is running!"
-}
-```
-
-### Send a message
-
-```http
-POST /send-email
-Content-Type: application/json
-```
-
-Request body:
-
-```json
-{
-  "name": "Visitor Name",
-  "email": "visitor@example.com",
-  "message": "Hello from the portfolio."
-}
-```
-
-Successful response (`200`):
-
-```json
-{
-  "success": true,
-  "message": "Message sent successfully!"
-}
-```
-
-Invalid or missing input returns `400`; mail transport failures return `500`.
-
-To exercise the validation path without sending mail:
-
-```bash
-curl -X POST http://localhost:3001/send-email \
-  -H "Content-Type: application/json" \
-  -d '{"name":"Test User","email":"invalid","message":"Hello"}'
-```
+| 200 | Sent (bots also get 200 so they do not retry) |
+| 400 | Missing or invalid name, email or message |
+| 405 | Not a POST |
+| 429 | Too many messages from one IP in 10 minutes |
+| 502 | Gmail refused or failed to send |
+| 503 | `EMAIL_USER` / `EMAIL_PASS` not set |
 
 ## Production build and deployment
 
-Build the frontend with:
-
-```bash
-npm run build
-```
-
-The static output is written to `dist/`. It can be deployed to Vercel or any static host that supports a Vite single-page application.
-
-The Express API must be deployed separately to a Node.js host such as Render or Railway, with `EMAIL_USER` and `EMAIL_PASS` configured in the host's secret manager. Then set `VITE_API_URL` to the deployed backend URL in the Vercel project settings; without it the site shows email, phone and profile links only.
+Push to GitHub; Vercel builds the Vite site into `dist/` and deploys `api/contact.ts` as a function automatically.
 
 ## Content updates
 
 All text lives in [`src/content.ts`](src/content.ts). Edit it there rather than in the components. Items with a `todo` field render a visible "TODO:" note on the page until they are filled in. Only add real projects, roles and numbers.
 
 The hero portrait is `src/assets/portrait-cutout.webp`: a black-and-white cutout with a transparent background, 720 × 1040 px. Replace it with another cutout of the same proportions.
-
-## Backend notes
-
-- CORS currently allows requests from any origin. Restrict it to the deployed frontend origin in production.
-- The custom rate-limit middleware is registered after the `/send-email` route, so it does not currently protect that endpoint. Move it before the route or use a maintained rate-limiting package before relying on it.
-- User-provided values are interpolated into the HTML email. Escape or sanitize them before treating the endpoint as production-ready.
 
 ## Attributions
 

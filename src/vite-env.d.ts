@@ -1,8 +1,8 @@
 /// <reference types="vite/client" />
 
 interface ImportMetaEnv {
-  /** Base URL of the contact backend. When unset, the contact form is hidden. */
-  readonly VITE_API_URL?: string;
+  /** Optional override for the contact endpoint (defaults to /api/contact). */
+  readonly VITE_CONTACT_ENDPOINT?: string;
 }
 
 interface ImportMeta {
