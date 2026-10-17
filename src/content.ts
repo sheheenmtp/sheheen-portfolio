@@ -15,9 +15,9 @@ import xogridSheet from './assets/xogrid-sheet.webp';
 export const profile = {
   name: 'Muhammed Sheheen M T P',
   shortName: 'Sheheen',
-  role: 'AI Engineer',
+  role: 'Applied AI Engineer',
   location: 'Abu Dhabi, UAE',
-  availability: 'Open to AI engineering roles',
+  availability: 'Open to Applied AI and AI automation roles',
   email: 'muhammedsheheen0@gmail.com',
   phones: [
     { label: 'UAE', display: '+971 52 182 3134', href: 'tel:+971521823134' },
@@ -34,10 +34,10 @@ export const profile = {
 
 export const hero = {
   hello: "hi, I'm Sheheen",
-  headline: 'I build the quiet machinery behind AI tools.',
+  headline: 'I build AI automations that businesses run on.',
   lede:
-    'LLM backends for a coding tutor, a Malayalam translation model you can call over an API, and the scripts that run bookings for a workspace business. AI engineer, now based in Abu Dhabi.',
-  note: 'open to AI engineering roles',
+    'Applied AI engineer in Abu Dhabi, specialising in AI automation. Payment and booking automation for a coworking space, an LLM-backed coding tutor, and an English to Malayalam translation model served over an API.',
+  note: 'open to applied AI roles',
   badgeEnglish: "LET'S TALK",
   badgeMalayalam: ['നമുക്ക്', 'സംസാരിക്കാം'],
 };
@@ -47,7 +47,7 @@ export const about = {
   paragraphs: [
     'I started out with a diploma in mechanical engineering, moved into IT, and found the part I enjoy most: taking a model that works in a notebook and turning it into something people can use.',
     'During a year at ICFOSS in Thiruvananthapuram I built the backend of an AI coding tutor and an adaptive Linux course, fine-tuned NLLB-200 for English to Malayalam translation, tagged more than 200,000 Malayalam POS, chunk and NER entries, prepared fine-tuning data for Malayalam LLMs, and ran live speech recognition and translation for ministerial sessions at the VISION 2031 conference.',
-    'I also automated booking and client records for XOGRID with Google Apps Script. These days I am in Abu Dhabi, building an n8n job-search automation and looking for my next AI engineering role.',
+    'I also automated booking and client records for XOGRID with Google Apps Script. These days I am in Abu Dhabi, building an n8n job-search automation and looking for my next role in applied AI and automation.',
   ],
   margin: [
     { text: 'mechanical → IT → AI', placement: 'top' },
@@ -76,6 +76,40 @@ export type Project = {
 };
 
 export const projects: Project[] = [
+  {
+    id: 'xogrid',
+    title: 'XO Grid booking automation',
+    context: 'XOGRID, AI automation engineer',
+    summary:
+      'Turned a coworking space’s bookings into Google Workspace automation: form intake, seat and cabin allocation, monthly booking sheets, a payment history with invoice numbers, renewal matching, and payment statuses that update on every edit and again each night. A custom menu adds a payment form, previews, dry runs and rule tests before anything touches live records.',
+    stack: ['Google Apps Script', 'JavaScript', 'HTML Service', 'Google Sheets', 'Forms', 'Drive'],
+    links: [],
+    diagram: {
+      steps: [
+        { title: 'Google Form intake', detail: 'new clients and bookings' },
+        { title: 'Monthly booking sheets', detail: 'seats, cabins, packages' },
+        { title: 'Apps Script rules', detail: 'payment cycles, coverage, renewals' },
+        { title: 'Triggers + Drive', detail: 'on submit, on edit, daily at 1 am' },
+      ],
+      note: 'every rule has a test and a dry run before it touches real records',
+    },
+    shots: [
+      {
+        src: xogridSheet,
+        alt: 'The Working Employees sheet in Google Sheets with sample bookings: packages, seats, access cards, payment durations, colour-coded Paid, Due, Not Paid and Partially Paid statuses, invoice numbers and package status, plus the custom XO GRID Automation menu.',
+        width: 1600,
+        height: 616,
+        caption: 'the monthly sheet, with sample data',
+      },
+      {
+        src: xogridPayment,
+        alt: 'The Record Payment dialog: booking, payment date, amount, UPI, invoice XOG-1048, and a note saying the payment covers 01/10/26 to 31/10/26. Sample data.',
+        width: 1200,
+        height: 1115,
+        caption: 'the payment form works out which dates a payment covers',
+      },
+    ],
+  },
   {
     id: 'ai-tutor',
     title: 'AI Tutor platform',
@@ -128,40 +162,6 @@ export const projects: Project[] = [
         width: 1216,
         height: 750,
         caption: 'the local demo: one 23-token sentence in 1.7 s on CPU (int8), beam 4',
-      },
-    ],
-  },
-  {
-    id: 'xogrid',
-    title: 'XO Grid booking automation',
-    context: 'XOGRID, AI automation engineer',
-    summary:
-      'Turned a coworking space’s bookings into Google Workspace automation: form intake, seat and cabin allocation, monthly booking sheets, a payment history with invoice numbers, renewal matching, and payment statuses that update on every edit and again each night. A custom menu adds a payment form, previews, dry runs and rule tests before anything touches live records.',
-    stack: ['Google Apps Script', 'JavaScript', 'HTML Service', 'Google Sheets', 'Forms', 'Drive'],
-    links: [],
-    diagram: {
-      steps: [
-        { title: 'Google Form intake', detail: 'new clients and bookings' },
-        { title: 'Monthly booking sheets', detail: 'seats, cabins, packages' },
-        { title: 'Apps Script rules', detail: 'payment cycles, coverage, renewals' },
-        { title: 'Triggers + Drive', detail: 'on submit, on edit, daily at 1 am' },
-      ],
-      note: 'every rule has a test and a dry run before it touches real records',
-    },
-    shots: [
-      {
-        src: xogridSheet,
-        alt: 'The Working Employees sheet in Google Sheets with sample bookings: packages, seats, access cards, payment durations, colour-coded Paid, Due, Not Paid and Partially Paid statuses, invoice numbers and package status, plus the custom XO GRID Automation menu.',
-        width: 1600,
-        height: 616,
-        caption: 'the monthly sheet, with sample data',
-      },
-      {
-        src: xogridPayment,
-        alt: 'The Record Payment dialog: booking, payment date, amount, UPI, invoice XOG-1048, and a note saying the payment covers 01/10/26 to 31/10/26. Sample data.',
-        width: 1200,
-        height: 1115,
-        caption: 'the payment form works out which dates a payment covers',
       },
     ],
   },
@@ -275,10 +275,10 @@ export const path: PathEntry[] = [
 ];
 
 export const skills: { group: string; items: string[] }[] = [
+  { group: 'AI automation', items: ['n8n (self-hosted)', 'Google Apps Script', 'Google Workspace', 'HTML Service dialogs', 'Scheduled and edit triggers', 'Webhooks', 'REST API integration'] },
   { group: 'LLMs and generative AI', items: ['LLM integration', 'Prompt engineering', 'Adaptive prompting', 'Ollama', 'Local inference', 'RAG', 'SFT and DPO data preparation'] },
   { group: 'Machine learning and NLP', items: ['PyTorch', 'Hugging Face Transformers', 'NLLB-200', 'PEFT / LoRA / QLoRA', 'OpenNMT', 'BLEU, chrF', 'scikit-learn'] },
   { group: 'Backend and data', items: ['Python', 'FastAPI', 'REST APIs', 'SQLAlchemy', 'PostgreSQL', 'SQL', 'Docker', 'ONNX Runtime', 'Judge0'] },
-  { group: 'Automation', items: ['n8n', 'Google Apps Script', 'Google Workspace', 'Webhooks'] },
   { group: 'Computer vision', items: ['OpenCV', 'YOLOv8', 'MediaPipe'] },
   { group: 'Everyday tools', items: ['Git and GitHub', 'Linux', 'Jupyter', 'Google Colab', 'JavaScript'] },
 ];

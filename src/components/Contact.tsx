@@ -88,7 +88,7 @@ export function Contact() {
           </span>
         </h2>
         <p className="contact__lede">
-          I am in {profile.location} and open to AI engineering, LLM backend and automation roles. Email is the fastest way to reach me.
+          I am in {profile.location} and open to Applied AI Engineer and AI automation roles. Email is the fastest way to reach me.
         </p>
         <a className="contact__email" href={`mailto:${profile.email}`}>
           {profile.email}
