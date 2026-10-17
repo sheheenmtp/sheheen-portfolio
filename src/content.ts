@@ -16,7 +16,7 @@ export const profile = {
   name: 'Muhammed Sheheen M T P',
   shortName: 'Sheheen',
   role: 'Applied AI Engineer',
-  location: 'Abu Dhabi, UAE',
+  location: 'UAE',
   availability: 'Open to Applied AI and AI automation roles',
   email: 'muhammedsheheen0@gmail.com',
   phones: [
@@ -36,7 +36,7 @@ export const hero = {
   hello: "hi, I'm Sheheen",
   headline: 'I build AI automations that businesses run on.',
   lede:
-    'Applied AI engineer in Abu Dhabi, specialising in AI automation. Payment and booking automation for a coworking space, an LLM-backed coding tutor, and an English to Malayalam translation model served over an API.',
+    'Applied AI engineer in the UAE, specialising in AI automation. Payment and booking automation for a coworking space, an LLM-backed coding tutor, and an English to Malayalam translation model served over an API.',
   note: 'open to applied AI roles',
   badgeEnglish: "LET'S TALK",
   badgeMalayalam: ['നമുക്ക്', 'സംസാരിക്കാം'],
@@ -47,11 +47,11 @@ export const about = {
   paragraphs: [
     'I started out with a diploma in mechanical engineering, moved into IT, and found the part I enjoy most: taking a model that works in a notebook and turning it into something people can use.',
     'During a year at ICFOSS in Thiruvananthapuram I built the backend of an AI coding tutor and an adaptive Linux course, fine-tuned NLLB-200 for English to Malayalam translation, tagged more than 200,000 Malayalam POS, chunk and NER entries, prepared fine-tuning data for Malayalam LLMs, and ran live speech recognition and translation for ministerial sessions at the VISION 2031 conference.',
-    'I also automated booking and client records for XOGRID with Google Apps Script. These days I am in Abu Dhabi, building an n8n job-search automation and looking for my next role in applied AI and automation.',
+    'I also automated booking and client records for XOGRID with Google Apps Script. These days I am in the UAE, building an n8n job-search automation and looking for my next role in applied AI and automation, in Dubai, Abu Dhabi or anywhere across the Emirates.',
   ],
   margin: [
     { text: 'mechanical → IT → AI', placement: 'top' },
-    { text: 'കേരളം → അബുദാബി', malayalam: true, placement: 'bottom' },
+    { text: 'കേരളം → യുഎഇ', malayalam: true, placement: 'bottom' },
   ],
 };
 
