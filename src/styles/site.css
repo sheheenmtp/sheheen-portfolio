@@ -1068,8 +1068,8 @@ a:hover {
 
 @media (min-width: 960px) {
   .contact {
-    grid-template-columns: 1.2fr 1fr;
-    align-items: end;
+    grid-template-columns: 1.1fr 1fr;
+    align-items: start;
   }
 }
 
@@ -1113,6 +1113,7 @@ a:hover {
 
 .contact__phones {
   display: grid;
+  margin-top: var(--space-6);
   gap: var(--space-3);
 }
 
@@ -1156,7 +1157,6 @@ a:hover {
 .contact-form {
   display: grid;
   gap: var(--space-4);
-  margin-top: var(--space-6);
 }
 
 .contact-form__row label {
@@ -1164,6 +1164,14 @@ a:hover {
   margin-bottom: var(--space-1);
   font-size: var(--text-sm);
   font-weight: var(--weight-bold);
+}
+
+.contact-form__trap {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
 }
 
 .contact-form__status.is-success {
