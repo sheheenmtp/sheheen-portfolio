@@ -272,3 +272,18 @@ describe('question log writes', () => {
     assert.equal(maxInFlight, 3);
   });
 });
+
+describe('eval cases', () => {
+  it('are well-formed (unique ids, valid regexes)', async () => {
+    const { readFile } = await import('node:fs/promises');
+    const { cases } = JSON.parse(await readFile(new URL('../scripts/eval-cases.json', import.meta.url), 'utf8')) as {
+      cases: { id: string; question: string; mustMatch?: string[]; mustNotMatch?: string[] }[];
+    };
+    assert.ok(cases.length > 0);
+    assert.equal(new Set(cases.map((c) => c.id)).size, cases.length, 'ids are unique');
+    for (const c of cases) {
+      assert.ok(c.question.trim(), `${c.id} has a question`);
+      for (const pattern of [...(c.mustMatch ?? []), ...(c.mustNotMatch ?? [])]) new RegExp(pattern, 'i');
+    }
+  });
+});
