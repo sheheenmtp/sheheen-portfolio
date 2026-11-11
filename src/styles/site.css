@@ -374,7 +374,7 @@ a:hover {
 
 @media (min-width: 960px) {
   .hero {
-    grid-template-columns: 1.05fr 1fr;
+    grid-template-columns: 1.3fr 1fr;
     gap: var(--space-7);
     min-height: calc(100svh - var(--nav-height));
     padding-block: var(--space-7);
@@ -382,7 +382,7 @@ a:hover {
 }
 
 .hero__copy {
-  max-width: 38rem;
+  max-width: 44rem;
 }
 
 .hero__title {
@@ -496,8 +496,8 @@ a:hover {
 .hero__note {
   position: absolute;
   z-index: 4;
-  left: -26%;
-  top: 80%;
+  left: 2%;
+  top: 93%;
   max-width: 11.5rem;
   font-family: var(--font-hand);
   font-size: var(--text-md);
@@ -1068,8 +1068,8 @@ a:hover {
 
 @media (min-width: 960px) {
   .contact {
-    grid-template-columns: 1.2fr 1fr;
-    align-items: end;
+    grid-template-columns: 1.1fr 1fr;
+    align-items: start;
   }
 }
 
@@ -1113,6 +1113,7 @@ a:hover {
 
 .contact__phones {
   display: grid;
+  margin-top: var(--space-6);
   gap: var(--space-3);
 }
 
@@ -1156,7 +1157,6 @@ a:hover {
 .contact-form {
   display: grid;
   gap: var(--space-4);
-  margin-top: var(--space-6);
 }
 
 .contact-form__row label {
@@ -1164,6 +1164,14 @@ a:hover {
   margin-bottom: var(--space-1);
   font-size: var(--text-sm);
   font-weight: var(--weight-bold);
+}
+
+.contact-form__trap {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
 }
 
 .contact-form__status.is-success {
