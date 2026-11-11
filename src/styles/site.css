@@ -1381,3 +1381,78 @@ a:hover {
     stroke-dashoffset: 0;
   }
 }
+
+/* ---------- Chat launcher ----------
+ * Only the launcher lives here (main bundle). The panel's styles are in chat.css,
+ * loaded with the lazy chat chunk. Offsets include the safe-area insets so the
+ * button stays clear of the iOS home indicator and landscape notch.
+ */
+.chat-launcher {
+  position: fixed;
+  right: calc(var(--chat-edge) + env(safe-area-inset-right, 0px));
+  bottom: calc(var(--chat-edge) + env(safe-area-inset-bottom, 0px));
+  z-index: 50;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--chat-launcher-size);
+  padding: 0 var(--space-5) 0 var(--space-4);
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--color-graphite);
+  color: var(--color-on-graphite);
+  box-shadow: var(--shadow-float);
+  font: inherit;
+  font-weight: var(--weight-bold);
+  cursor: pointer;
+  transition: background-color var(--duration-quick) var(--ease-out);
+}
+
+.chat-launcher:hover {
+  background: var(--color-sage-deep);
+}
+
+.chat-launcher:focus-visible {
+  border-radius: var(--radius-pill);
+}
+
+.chat-launcher[hidden] {
+  display: none;
+}
+
+.chat-launcher svg {
+  width: 1.375rem;
+  height: 1.375rem;
+  flex: none;
+}
+
+.chat-launcher__status {
+  position: fixed;
+  right: calc(var(--chat-edge) + env(safe-area-inset-right, 0px));
+  bottom: calc(var(--chat-edge) + env(safe-area-inset-bottom, 0px));
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  max-width: calc(100vw - 2 * var(--chat-edge));
+  margin: 0;
+  padding: var(--space-3) var(--space-5);
+  border: var(--line-ink) solid var(--color-graphite);
+  border-radius: var(--radius-md);
+  background: var(--color-paper-raised);
+  box-shadow: var(--shadow-float);
+  font-size: var(--text-sm);
+}
+
+@media (max-width: 480px) {
+  .chat-launcher {
+    --chat-edge: var(--space-4);
+    justify-content: center;
+    width: var(--chat-launcher-size);
+    padding: 0;
+  }
+
+  .chat-launcher__label {
+    display: none;
+  }
+}
