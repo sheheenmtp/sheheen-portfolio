@@ -8,7 +8,7 @@
  * Without Upstash, entries go to the function log (console) instead.
  */
 import { randomUUID } from 'node:crypto';
-import type { KV } from './kv.ts';
+import type { KV } from './kv.js';
 
 export const LOG_TTL_SECONDS = 90 * 24 * 60 * 60;
 export const LOG_INDEX_KEY = 'log:index';

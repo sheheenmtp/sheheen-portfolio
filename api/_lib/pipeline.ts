@@ -8,9 +8,9 @@
  *   6. Log the request (always)
  * Dependencies are injected so tests and the eval can swap them.
  */
-import type { AnswerCache, CacheHit } from './cache.ts';
-import { streamWithFallback, type OpenModel } from './generate.ts';
-import type { QuestionLogEntry } from './log.ts';
+import type { AnswerCache, CacheHit } from './cache.js';
+import { streamWithFallback, type OpenModel } from './generate.js';
+import type { QuestionLogEntry } from './log.js';
 import {
   buildSystemPrompt,
   isFirstQuestion,
@@ -24,7 +24,7 @@ import {
   type ChatMessage,
   type Retrieved,
   type Source,
-} from './rag.ts';
+} from './rag.js';
 
 export const BUSY_MESSAGE = 'The assistant is busy, try again shortly.';
 export const INTERRUPTED_MESSAGE = 'The answer was interrupted. Please try again.';

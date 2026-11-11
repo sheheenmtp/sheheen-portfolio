@@ -287,3 +287,17 @@ describe('eval cases', () => {
     }
   });
 });
+
+describe('api/ imports', () => {
+  it('use .js specifiers, which Vercel needs at runtime (.ts ones fail with ERR_MODULE_NOT_FOUND)', async () => {
+    const { readdir, readFile } = await import('node:fs/promises');
+    const root = new URL('../api/', import.meta.url);
+    const files = (await readdir(root, { recursive: true })).filter((f) => f.endsWith('.ts'));
+    const offenders: string[] = [];
+    for (const file of files) {
+      const source = await readFile(new URL(file, root), 'utf8');
+      for (const match of source.matchAll(/from '(\.{1,2}\/[^']+\.ts)'/g)) offenders.push(`${file}: ${match[1]}`);
+    }
+    assert.deepEqual(offenders, []);
+  });
+});

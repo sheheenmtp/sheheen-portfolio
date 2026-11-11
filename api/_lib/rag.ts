@@ -3,8 +3,8 @@
  * The request flow (cache → retrieval → generation → log) lives in pipeline.ts.
  */
 import rawIndex from '../_data/embeddings.json' with { type: 'json' };
-import { EMBED_DIMS, EMBED_MODEL, dot, type EmbeddingIndex, type IndexChunk } from './embeddings.ts';
-import { normalizeQuestion } from './text.ts';
+import { EMBED_DIMS, EMBED_MODEL, dot, type EmbeddingIndex, type IndexChunk } from './embeddings.js';
+import { normalizeQuestion } from './text.js';
 
 // ---- Tunables (see scripts/eval.ts for how these were chosen) ----
 export const TOP_K = 5;

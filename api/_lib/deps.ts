@@ -1,12 +1,12 @@
 /** Production dependencies for runChat (Gemini + Upstash when configured). */
 import { GoogleGenAI } from '@google/genai';
-import { AnswerCache } from './cache.ts';
-import { embedText, queryText } from './embeddings.ts';
-import { geminiOpenModel } from './generate.ts';
-import { getKV } from './kv.ts';
-import { logQuestion } from './log.ts';
-import type { Deps } from './pipeline.ts';
-import { HttpError, index } from './rag.ts';
+import { AnswerCache } from './cache.js';
+import { embedText, queryText } from './embeddings.js';
+import { geminiOpenModel } from './generate.js';
+import { getKV } from './kv.js';
+import { logQuestion } from './log.js';
+import type { Deps } from './pipeline.js';
+import { HttpError, index } from './rag.js';
 
 let deps: Deps | undefined;
 
