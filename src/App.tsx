@@ -1,4 +1,5 @@
 import { About } from './components/About';
+import { ChatAssistant } from './components/ChatAssistant';
 import { Contact } from './components/Contact';
 import { Credentials } from './components/Credentials';
 import { Experience } from './components/Experience';
@@ -27,6 +28,7 @@ export default function App() {
         <Credentials />
         <Contact />
       </main>
+      <ChatAssistant />
     </>
   );
 }

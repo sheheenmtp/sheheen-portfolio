@@ -71,6 +71,10 @@
   --badge-size: clamp(6.5rem, 5rem + 4vw, 9.5rem);
   --badge-ring-text: 13.5px; /* in the badge's 150-unit SVG space */
   --badge-center-text: 15px;
+  --chat-panel-width: 25rem;
+  --chat-panel-height: 40rem;
+  --chat-launcher-size: 3.5rem;
+  --chat-edge: var(--space-5); /* launcher and panel distance from the viewport corner */
 
   /* Radii */
   --radius-sm: 6px;
@@ -90,6 +94,7 @@
 
   /* Elevation */
   --shadow-sheet: 0 1px 0 rgba(31, 32, 29, 0.05), 0 22px 40px -26px var(--color-shadow);
+  --shadow-float: 0 2px 4px rgba(31, 32, 29, 0.08), 0 18px 44px -18px var(--color-shadow); /* chat launcher and panel */
 
   /* Motion */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);

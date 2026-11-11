@@ -1,0 +1,40 @@
+{
+  "//": "Answer-quality cases for the chat eval (Phase 5 runner: scripts/eval.ts, not written yet). Each answer must match every `mustMatch` regex and none of the `mustNotMatch` regexes (case-insensitive). Run with the cache bypassed and ≥ 6 s between questions.",
+  "cases": [
+    {
+      "id": "start-date-without-visa",
+      "question": "When can he start?",
+      "grounded": true,
+      "mustMatch": ["immediate"],
+      "mustNotMatch": ["visa", "sponsor", "work authori[sz]ation", "salary", "AED"]
+    },
+    {
+      "id": "notice-period-without-visa",
+      "question": "What is his notice period?",
+      "grounded": true,
+      "mustMatch": ["notice period"],
+      "mustNotMatch": ["visa", "sponsor", "salary", "AED"]
+    },
+    {
+      "id": "visa-when-asked",
+      "question": "Does he need visa sponsorship?",
+      "grounded": true,
+      "mustMatch": ["visit visa", "sponsor"],
+      "mustNotMatch": ["salary", "AED"]
+    },
+    {
+      "id": "chip-open-to-work",
+      "question": "Is he open to work?",
+      "grounded": true,
+      "mustMatch": ["AI Engineer", "AI Automation Engineer", "Python Developer", "UAE|United Arab Emirates"],
+      "mustNotMatch": ["immediate", "notice period", "start date", "visa", "sponsor", "salary", "AED"]
+    },
+    {
+      "id": "chip-who-is-sheheen",
+      "question": "Who is Sheheen?",
+      "grounded": true,
+      "mustMatch": ["AI engineer", "ICFOSS"],
+      "mustNotMatch": ["visa", "salary", "AED"]
+    }
+  ]
+}
