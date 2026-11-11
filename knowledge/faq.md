@@ -1,9 +1,9 @@
 # FAQ — Muhammed Sheheen M T P
 
 ## What roles is Sheheen looking for?
-Type: faq · Period: n/a · Tags: target roles, job search, AI engineer, AI automation, Python developer
+Type: faq · Period: n/a · Tags: target roles, job search, Applied AI engineer, AI engineer, AI automation, Python developer
 
-Muhammed Sheheen M T P is mainly looking for AI Engineer, AI Automation Engineer and Python Developer roles. He is also a fit for AI/ML Engineer, NLP/ML Engineer, Workflow Automation Engineer, Backend Developer and Computer Vision Engineer roles when the vacancy matches his background. He is targeting entry-level, junior and associate positions, mainly in the United Arab Emirates.
+Muhammed Sheheen M T P is mainly looking for Applied AI Engineer / AI Engineer, AI Automation Engineer and Python Developer roles. He is also a fit for AI/ML Engineer, NLP/ML Engineer, Workflow Automation Engineer, Backend Developer and Computer Vision Engineer roles when the vacancy matches his background. He is targeting entry-level, junior and associate positions, mainly in the United Arab Emirates.
 
 ## Is Sheheen available now, and what is his visa status?
 Type: faq · Period: 2026 · Tags: availability, notice period, visa, UAE, immediate joiner

@@ -1,9 +1,9 @@
 # Profile — Muhammed Sheheen M T P
 
 ## Who is Muhammed Sheheen M T P?
-Type: profile · Period: n/a · Tags: overview, AI engineer, Python, LLM integration, NLP, workflow automation, Sheheen
+Type: profile · Period: n/a · Tags: overview, Applied AI engineer, AI engineer, AI automation, Python, LLM integration, NLP, workflow automation, Sheheen
 
-Muhammed Sheheen M T P (preferred name: Sheheen) is an AI engineer focused on Python backend development, LLM integration, NLP and machine translation, and workflow automation. He holds a B.Tech in Information Technology from College of Engineering Thalassery, Kerala, India (Sep 2022 – Apr 2025).
+Muhammed Sheheen M T P (preferred name: Sheheen) is an Applied AI engineer specialising in AI automation. His work spans Python backend development, LLM integration, NLP and machine translation, and workflow automation. He holds a B.Tech in Information Technology from College of Engineering Thalassery, Kerala, India (Sep 2022 – Apr 2025).
 
 From August 2025 to August 2026, Sheheen worked as an AI Engineer at ICFOSS (International Centre for Free and Open Source Solutions), an autonomous institution under the Government of Kerala. At ICFOSS, Sheheen built backend services for an AI Tutor coding-practice platform, fine-tuned NLLB-200 for English–Malayalam translation, worked on Malayalam NLP data engineering, and operated the Bhashini live speech-recognition and translation pipeline at the VISION 2031 international conference.
 
@@ -14,12 +14,12 @@ In parallel, Sheheen worked as a Technical Consultant on a remote contract for X
 - Style: practical, verification-minded engineering; much of his ICFOSS work centred on checking that data and systems could be trusted
 
 ## Sheheen's current status and the roles he is targeting
-Type: profile · Period: 2026 · Tags: job search, target roles, UAE, Dubai, Abu Dhabi, AI engineer, AI automation engineer, Python developer, availability
+Type: profile · Period: 2026 · Tags: job search, target roles, UAE, Dubai, Abu Dhabi, Applied AI engineer, AI engineer, AI automation engineer, Python developer, availability
 
 Muhammed Sheheen M T P is currently focused full-time on his job search, looking for roles in the United Arab Emirates, and can join immediately. His ICFOSS role ended in August 2026 and his XOGRID consultancy ended on 4 October 2026. Alongside his search, he continues developing his AI-powered job search automation system in n8n and PostgreSQL.
 
 Primary roles Sheheen is targeting:
-- AI Engineer
+- Applied AI Engineer / AI Engineer
 - AI Automation Engineer
 - Python Developer
 
