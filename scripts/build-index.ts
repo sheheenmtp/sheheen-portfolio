@@ -142,7 +142,13 @@ async function main() {
   for (const file of files) {
     sections.push(...parseFile(file, await readFile(path.join(KNOWLEDGE_DIR, file), 'utf8'), warnings));
   }
-  const starterQuestions = JSON.parse(await readFile(STARTERS_FILE, 'utf8')) as string[];
+  const starterQuestions = JSON.parse(await readFile(STARTERS_FILE, 'utf8')) as { question: string; sources: string[] }[];
+  const sectionIds = new Set(sections.map((section) => section.id));
+  for (const { question, sources } of starterQuestions) {
+    if (!sources?.length) throw new Error(`Starter "${question}" in src/chat/starters.json has no pinned sources.`);
+    const unknown = sources.filter((id) => !sectionIds.has(id));
+    if (unknown.length) throw new Error(`Starter "${question}" pins unknown chunk ids: ${unknown.join(', ')}`);
+  }
 
   const previous = await loadPrevious();
   const ai = new GoogleGenAI({ apiKey });
@@ -173,8 +179,8 @@ async function main() {
     chunks.push({ ...section, ...(await vectorFor(documentText(section.title, section.text), section.id)) });
   }
   const starters: IndexStarter[] = [];
-  for (const question of starterQuestions) {
-    starters.push({ question, ...(await vectorFor(queryText(question), `starter "${question}"`)) });
+  for (const { question, sources } of starterQuestions) {
+    starters.push({ question, sources, ...(await vectorFor(queryText(question), `starter "${question}"`)) });
   }
 
   // indexVersion excludes builtAt, so it changes only when the content does.

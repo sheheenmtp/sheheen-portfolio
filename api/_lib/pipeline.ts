@@ -15,6 +15,7 @@ import {
   buildSystemPrompt,
   isFirstQuestion,
   isNoAnswer,
+  pinnedHits,
   rank,
   retrievalQuery,
   selectHits,
@@ -136,15 +137,18 @@ export async function runChat(messages: ChatMessage[], sink: Sink, deps: Deps, {
     return finish({ answer: null, sources: [], grounded: false, model: null, cached: false, error: 'embedding', ranked: [] });
   }
 
-  // 3. Semantic cache match, reusing the same embedding.
-  if (cache) {
+  // 3. Semantic cache match, reusing the same embedding. Starter chips skip it: their
+  //    answers come from pinned chunks, so a paraphrase answered by normal retrieval
+  //    must not be replayed for them (their own exact-match entry still is).
+  const pinned = pinnedHits(query);
+  if (cache && !pinned) {
     const hit = await safe('semantic cache lookup', () => cache.getSemantic(vector));
     if (hit) return replay(hit);
   }
 
   // 4. Retrieval and generation.
   const ranked = rank(vector);
-  const hits = selectHits(ranked);
+  const hits = pinned ?? selectHits(ranked);
   const sources = toSources(hits);
   sink.sources(sources);
 

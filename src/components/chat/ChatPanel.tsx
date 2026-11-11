@@ -407,7 +407,7 @@ export default function ChatPanel({ open, onClose }: { open: boolean; onClose: (
               try one of these ↓
             </p>
             <ul className="chat__starters" aria-label="Suggested questions">
-              {starters.map((question) => (
+              {starters.map(({ question }) => (
                 <li key={question}>
                   <button
                     type="button"

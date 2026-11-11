@@ -158,6 +158,25 @@ describe('answer cache', () => {
     assert.equal(deps.calls.embed, 0);
     assert.equal(r.usedStarterVector, true);
   });
+
+  it('answers starter chips from their pinned chunks only', async () => {
+    for (const starter of index.starters) {
+      const rec = recorder();
+      await runChat(user(starter.question), rec.sink, fakes({ cache: null }));
+      const sources = rec.events.find(([event]) => event === 'sources')![1] as { id: string }[];
+      assert.deepEqual(sources.map((s) => s.id), starter.sources, starter.question);
+    }
+  });
+
+  it('does not replay a semantic cache hit for a starter chip', async () => {
+    const starter = index.starters[0];
+    // A paraphrase answered by normal retrieval, cached with the starter's own vector (similarity 1.0).
+    await runChat(user('Tell me something about this person'), recorder().sink, fakes({ embedQuery: async () => starter.embedding }, kv));
+    const chip = fakes({}, kv);
+    const r = await runChat(user(starter.question), recorder().sink, chip);
+    assert.equal(r.cached, false);
+    assert.deepEqual(chip.calls.open, [PRIMARY], 'generated from the pinned chunks');
+  });
 });
 
 describe('model fallback', () => {

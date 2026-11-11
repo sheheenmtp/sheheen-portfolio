@@ -26,7 +26,11 @@ export type IndexChunk = {
 };
 
 /** Starter-chip questions with precomputed query embeddings (no embedding call at runtime). */
-export type IndexStarter = { question: string; hash: string; embedding: number[] };
+/**
+ * A starter-chip question. `sources` pins its retrieval to these chunk ids (from
+ * src/chat/starters.json), so the chip always answers from the same sections.
+ */
+export type IndexStarter = { question: string; sources: string[]; hash: string; embedding: number[] };
 
 export type EmbeddingIndex = {
   model: string;
