@@ -16,7 +16,7 @@ export const profile = {
   name: 'Muhammed Sheheen M T P',
   shortName: 'Sheheen',
   role: 'AI Engineer',
-  location: 'Abu Dhabi, UAE',
+  location: 'Dubai & Abu Dhabi, UAE',
   availability: 'Open to AI engineering roles',
   email: 'muhammedsheheen0@gmail.com',
   phones: [
@@ -36,7 +36,7 @@ export const hero = {
   hello: "hi, I'm Sheheen",
   headline: 'I build the quiet machinery behind AI tools.',
   lede:
-    'LLM backends for a coding tutor, a Malayalam translation model you can call over an API, and the scripts that run bookings for a workspace business. AI engineer, now based in Abu Dhabi.',
+    'LLM backends for a coding tutor, a Malayalam translation model you can call over an API, and the scripts that run bookings for a workspace business. AI engineer, now based in the UAE (Dubai & Abu Dhabi).',
   note: 'open to AI engineering roles',
   badgeEnglish: "LET'S TALK",
   badgeMalayalam: ['നമുക്ക്', 'സംസാരിക്കാം'],
@@ -47,7 +47,7 @@ export const about = {
   paragraphs: [
     'I started out with a diploma in mechanical engineering, moved into IT, and found the part I enjoy most: taking a model that works in a notebook and turning it into something people can use.',
     'During a year at ICFOSS in Thiruvananthapuram I built the backend of an AI coding tutor and an adaptive Linux course, fine-tuned NLLB-200 for English to Malayalam translation, tagged more than 200,000 Malayalam POS, chunk and NER entries, prepared fine-tuning data for Malayalam LLMs, and ran live speech recognition and translation for ministerial sessions at the VISION 2031 conference.',
-    'I also automated booking and client records for XOGRID with Google Apps Script. These days I am in Abu Dhabi, building an n8n job-search automation and looking for my next AI engineering role.',
+    'I also automated booking and client records for XOGRID with Google Apps Script. These days I am based in the UAE (Dubai & Abu Dhabi), building an n8n job-search automation and looking for my next AI engineering role.',
   ],
   margin: [
     { text: 'mechanical → IT → AI', placement: 'top' },
