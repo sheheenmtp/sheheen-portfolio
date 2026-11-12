@@ -4,12 +4,13 @@
  */
 import assert from 'node:assert/strict';
 import { describe, it, beforeEach } from 'node:test';
+import { createHash } from 'node:crypto';
 import { AnswerCache } from '../api/_lib/cache.ts';
 import type { OpenModel, Piece } from '../api/_lib/generate.ts';
 import { memoryKV } from '../api/_lib/kv.ts';
 import type { QuestionLogEntry } from '../api/_lib/log.ts';
 import { BUSY_MESSAGE, runChat, type Deps, type Sink } from '../api/_lib/pipeline.ts';
-import { index, type ChatMessage } from '../api/_lib/rag.ts';
+import { PROMPT_VERSION, buildSystemPrompt, index, type ChatMessage } from '../api/_lib/rag.ts';
 import { normalizeQuestion } from '../api/_lib/text.ts';
 
 const PRIMARY = 'primary-model';
@@ -57,7 +58,7 @@ function fakes(overrides: Partial<Deps> = {}, kv = memoryKV()): Fakes {
       return VECTOR;
     },
     open,
-    cache: new AnswerCache(kv, index.indexVersion),
+    cache: new AnswerCache(kv, index.indexVersion, PROMPT_VERSION),
     log: async (entry) => void logs.push(entry),
     models: [PRIMARY, FALLBACK],
     firstTokenTimeoutMs: 200,
@@ -121,6 +122,24 @@ describe('answer cache', () => {
     const r = await runChat(user('What salary does he expect?'), recorder().sink, second);
     assert.equal(r.cached, false);
     assert.deepEqual(second.calls.open, [PRIMARY]);
+  });
+
+  it('retires cached answers when the prompt version changes', async () => {
+    await runChat(user('Has he fine-tuned a model?'), recorder().sink, fakes({}, kv));
+    const edited = fakes({ cache: new AnswerCache(kv, index.indexVersion, 'edited-prompt') }, kv);
+    const exact = await runChat(user('Has he fine-tuned a model?'), recorder().sink, edited);
+    assert.equal(exact.cached, false, 'no exact hit across prompt versions');
+    const fresh = fakes({ cache: new AnswerCache(kv, index.indexVersion, 'another-prompt') }, kv);
+    const semantic = await runChat(user('Did Sheheen ever fine-tune a model'), recorder().sink, fresh);
+    assert.equal(semantic.cached, false, 'no semantic hit across prompt versions');
+    assert.deepEqual(fresh.calls.open, [PRIMARY]);
+  });
+
+  it('derives the prompt version from the fixed prompt text', () => {
+    assert.match(PROMPT_VERSION, /^[0-9a-f]{16}$/);
+    const prompt = buildSystemPrompt([]);
+    assert.ok(prompt.includes('at most once'), 'rule 2 limits the full name');
+    assert.equal(PROMPT_VERSION, createHash('sha256').update(prompt).digest('hex').slice(0, 16));
   });
 
   it('bypasses the cache for follow-ups, even for a cached question', async () => {
@@ -277,13 +296,17 @@ describe('eval cases', () => {
   it('are well-formed (unique ids, valid regexes)', async () => {
     const { readFile } = await import('node:fs/promises');
     const { cases } = JSON.parse(await readFile(new URL('../scripts/eval-cases.json', import.meta.url), 'utf8')) as {
-      cases: { id: string; question: string; mustMatch?: string[]; mustNotMatch?: string[] }[];
+      cases: { id: string; question: string; mustMatch?: string[]; mustNotMatch?: string[]; maxCount?: Record<string, number> }[];
     };
     assert.ok(cases.length > 0);
     assert.equal(new Set(cases.map((c) => c.id)).size, cases.length, 'ids are unique');
     for (const c of cases) {
       assert.ok(c.question.trim(), `${c.id} has a question`);
       for (const pattern of [...(c.mustMatch ?? []), ...(c.mustNotMatch ?? [])]) new RegExp(pattern, 'i');
+      for (const [pattern, max] of Object.entries(c.maxCount ?? {})) {
+        new RegExp(pattern, 'gi');
+        assert.ok(Number.isInteger(max) && max >= 0, `${c.id} maxCount for ${pattern} is a whole number`);
+      }
     }
   });
 });

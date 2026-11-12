@@ -6,7 +6,7 @@ import { geminiOpenModel } from './generate.js';
 import { getKV } from './kv.js';
 import { logQuestion } from './log.js';
 import type { Deps } from './pipeline.js';
-import { HttpError, index } from './rag.js';
+import { HttpError, PROMPT_VERSION, index } from './rag.js';
 
 let deps: Deps | undefined;
 
@@ -20,7 +20,7 @@ export function productionDeps(): Deps {
   deps = {
     embedQuery: (text) => embedText(ai, queryText(text), { retries: 2, baseDelayMs: 400 }),
     open: geminiOpenModel(apiKey),
-    cache: kv ? new AnswerCache(kv, index.indexVersion) : null,
+    cache: kv ? new AnswerCache(kv, index.indexVersion, PROMPT_VERSION) : null,
     log: (entry) => logQuestion(kv, entry),
   };
   return deps;
