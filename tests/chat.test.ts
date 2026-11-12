@@ -139,6 +139,7 @@ describe('answer cache', () => {
     assert.match(PROMPT_VERSION, /^[0-9a-f]{16}$/);
     const prompt = buildSystemPrompt([]);
     assert.ok(prompt.includes('at most once'), 'rule 2 limits the full name');
+    assert.ok(prompt.includes('In a follow-up answer'), 'rule 2 prefers "he" in follow-ups');
     assert.equal(PROMPT_VERSION, createHash('sha256').update(prompt).digest('hex').slice(0, 16));
   });
 
@@ -296,12 +297,13 @@ describe('eval cases', () => {
   it('are well-formed (unique ids, valid regexes)', async () => {
     const { readFile } = await import('node:fs/promises');
     const { cases } = JSON.parse(await readFile(new URL('../scripts/eval-cases.json', import.meta.url), 'utf8')) as {
-      cases: { id: string; question: string; mustMatch?: string[]; mustNotMatch?: string[]; maxCount?: Record<string, number> }[];
+      cases: { id: string; question: string; previousQuestions?: string[]; mustMatch?: string[]; mustNotMatch?: string[]; maxCount?: Record<string, number> }[];
     };
     assert.ok(cases.length > 0);
     assert.equal(new Set(cases.map((c) => c.id)).size, cases.length, 'ids are unique');
     for (const c of cases) {
       assert.ok(c.question.trim(), `${c.id} has a question`);
+      for (const q of c.previousQuestions ?? []) assert.ok(q.trim(), `${c.id} has no empty previous question`);
       for (const pattern of [...(c.mustMatch ?? []), ...(c.mustNotMatch ?? [])]) new RegExp(pattern, 'i');
       for (const [pattern, max] of Object.entries(c.maxCount ?? {})) {
         new RegExp(pattern, 'gi');
