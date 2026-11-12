@@ -12,6 +12,7 @@ import type { QuestionLogEntry } from '../api/_lib/log.ts';
 import { BUSY_MESSAGE, runChat, type Deps, type Sink } from '../api/_lib/pipeline.ts';
 import { PROMPT_VERSION, buildSystemPrompt, index, type ChatMessage } from '../api/_lib/rag.ts';
 import { normalizeQuestion } from '../api/_lib/text.ts';
+import { checkAnswer, loadCases } from '../scripts/eval-lib.ts';
 
 const PRIMARY = 'primary-model';
 const FALLBACK = 'fallback-model';
@@ -294,11 +295,9 @@ describe('question log writes', () => {
 });
 
 describe('eval cases', () => {
-  it('are well-formed (unique ids, valid regexes)', async () => {
-    const { readFile } = await import('node:fs/promises');
-    const { cases } = JSON.parse(await readFile(new URL('../scripts/eval-cases.json', import.meta.url), 'utf8')) as {
-      cases: { id: string; question: string; previousQuestions?: string[]; mustMatch?: string[]; mustNotMatch?: string[]; maxCount?: Record<string, number> }[];
-    };
+  it('are well-formed (unique ids, valid regexes, known chunk ids)', async () => {
+    const cases = await loadCases();
+    const chunkIds = new Set(index.chunks.map((c) => c.id));
     assert.ok(cases.length > 0);
     assert.equal(new Set(cases.map((c) => c.id)).size, cases.length, 'ids are unique');
     for (const c of cases) {
@@ -309,7 +308,30 @@ describe('eval cases', () => {
         new RegExp(pattern, 'gi');
         assert.ok(Number.isInteger(max) && max >= 0, `${c.id} maxCount for ${pattern} is a whole number`);
       }
+      for (const id of c.expectSources ?? []) assert.ok(chunkIds.has(id), `${c.id} expects unknown chunk ${id}`);
     }
+  });
+});
+
+describe('eval checks', () => {
+  const outcome = { answer: 'He can join immediately. Sheheen is based in the UAE.', grounded: true, sourceIds: ['faq/a'] };
+
+  it('passes an answer that meets every check', () => {
+    const c = { id: 'x', question: 'q', grounded: true, mustMatch: ['^he\\b', 'uae'], mustNotMatch: ['visa'], maxCount: { sheheen: 1 }, expectSources: ['faq/a'] };
+    assert.deepEqual(checkAnswer(c, outcome), []);
+  });
+
+  it('reports each failed check', () => {
+    const c = { id: 'x', question: 'q', grounded: false, mustMatch: ['salary'], mustNotMatch: ['immediate'], maxCount: { he: 0 }, expectSources: ['faq/b'] };
+    const problems = checkAnswer(c, outcome);
+    assert.equal(problems.length, 5);
+    assert.deepEqual(problems, [
+      'grounded was true, expected false',
+      'missing /salary/',
+      'contains /immediate/ ("immediate")',
+      '/he/ occurs 4×, at most 0 allowed',
+      'source faq/b was not retrieved',
+    ]);
   });
 });
 

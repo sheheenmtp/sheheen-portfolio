@@ -73,7 +73,8 @@ A light, notebook-like layout: off-white paper with grain, a black-and-white por
 ├── scripts/
 │   ├── build-index.ts           # Embeds knowledge/ into api/_data/embeddings.json
 │   ├── logs.ts                  # Summarises the question log
-│   └── eval-cases.json          # Answer-quality cases for the eval (runner: Phase 5)
+│   ├── eval.ts, eval-lib.ts     # Live answer-quality eval and its checks
+│   └── eval-cases.json          # Eval cases
 ├── tests/                       # Backend and widget-client tests
 ├── index.html                   # Meta tags, structured data, no-JS fallback
 └── vite.config.ts
@@ -105,6 +106,7 @@ For the chat, copy `.env.example` to `.env` and paste in `GEMINI_API_KEY` (and t
 | `npm run check` | Typecheck, lint, test and build in one go |
 | `npm run build:index` | Rebuild the chat search index after editing `knowledge/` (needs `GEMINI_API_KEY`) |
 | `npm run logs` | Summarise the chat question log for the last 7 days; `npm run logs -- 30` for 30 (needs Upstash) |
+| `npm run eval` | Run the live answer-quality eval against Gemini (needs `GEMINI_API_KEY`, uses quota) |
 
 ## Contact form
 
@@ -221,7 +223,7 @@ Only a small launcher is in the main bundle. The panel is lazy-loaded the first 
 
 - `npm test` covers the answer cache (exact, semantic, follow-ups, prompt versioning), starter chips, model fallback, the question log, the eval-case format, the `.js` import specifiers Vercel needs, the client's SSE parser and the anchor map. It uses fakes, so it needs no keys or network.
 - `npm run logs` lists recent questions, cache hit rates, ungrounded answers and errors, so you can see what the knowledge base is missing.
-- [`scripts/eval-cases.json`](scripts/eval-cases.json) holds answer-quality cases for a live eval against Gemini. The runner is still to come.
+- `npm run eval` asks the real assistant every case in [`scripts/eval-cases.json`](scripts/eval-cases.json) and checks the answers: the expected `grounded` flag, regexes the answer must and must not match, how often a phrase may occur, and which chunks retrieval must find. It bypasses the cache, doesn't write to the question log, waits 6 s between questions to stay within the free tier, and retries a busy or timed-out request once. Run it after changing the prompt or the knowledge base; `--only <id>` runs one case and `--json <file>` saves the results. It needs `GEMINI_API_KEY` and uses real quota, so it is not part of `npm run check`.
 
 ## Production build and deployment
 
