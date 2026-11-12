@@ -3,7 +3,7 @@
  * production; tests use an in-memory fake. Values are plain strings (JSON-encoded by callers).
  */
 import { Redis } from '@upstash/redis';
-import { upstashCredentials } from './env.ts';
+import { upstashCredentials } from './env.js';
 
 export interface KV {
   get(key: string): Promise<string | null>;

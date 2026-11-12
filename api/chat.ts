@@ -20,10 +20,10 @@
  * Cached answers use the same events (a single `token` with the whole answer).
  */
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { productionDeps } from './_lib/deps.ts';
-import { runChat } from './_lib/pipeline.ts';
-import { HttpError, parseMessages } from './_lib/rag.ts';
-import { LIMIT, limit } from './_lib/ratelimit.ts';
+import { productionDeps } from './_lib/deps.js';
+import { runChat } from './_lib/pipeline.js';
+import { HttpError, parseMessages } from './_lib/rag.js';
+import { LIMIT, limit } from './_lib/ratelimit.js';
 
 function clientIp(req: VercelRequest): string {
   const forwarded = req.headers['x-forwarded-for'];

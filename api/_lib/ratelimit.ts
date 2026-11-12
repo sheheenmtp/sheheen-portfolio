@@ -6,7 +6,7 @@
  */
 import { Ratelimit } from '@upstash/ratelimit';
 import { Redis } from '@upstash/redis';
-import { upstashCredentials } from './env.ts';
+import { upstashCredentials } from './env.js';
 
 export const LIMIT = 20;
 const WINDOW_MS = 60 * 60 * 1000;

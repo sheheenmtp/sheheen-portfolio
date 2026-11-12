@@ -9,10 +9,10 @@
  * Exact match costs no Gemini calls. Semantic match reuses the query embedding that
  * retrieval computes anyway, and counts as a hit at similarity ≥ SEMANTIC_MIN_SCORE.
  */
-import type { KV } from './kv.ts';
-import type { Source } from './rag.ts';
-import { dot } from './embeddings.ts';
-import { normalizeQuestion, sha256 } from './text.ts';
+import type { KV } from './kv.js';
+import type { Source } from './rag.js';
+import { dot } from './embeddings.js';
+import { normalizeQuestion, sha256 } from './text.js';
 
 export const SEMANTIC_MIN_SCORE = 0.95;
 const TTL_SECONDS = 30 * 24 * 60 * 60;

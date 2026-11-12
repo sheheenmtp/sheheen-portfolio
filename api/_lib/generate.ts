@@ -5,7 +5,7 @@
  * to the visitor as an error, because half an answer cannot be "retried" invisibly.
  */
 import { GoogleGenAI, ThinkingLevel } from '@google/genai';
-import type { ChatMessage } from './rag.ts';
+import type { ChatMessage } from './rag.js';
 
 export const CHAT_MODELS = ['gemini-3.5-flash-lite', 'gemini-3.1-flash-lite'] as const;
 export const FIRST_TOKEN_TIMEOUT_MS = 12_000;
