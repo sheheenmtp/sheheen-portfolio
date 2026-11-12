@@ -1,5 +1,5 @@
 {
-  "//": "Answer-quality cases for the chat eval (Phase 5 runner: scripts/eval.ts, not written yet). Each answer must match every `mustMatch` regex and none of the `mustNotMatch` regexes, and each `maxCount` regex may occur at most that many times (all case-insensitive). Run with the cache bypassed and ≥ 6 s between questions.",
+  "//": "Answer-quality cases for the chat eval (Phase 5 runner: scripts/eval.ts, not written yet). Each answer must match every `mustMatch` regex and none of the `mustNotMatch` regexes, and each `maxCount` regex may occur at most that many times (all case-insensitive). Run with the cache bypassed and ≥ 6 s between questions. `previousQuestions` (optional) are asked first, in order, and their real answers become the conversation history; the checks apply to the answer to `question`.",
   "cases": [
     {
       "id": "start-date-without-visa",
@@ -87,6 +87,22 @@
       "maxCount": {
         "Muhammed Sheheen M\\s*T\\s*P": 1
       }
+    },
+    {
+      "id": "follow-up-starts-with-he",
+      "previousQuestions": [
+        "Can he automate workflows for my team?"
+      ],
+      "question": "When can he start?",
+      "grounded": true,
+      "mustMatch": [
+        "^He\\b"
+      ],
+      "mustNotMatch": [
+        "^Sheheen",
+        "visa",
+        "sponsor"
+      ]
     }
   ]
 }
