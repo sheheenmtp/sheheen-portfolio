@@ -1,10 +1,10 @@
 /**
  * Answer cache for FIRST questions only (follow-ups always run full RAG).
  *
- * Keys (all scoped by indexVersion, so rebuilding the index with new content
- * naturally retires old answers):
- *   cache:{v}:{sha256(normalised question)}  → JSON CachedAnswer, 30-day TTL
- *   cache:{v}:vectors                        → hash of sha256 → base64 float32 question embedding
+ * Keys (all scoped by indexVersion and promptVersion, so rebuilding the index with new
+ * content or editing the system prompt retires old answers; they expire on their TTL):
+ *   cache:{iv}:{pv}:{sha256(normalised question)}  → JSON CachedAnswer, 30-day TTL
+ *   cache:{iv}:{pv}:vectors                        → hash of sha256 → base64 float32 question embedding
  *
  * Exact match costs no Gemini calls. Semantic match reuses the query embedding that
  * retrieval computes anyway, and counts as a hit at similarity ≥ SEMANTIC_MIN_SCORE.
@@ -44,9 +44,9 @@ export class AnswerCache {
   private vectors: { hash: string; vector: number[] }[] | null = null;
   private loadedAt = 0;
 
-  constructor(kv: KV, indexVersion: string) {
+  constructor(kv: KV, indexVersion: string, promptVersion: string) {
     this.kv = kv;
-    this.version = indexVersion;
+    this.version = `${indexVersion}:${promptVersion}`;
   }
 
   private answerKey = (hash: string) => `cache:${this.version}:${hash}`;
