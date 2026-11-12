@@ -42,6 +42,7 @@
     "check": "npm run typecheck && npm run lint && npm test && npm run build",
     "build:index": "node --disable-warning=ExperimentalWarning --import ./scripts/resolve-ts.mjs --env-file=.env --env-file-if-exists=.env.local scripts/build-index.ts",
     "test": "node --disable-warning=ExperimentalWarning --import ./scripts/resolve-ts.mjs --test tests/*.test.ts",
+    "eval": "node --disable-warning=ExperimentalWarning --import ./scripts/resolve-ts.mjs --env-file=.env --env-file-if-exists=.env.local scripts/eval.ts",
     "logs": "node --disable-warning=ExperimentalWarning --import ./scripts/resolve-ts.mjs --env-file=.env --env-file-if-exists=.env.local scripts/logs.ts"
   }
 }
